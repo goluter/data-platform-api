@@ -2,3 +2,5 @@ com/opensurvey/HelloResponseDtoTest.java
  com.opensurvey.HelloResponseDtoTest
 com/opensurvey/HelloControllerTest.java
  com.opensurvey.HelloControllerTest
+com/opensurvey/domain/posts/PostsRepositoryTest.java
+ com.opensurvey.domain.posts.PostsRepositoryTest
