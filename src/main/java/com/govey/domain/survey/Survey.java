@@ -6,14 +6,19 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @NoArgsConstructor
 @Entity
+@Table
 public class Survey {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "survey_sequence",
+            sequenceName = "survey_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(length = 100, nullable = false)
@@ -42,17 +47,17 @@ public class Survey {
         this.hit_count = hit_count;
     }
 
-    @Override
-    public String toString() {
-        return "Survey{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", cr_date=" + cr_date +
-                ", exp_date=" + exp_date +
-                ", target='" + target + '\'' +
-                ", res_num=" + res_num +
-                ", hit_count=" + hit_count +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Survey{" +
+//                "id=" + id +
+//                ", title='" + title + '\'' +
+//                ", author='" + author + '\'' +
+//                ", cr_date=" + cr_date +
+//                ", exp_date=" + exp_date +
+//                ", target='" + target + '\'' +
+//                ", res_num=" + res_num +
+//                ", hit_count=" + hit_count +
+//                '}';
+//    }
 }

@@ -1,29 +1,29 @@
 package com.govey.web;
 
 import com.govey.domain.survey.Survey;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.govey.service.SurveyService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "api/v1/survey")
 public class SurveyController {
+
+    private final SurveyService surveyService;
+
     @GetMapping
     public List<Survey> getSurvey(){
-        return List.of(
-                new Survey(
-                        "test title",
-                        "test author",
-                        LocalDate.of(2000, Month.JANUARY, 5),
-                        LocalDate.of(2021, Month.JANUARY, 1),
-                        "test target",
-                        123,
-                        1000
-                )
-        );
+        return surveyService.getSurvey();
+    }
+    @PostMapping
+    public void registerNewSurvey(@RequestBody Survey survey) {
+        surveyService.addNewSurvey(survey);
+    }
+    @DeleteMapping(path = "{surveyId}")
+    public void deleteSurvey(@PathVariable("surveyId") Long surveyId) {
+        surveyService.deleteSurvey(surveyId);
     }
 }
