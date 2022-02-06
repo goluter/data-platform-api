@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.opensurvey.HelloResponseDtoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-10-10T16:23:58" hostname="SYNAPSE" time="0.034">
-  <properties/>
-  <testcase name="lombok_func_test()" classname="com.opensurvey.HelloResponseDtoTest" time="0.034"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

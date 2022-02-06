@@ -1,21 +1,14 @@
 plugins {
-    id 'org.springframework.boot' version '2.4.1' // RELEASE 삭제
+    id 'org.springframework.boot' version '2.4.1'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
 }
 
-group 'com.opensurvey'
-version '1.0'
-sourceCompatibility = 1.8
+group 'com.govey'
+version '0.1'
 
 repositories {
     mavenCentral()
-    jcenter()
-}
-
-// for Junit 5
-test {
-    useJUnitPlatform()
 }
 
 dependencies {
@@ -37,4 +30,10 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     //testImplementation("org.springframework.security:spring-security-test") // 권한 관련
 
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
 }
