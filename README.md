@@ -6,7 +6,6 @@
 * Spring Boot
   * Gradle
   * Lombok
-  * Mustache
   * JPA
   * JUnit
 * PostgreSQL
