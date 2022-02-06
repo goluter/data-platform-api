@@ -12,5 +12,4 @@
 
 ## to-do
 * PUT to survey
-* mustache
 * member, events, points, titles
