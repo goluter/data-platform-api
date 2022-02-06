@@ -1,6 +1,6 @@
 # data-platform-api
-Java: 15
-Spring boot: 2.4.1
+- Java: 15
+- Spring boot: 2.4.1
 
 ## stack
 * Spring Boot
