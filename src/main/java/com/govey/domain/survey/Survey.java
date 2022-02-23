@@ -3,11 +3,13 @@ package com.govey.domain.survey;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
 @Table
@@ -23,6 +25,7 @@ public class Survey {
 
     @Column(length = 100, nullable = false)
     private String title;
+
     private String author;
     private LocalDate cr_date;
     private LocalDate exp_date;
@@ -47,17 +50,17 @@ public class Survey {
         this.hit_count = hit_count;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Survey{" +
-//                "id=" + id +
-//                ", title='" + title + '\'' +
-//                ", author='" + author + '\'' +
-//                ", cr_date=" + cr_date +
-//                ", exp_date=" + exp_date +
-//                ", target='" + target + '\'' +
-//                ", res_num=" + res_num +
-//                ", hit_count=" + hit_count +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Survey{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", cr_date=" + cr_date +
+                ", exp_date=" + exp_date +
+                ", target='" + target + '\'' +
+                ", res_num=" + res_num +
+                ", hit_count=" + hit_count +
+                '}';
+    }
 }

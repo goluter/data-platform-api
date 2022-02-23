@@ -26,4 +26,11 @@ public class SurveyController {
     public void deleteSurvey(@PathVariable("surveyId") Long surveyId) {
         surveyService.deleteSurvey(surveyId);
     }
+    @PutMapping(path = "{surveyId}")
+    public void updateSurvey(
+            @PathVariable("surveyId") Long studentId,
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String author) {
+        surveyService.updateSurvey(studentId, title, author);
+    }
 }
