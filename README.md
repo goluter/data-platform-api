@@ -1,6 +1,9 @@
 # data-platform-api
-- Java: 15
-- Spring boot: 2.4.1
+- Java: 17
+- Spring boot: 2.6.3
+
+## Doc
+- API: http://localhost:8080/swagger-ui/
 
 ## stack
 * Spring Boot
