@@ -4,6 +4,7 @@ import com.govey.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -19,12 +20,7 @@ public class Survey {
     private LocalDate deleted_at;
 
     @Id
-    @SequenceGenerator(
-            name = "survey_sequence",
-            sequenceName = "survey_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue
     private Long id;
 
     @Column(length = 100, nullable = false)
@@ -34,5 +30,21 @@ public class Survey {
     @JoinColumn(name="id")
     private User author_id;
 
+    private String type;
+    private String content;
+    private String banner_image_url;
+    private String video_url;
+    private String status;
+    private String homepage;
+    private String phone_number;
+    private String completed_message;
     private Long hit_count;
+    private Long good_count;
+    private Long no_good_count;
+    private Long point;
+    private String target;
+
+    private LocalDate reward_at;
+    private LocalDate start_at;
+    private LocalDate end_at;
 }
