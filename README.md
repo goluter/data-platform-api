@@ -10,6 +10,5 @@
   * JUnit
 * PostgreSQL
 
-## to-do
-* PUT to survey
-* member, events, points, titles
+##Data-Modeling
+https://docs.google.com/document/d/1Jo5xl5Zhsk3QCdD7YSJzzk3GoKA_RG_OEj_QKaT8gPk

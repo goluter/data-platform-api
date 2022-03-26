@@ -1,6 +1,6 @@
 package com.govey.domain.survey;
 
-import lombok.Builder;
+import com.govey.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +14,10 @@ import java.time.LocalDate;
 @Entity
 @Table
 public class Survey {
+    private LocalDate created_at;
+    private LocalDate updated_at;
+    private LocalDate deleted_at;
+
     @Id
     @SequenceGenerator(
             name = "survey_sequence",
@@ -26,41 +30,9 @@ public class Survey {
     @Column(length = 100, nullable = false)
     private String title;
 
-    private String author;
-    private LocalDate cr_date;
-    private LocalDate exp_date;
-    private String target;
-    private Integer res_num;
-    private Integer hit_count;
+    @ManyToOne
+    @JoinColumn(name="id")
+    private User author_id;
 
-    @Builder
-    public Survey(String title,
-                  String author,
-                  LocalDate cr_date,
-                  LocalDate exp_date,
-                  String target,
-                  Integer res_num,
-                  Integer hit_count) {
-        this.title = title;
-        this.author = author;
-        this.cr_date = cr_date;
-        this.exp_date = exp_date;
-        this.target = target;
-        this.res_num = res_num;
-        this.hit_count = hit_count;
-    }
-
-    @Override
-    public String toString() {
-        return "Survey{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", cr_date=" + cr_date +
-                ", exp_date=" + exp_date +
-                ", target='" + target + '\'' +
-                ", res_num=" + res_num +
-                ", hit_count=" + hit_count +
-                '}';
-    }
+    private Long hit_count;
 }
