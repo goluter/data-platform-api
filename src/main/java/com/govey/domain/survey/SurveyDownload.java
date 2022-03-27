@@ -1,5 +1,6 @@
 package com.govey.domain.survey;
 
+import com.govey.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 @Entity
 @Table
 
-public class Survey_Answer_Item {
+public class SurveyDownload {
     private LocalDate created_at;
     private LocalDate updated_at;
     private LocalDate deleted_at;
@@ -25,25 +26,28 @@ public class Survey_Answer_Item {
 
     @ManyToOne
     @JoinColumn(name="id")
-    private Survey_Item survey_item_id;
+    private Survey survey_id;
+
+    @ManyToOne
+    @JoinColumn(name="id")
+    private User user_id;
 
     private String type;
-    private String value;
 
     @Builder
-    public Survey_Answer_Item(LocalDate created_at,
-                              LocalDate updated_at,
-                              LocalDate deleted_at,
-                              Long id,
-                              Survey_Item survey_item_id,
-                              String type,
-                              String value) {
+    public SurveyDownload(LocalDate created_at,
+                          LocalDate updated_at,
+                          LocalDate deleted_at,
+                          Long id,
+                          Survey survey_id,
+                          User user_id,
+                          String type) {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
-        this.survey_item_id = survey_item_id;
+        this.survey_id = survey_id;
+        this.user_id = user_id;
         this.type = type;
-        this.value = value;
     }
 }

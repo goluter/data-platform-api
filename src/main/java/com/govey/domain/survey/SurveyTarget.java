@@ -1,11 +1,9 @@
 package com.govey.domain.survey;
 
-import com.govey.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,7 +14,7 @@ import java.time.LocalDate;
 @Entity
 @Table
 
-public class Survey_Answer {
+public class SurveyTarget {
     private LocalDate created_at;
     private LocalDate updated_at;
     private LocalDate deleted_at;
@@ -29,26 +27,23 @@ public class Survey_Answer {
     @JoinColumn(name="id")
     private Survey survey_id;
 
-    @ManyToOne
-    @JoinColumn(name="id")
-    private User user_id;
-
-    private String status;
+    private String type;
+    private Long target_id;
 
     @Builder
-    public Survey_Answer(LocalDate created_at,
-                         LocalDate updated_at,
-                         LocalDate deleted_at,
-                         Long id,
-                         Survey survey_id,
-                         User user_id,
-                         String status) {
+    public SurveyTarget(LocalDate created_at,
+                        LocalDate updated_at,
+                        LocalDate deleted_at,
+                        Long id,
+                        Survey survey_id,
+                        String type,
+                        Long target_id) {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
         this.survey_id = survey_id;
-        this.user_id = user_id;
-        this.status = status;
+        this.type = type;
+        this.target_id = target_id;
     }
 }

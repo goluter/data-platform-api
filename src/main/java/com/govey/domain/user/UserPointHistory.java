@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Entity
 @Table
 
-public class User_Achievement {
+public class UserPointHistory {
     private LocalDate created_at;
     private LocalDate updated_at;
     private LocalDate deleted_at;
@@ -27,26 +27,26 @@ public class User_Achievement {
     @JoinColumn(name="id")
     private User user_id;
 
-    @ManyToOne
-    @JoinColumn(name="id")
-    private Title title_id;
-
+    private String description;
     private Long value;
+    private Long result;
 
     @Builder
-    public User_Achievement(LocalDate created_at,
+    public UserPointHistory(LocalDate created_at,
                             LocalDate updated_at,
                             LocalDate deleted_at,
                             Long id,
                             User user_id,
-                            Title title_id,
-                            Long value) {
+                            String description,
+                            Long value,
+                            Long result) {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
         this.user_id = user_id;
-        this.title_id = title_id;
+        this.description = description;
         this.value = value;
+        this.result = result;
     }
 }

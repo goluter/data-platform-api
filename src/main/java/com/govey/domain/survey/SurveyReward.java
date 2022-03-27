@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Entity
 @Table
 
-public class Survey_Reward {
+public class SurveyReward {
     private LocalDate created_at;
     private LocalDate updated_at;
     private LocalDate deleted_at;
@@ -36,14 +36,14 @@ public class Survey_Reward {
     private User to;
 
     @Builder
-    public Survey_Reward(LocalDate created_at,
-                         LocalDate updated_at,
-                         LocalDate deleted_at,
-                         Long id,
-                         Survey survey_id,
-                         String type,
-                         String description,
-                         User to) {
+    public SurveyReward(LocalDate created_at,
+                        LocalDate updated_at,
+                        LocalDate deleted_at,
+                        Long id,
+                        Survey survey_id,
+                        String type,
+                        String description,
+                        User to) {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;

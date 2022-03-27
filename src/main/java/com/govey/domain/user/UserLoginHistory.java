@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Entity
 @Table
 
-public class User_Tag {
+public class UserLoginHistory {
     private LocalDate created_at;
     private LocalDate updated_at;
     private LocalDate deleted_at;
@@ -27,22 +27,26 @@ public class User_Tag {
     @JoinColumn(name="id")
     private User user_id;
 
-    @ManyToOne
-    @JoinColumn(name="id")
-    private Tag tag_id;
+    private String ip;
+    private String header;
+    private String timezone;
 
     @Builder
-    public User_Tag(LocalDate created_at,
-                    LocalDate updated_at,
-                    LocalDate deleted_at,
-                    Long id,
-                    User user_id,
-                    Tag tag_id) {
+    public UserLoginHistory(LocalDate created_at,
+                            LocalDate updated_at,
+                            LocalDate deleted_at,
+                            Long id,
+                            User user_id,
+                            String ip,
+                            String header,
+                            String timezone) {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
         this.user_id = user_id;
-        this.tag_id = tag_id;
+        this.ip = ip;
+        this.header = header;
+        this.timezone = timezone;
     }
 }
