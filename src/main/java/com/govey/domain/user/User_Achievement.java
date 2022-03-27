@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Entity
 @Table
 
-public class user_tag {
+public class User_Achievement {
     private LocalDate created_at;
     private LocalDate updated_at;
     private LocalDate deleted_at;
@@ -29,20 +29,24 @@ public class user_tag {
 
     @ManyToOne
     @JoinColumn(name="id")
-    private Tag tag_id;
+    private Title title_id;
+
+    private Long value;
 
     @Builder
-    public user_tag(LocalDate created_at,
-                    LocalDate updated_at,
-                    LocalDate deleted_at,
-                    Long id,
-                    User user_id,
-                    Tag tag_id) {
+    public User_Achievement(LocalDate created_at,
+                            LocalDate updated_at,
+                            LocalDate deleted_at,
+                            Long id,
+                            User user_id,
+                            Title title_id,
+                            Long value) {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
         this.user_id = user_id;
-        this.tag_id = tag_id;
+        this.title_id = title_id;
+        this.value = value;
     }
 }

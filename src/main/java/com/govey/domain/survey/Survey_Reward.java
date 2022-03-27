@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Entity
 @Table
 
-public class survey_share {
+public class Survey_Reward {
     private LocalDate created_at;
     private LocalDate updated_at;
     private LocalDate deleted_at;
@@ -28,32 +28,29 @@ public class survey_share {
     @JoinColumn(name="id")
     private Survey survey_id;
 
+    private String type;
+    private String description;
+
     @ManyToOne
     @JoinColumn(name="id")
-    private User user_id;
-
-    private String type;
-    private String url;
-    private Long open_count;
+    private User to;
 
     @Builder
-    public survey_share(LocalDate created_at,
-                        LocalDate updated_at,
-                        LocalDate deleted_at,
-                        Long id,
-                        Survey survey_id,
-                        User user_id,
-                        String type,
-                        String url,
-                        Long open_count) {
+    public Survey_Reward(LocalDate created_at,
+                         LocalDate updated_at,
+                         LocalDate deleted_at,
+                         Long id,
+                         Survey survey_id,
+                         String type,
+                         String description,
+                         User to) {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
         this.survey_id = survey_id;
-        this.user_id = user_id;
         this.type = type;
-        this.url = url;
-        this.open_count = open_count;
+        this.description = description;
+        this.to = to;
     }
 }

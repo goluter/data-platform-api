@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Entity
 @Table
 
-public class survey_reaction {
+public class Survey_Reaction {
     private LocalDate created_at;
     private LocalDate updated_at;
     private LocalDate deleted_at;
@@ -35,7 +35,7 @@ public class survey_reaction {
     private String type;
 
     @Builder
-    public survey_reaction(LocalDate created_at,
+    public Survey_Reaction(LocalDate created_at,
                            LocalDate updated_at,
                            LocalDate deleted_at,
                            Long id,

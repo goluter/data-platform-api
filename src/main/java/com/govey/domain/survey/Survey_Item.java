@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,7 +15,7 @@ import java.time.LocalDate;
 @Entity
 @Table
 
-public class survey_answer {
+public class Survey_Item {
     private LocalDate created_at;
     private LocalDate updated_at;
     private LocalDate deleted_at;
@@ -29,26 +28,26 @@ public class survey_answer {
     @JoinColumn(name="id")
     private Survey survey_id;
 
-    @ManyToOne
-    @JoinColumn(name="id")
-    private User user_id;
-
-    private String status;
+    private Boolean mandatory;
+    private String value;
+    private String type;
 
     @Builder
-    public survey_answer(LocalDate created_at,
-                         LocalDate updated_at,
-                         LocalDate deleted_at,
-                         Long id,
-                         Survey survey_id,
-                         User user_id,
-                         String status) {
+    public Survey_Item(LocalDate created_at,
+                       LocalDate updated_at,
+                       LocalDate deleted_at,
+                       Long id,
+                       Survey survey_id,
+                       Boolean mandatory,
+                       String value,
+                       String type) {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
         this.survey_id = survey_id;
-        this.user_id = user_id;
-        this.status = status;
+        this.mandatory = mandatory;
+        this.value = value;
+        this.type = type;
     }
 }

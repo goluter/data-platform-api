@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Entity
 @Table
 
-public class survey_comments {
+public class Survey_Comments {
     private LocalDate created_at;
     private LocalDate updated_at;
     private LocalDate deleted_at;
@@ -34,20 +34,20 @@ public class survey_comments {
 
     @ManyToOne
     @JoinColumn(name="id")
-    private survey_comments parent_id;
+    private Survey_Comments parent_id;
 
     private String value;
     private Long good_count;
     private Long no_good_count;
 
     @Builder
-    public survey_comments(LocalDate created_at,
+    public Survey_Comments(LocalDate created_at,
                            LocalDate updated_at,
                            LocalDate deleted_at,
                            Long id,
                            Survey survey_id,
                            User user_id,
-                           survey_comments parent_id,
+                           Survey_Comments parent_id,
                            String value,
                            Long good_count,
                            Long no_good_count) {

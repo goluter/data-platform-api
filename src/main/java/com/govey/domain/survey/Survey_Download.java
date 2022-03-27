@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Entity
 @Table
 
-public class survey_item_option {
+public class Survey_Download {
     private LocalDate created_at;
     private LocalDate updated_at;
     private LocalDate deleted_at;
@@ -26,22 +26,28 @@ public class survey_item_option {
 
     @ManyToOne
     @JoinColumn(name="id")
-    private survey_item survey_item_id;
+    private Survey survey_id;
 
-    private String value;
+    @ManyToOne
+    @JoinColumn(name="id")
+    private User user_id;
+
+    private String type;
 
     @Builder
-    public survey_item_option(LocalDate created_at,
-                               LocalDate updated_at,
-                               LocalDate deleted_at,
-                               Long id,
-                               survey_item survey_item_id,
-                               String value) {
+    public Survey_Download(LocalDate created_at,
+                           LocalDate updated_at,
+                           LocalDate deleted_at,
+                           Long id,
+                           Survey survey_id,
+                           User user_id,
+                           String type) {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
-        this.survey_item_id = survey_item_id;
-        this.value = value;
+        this.survey_id = survey_id;
+        this.user_id = user_id;
+        this.type = type;
     }
 }

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Entity
 @Table
 
-public class user_point_history {
+public class User_Point_History {
     private LocalDate created_at;
     private LocalDate updated_at;
     private LocalDate deleted_at;
@@ -32,7 +32,7 @@ public class user_point_history {
     private Long result;
 
     @Builder
-    public user_point_history(LocalDate created_at,
+    public User_Point_History(LocalDate created_at,
                               LocalDate updated_at,
                               LocalDate deleted_at,
                               Long id,

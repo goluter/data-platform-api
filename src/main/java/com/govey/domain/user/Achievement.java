@@ -1,7 +1,5 @@
 package com.govey.domain.user;
 
-import com.govey.domain.survey.Survey;
-import com.govey.domain.survey.survey_comments;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

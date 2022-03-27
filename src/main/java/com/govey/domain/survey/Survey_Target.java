@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Entity
 @Table
 
-public class survey_download {
+public class Survey_Target {
     private LocalDate created_at;
     private LocalDate updated_at;
     private LocalDate deleted_at;
@@ -28,26 +28,23 @@ public class survey_download {
     @JoinColumn(name="id")
     private Survey survey_id;
 
-    @ManyToOne
-    @JoinColumn(name="id")
-    private User user_id;
-
     private String type;
+    private Long target_id;
 
     @Builder
-    public survey_download(LocalDate created_at,
-                           LocalDate updated_at,
-                           LocalDate deleted_at,
-                           Long id,
-                           Survey survey_id,
-                           User user_id,
-                           String type) {
+    public Survey_Target(LocalDate created_at,
+                         LocalDate updated_at,
+                         LocalDate deleted_at,
+                         Long id,
+                         Survey survey_id,
+                         String type,
+                         Long target_id) {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
         this.survey_id = survey_id;
-        this.user_id = user_id;
         this.type = type;
+        this.target_id = target_id;
     }
 }
