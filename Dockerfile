@@ -4,8 +4,11 @@ ENV APP_HOME=/usr/app/
 
 WORKDIR $APP_HOME
 
+ARG GOVEY_DATASOURCE_URL
+ENV GOVEY_DATASOURCE_URL ${GOVEY_DATASOURCE_URL}
+
 COPY ./build/libs/*.jar application.jar
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "application.jar", "-Dspring.datasource.url=$GOVEY_DATASOURCE_URL"]
+CMD ["java", "-jar", "application.jar", "-Dspring.datasource.url=${GOVEY_DATASOURCE_URL}"]
