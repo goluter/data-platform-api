@@ -2,21 +2,25 @@
 <html>
 <head>
     <title>ReDoc</title>
-    <!-- needed for adaptive design -->
+    <!--
+    needed for adaptive design
+    -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
-    <!-- ReDoc doesn't change outer page styles -->
-    <style> body { margin: 0; padding: 0; } </style>
+    <!--
+    ReDoc doesn't change outer page styles
+    -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
-<div id="redoc-container"></div>
-<script src="/dist/redoc/redoc.standalone.js"> </script>
-<script>
-    window.onload = function () {
-        var url = window.location.origin + "/v3/api-docs";
-        Redoc.init(url, { scrollYOffset: 50 }, document.getElementById('redoc-container'))
-    }
-</script>
+    <div id="redoc-container"></div>
+    <redoc spec-url="http://localhost:8080/v3/api-docs"></redoc>
+    <script src="https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js"></script>
 </body>
 </html>

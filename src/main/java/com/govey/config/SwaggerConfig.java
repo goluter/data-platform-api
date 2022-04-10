@@ -16,9 +16,8 @@ public class SwaggerConfig {
     @Bean
     public Docket swaggerAPI(){
         return new Docket(DocumentationType.OAS_30)
-                .useDefaultResponseMessages(true) //기본 응답 메시지 표시 여부
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.govey")) //swagger탐색 대상 패키지
+                .apis(RequestHandlerSelectors.any()) //swagger탐색 대상 패키지
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());
@@ -26,7 +25,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("API doc")
+                .title("govey_redoc")
                 .description("swagger")
                 .version("1.0")
                 .build();
