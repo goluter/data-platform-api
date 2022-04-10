@@ -29,7 +29,7 @@ public class SurveyService {
     }
 
     public void addNewSurvey(Survey survey) {
-        Optional<Survey> surveyOptional = surveyRepository.findSurveyByTitle(survey.getTitle());
+        Optional<Survey> surveyOptional = surveyRepository.findByTitle(survey.getTitle());
         if (surveyOptional.isPresent()){
             throw new IllegalStateException("title taken");
         }
@@ -45,8 +45,8 @@ public class SurveyService {
     }
 
     @Transactional
-    public void updateSurvey(Long survey_id, String title, User author_id, LocalDate updated_at) {
-        Survey survey = surveyRepository.findSurveyById(survey_id)
+    public void updateSurvey(Long survey_id, String title, User author_id) {
+        Survey survey = surveyRepository.findById(survey_id)
                 .orElseThrow(() -> new IllegalStateException(
                         "survey with id " + survey_id + " does not exists")
                 );
@@ -56,12 +56,12 @@ public class SurveyService {
             survey.setTitle(title);
         }
         if (author_id != null &&
-                !Objects.equals(survey.getAuthor_id(), author_id)) {
-            Optional<Long> surveyOptional = surveyRepository.findSurveyByAuthor_id(author_id);
+                !Objects.equals(survey.getAuthorId(), author_id)) {
+            Optional<Survey> surveyOptional = surveyRepository.findByAuthorId(author_id);
             if (surveyOptional.isPresent()) {
                 throw new IllegalStateException("Author Taken");
             }
-            survey.setAuthor_id(author_id);
+            survey.setAuthorId(author_id);
         }
     }
 }

@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface SurveyRepository extends JpaRepository<Survey, Long> {
 
 //    @Query("SELECT s FROM Survey s WHERE s.title = ?1")
-    Optional<Survey> findSurveyByTitle(String title);
-    Optional<Survey> findSurveyById(Long survey_id);
-    Optional<Long> findSurveyByAuthor_id(User author_id);
+    Optional<Survey> findByTitle(String title);
+    Optional<Survey> findById(Long id);
+    Optional<Survey> findByAuthorId(User authorId);
 }

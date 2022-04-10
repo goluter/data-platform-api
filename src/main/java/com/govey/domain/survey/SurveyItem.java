@@ -24,7 +24,8 @@ public class SurveyItem {
     private Long id;
 
     @ManyToOne
-    private Survey survey_id;
+    @JoinColumn(name="survey_id")
+    private Survey surveyId;
 
     private Boolean mandatory;
     private String value;
@@ -43,7 +44,7 @@ public class SurveyItem {
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
-        this.survey_id = survey_id;
+        this.surveyId = survey_id;
         this.mandatory = mandatory;
         this.value = value;
         this.type = type;

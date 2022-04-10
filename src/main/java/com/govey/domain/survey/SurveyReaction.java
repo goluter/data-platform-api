@@ -25,10 +25,12 @@ public class SurveyReaction {
     private Long id;
 
     @ManyToOne
-    private Survey survey_id;
+    @JoinColumn(name="survey_id")
+    private Survey surveyId;
 
     @ManyToOne
-    private User user_id;
+    @JoinColumn(name="user_id")
+    private User userId;
 
     private String type;
 
@@ -44,8 +46,8 @@ public class SurveyReaction {
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
-        this.survey_id = survey_id;
-        this.user_id = user_id;
+        this.surveyId = survey_id;
+        this.userId = user_id;
         this.type = type;
     }
 }

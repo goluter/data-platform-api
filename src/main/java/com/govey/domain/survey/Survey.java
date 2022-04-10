@@ -26,7 +26,8 @@ public class Survey {
     private String title;
 
     @ManyToOne
-    private User author_id;
+    @JoinColumn(name="author_id")
+    private User authorId;
 
     private String banner_image_url;
     private String video_url;

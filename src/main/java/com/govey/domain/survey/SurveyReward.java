@@ -25,12 +25,14 @@ public class SurveyReward {
     private Long id;
 
     @ManyToOne
-    private Survey survey_id;
+    @JoinColumn(name="survey_id")
+    private Survey surveyId;
 
     private String type;
     private String description;
 
     @ManyToOne
+    @JoinColumn(name="to")
     private User to;
 
     @Builder
@@ -46,7 +48,7 @@ public class SurveyReward {
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
-        this.survey_id = survey_id;
+        this.surveyId = survey_id;
         this.type = type;
         this.description = description;
         this.to = to;

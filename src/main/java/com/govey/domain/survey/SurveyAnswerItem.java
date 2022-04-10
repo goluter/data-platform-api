@@ -24,7 +24,8 @@ public class SurveyAnswerItem {
     private Long id;
 
     @ManyToOne
-    private SurveyItem survey_item_id;
+    @JoinColumn(name="survey_item_id")
+    private SurveyItem surveyItemId;
 
     private String type;
     private String value;
@@ -41,7 +42,7 @@ public class SurveyAnswerItem {
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
-        this.survey_item_id = survey_item_id;
+        this.surveyItemId = survey_item_id;
         this.type = type;
         this.value = value;
     }

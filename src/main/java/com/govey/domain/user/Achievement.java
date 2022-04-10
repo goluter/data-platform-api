@@ -26,7 +26,8 @@ public class Achievement {
     private String condition_description;
 
     @ManyToOne
-    private Achievement parent_id;
+    @JoinColumn(name="parent_id")
+    private Achievement parentId;
 
     private Long level;
 
@@ -45,7 +46,7 @@ public class Achievement {
         this.id = id;
         this.description = description;
         this.condition_description = condition_description;
-        this.parent_id = parent_id;
+        this.parentId = parent_id;
         this.level = level;
     }
 }

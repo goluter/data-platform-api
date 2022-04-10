@@ -24,7 +24,8 @@ public class SurveyTarget {
     private Long id;
 
     @ManyToOne
-    private Survey survey_id;
+    @JoinColumn(name="survey_id")
+    private Survey surveyId;
 
     private String type;
     private Long target_id;
@@ -41,7 +42,7 @@ public class SurveyTarget {
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
-        this.survey_id = survey_id;
+        this.surveyId = survey_id;
         this.type = type;
         this.target_id = target_id;
     }

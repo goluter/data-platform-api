@@ -24,7 +24,8 @@ public class UserPointHistory {
     private Long id;
 
     @ManyToOne
-    private User user_id;
+    @JoinColumn(name="user_id")
+    private User userId;
 
     private String description;
     private Long value;
@@ -43,7 +44,7 @@ public class UserPointHistory {
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
-        this.user_id = user_id;
+        this.userId = user_id;
         this.description = description;
         this.value = value;
         this.result = result;
