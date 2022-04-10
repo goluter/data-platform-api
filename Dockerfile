@@ -11,4 +11,5 @@ COPY ./build/libs/*.jar application.jar
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "application.jar", "-Dspring.datasource.url=${GOVEY_DATASOURCE_URL}"]
+# NOTE: 환경변수로 변경
+CMD ["java", "-jar", "-Dspring.datasource.url=jdbc:postgresql://gopush.app:5432/govey", "application.jar"]
