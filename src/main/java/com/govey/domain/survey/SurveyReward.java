@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @Table
-
 public class SurveyReward {
     private LocalDate created_at;
     private LocalDate updated_at;
@@ -32,8 +31,8 @@ public class SurveyReward {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name="to")
-    private User to;
+    @JoinColumn(name="reward_to")
+    private User rewardTo;
 
     @Builder
     public SurveyReward(LocalDate created_at,
@@ -51,6 +50,6 @@ public class SurveyReward {
         this.surveyId = survey_id;
         this.type = type;
         this.description = description;
-        this.to = to;
+        this.rewardTo = to;
     }
 }
