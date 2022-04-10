@@ -1,0 +1,73 @@
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+# Repo Action 페이지에 나타날 이름 
+name: Spring Boot
+
+# Event Trigger
+# master branch에 push 또는 pull request가 발생할 경우 동작
+# branch 단위 외에도, tag나 cron 식 등을 사용할 수 있음
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    # 실행 환경 지정
+    runs-on: ubuntu-latest
+    
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    # Task의 sequence를 명시한다.
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # Build
+      - name: Build with Gradle
+        run: ./gradlew bootJar
+
+      - name: Build
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_SSH_IP }}
+          username: ${{ secrets.REMOTE_SSH_ID }}
+          password: ${{ secrets.REMOTE_SSH_PASSWORD }}
+          port: ${{ secrets.REMOTE_SSH_PORT }}
+          script: |
+            whoami
+            mkdir -p ~/deploy
+            echo "${{ github.repository }}-${{ env.branch }}-${{ github.sha }}"
+            cd ~/deploy/data-platform-api
+            git checkout main
+            git pull origin main
+            rm ./build/libs/*.jar
+            ./gradlew bootJar
+            docker build --build-arg API_HOST=https://api.govey.app/ --tag "data-platform-api" .
+            docker stop data-platform-api 2> /dev/null || true
+            docker rm -f data-platform-api 2> /dev/null || true
+      - name: Run
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_SSH_IP }}
+          username: ${{ secrets.REMOTE_SSH_ID }}
+          password: ${{ secrets.REMOTE_SSH_PASSWORD }}
+          port: ${{ secrets.REMOTE_SSH_PORT }}
+          script: |
+            docker run -it --rm -p 7300:8080 -d --name data-platform-api data-platform-api
+      
+            # 작업의 결과를 슬랙에 전송한다.
+      - uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+          channel: "#build-status"
+        if: always()
