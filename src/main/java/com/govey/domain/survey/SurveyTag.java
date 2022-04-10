@@ -25,11 +25,11 @@ public class SurveyTag {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
-    private Survey survey_id;
+    @JoinColumn(name="survey_id")
+    private Survey surveyId;
 
     @ManyToOne
-    @JoinColumn(name="id")
+    @JoinColumn(name="tag_id")
     private Tag tag_id;
 
     @Builder
@@ -43,7 +43,7 @@ public class SurveyTag {
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
-        this.survey_id = survey_id;
+        this.surveyId = survey_id;
         this.tag_id = tag_id;
     }
 }

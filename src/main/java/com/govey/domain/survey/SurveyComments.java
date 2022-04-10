@@ -25,15 +25,15 @@ public class SurveyComments {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
-    private Survey survey_id;
+    @JoinColumn(name="survey_id")
+    private Survey surveyId;
 
     @ManyToOne
-    @JoinColumn(name="id")
-    private User user_id;
+    @JoinColumn(name="user_id")
+    private User userId;
 
     @ManyToOne
-    @JoinColumn(name="id")
+    @JoinColumn(name="parent_id")
     private SurveyComments parent_id;
 
     private String value;
@@ -55,8 +55,8 @@ public class SurveyComments {
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
-        this.survey_id = survey_id;
-        this.user_id = user_id;
+        this.surveyId = survey_id;
+        this.userId = user_id;
         this.parent_id = parent_id;
         this.value = value;
         this.good_count = good_count;

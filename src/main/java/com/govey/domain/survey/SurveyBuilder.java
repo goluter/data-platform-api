@@ -10,7 +10,7 @@ public final class SurveyBuilder {
     private LocalDate deleted_at;
     private Long id;
     private final String title;
-    private final User author_id;
+    private final User authorId;
     private String banner_image_url;
     private String video_url;
     private String status;
@@ -27,7 +27,7 @@ public final class SurveyBuilder {
 
     private SurveyBuilder(String title, User author_id) {
         this.title = title;
-        this.author_id = author_id;
+        this.authorId = author_id;
     }
 
     public static SurveyBuilder aSurvey(String title, User author_id) {
@@ -126,7 +126,7 @@ public final class SurveyBuilder {
         survey.setDeleted_at(deleted_at);
         survey.setId(id);
         survey.setTitle(title);
-        survey.setAuthor_id(author_id);
+        survey.setAuthorId(authorId);
         survey.setBanner_image_url(banner_image_url);
         survey.setVideo_url(video_url);
         survey.setStatus(status);

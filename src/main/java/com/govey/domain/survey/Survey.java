@@ -26,8 +26,8 @@ public class Survey {
     private String title;
 
     @ManyToOne
-    @JoinColumn(name="id")
-    private User author_id;
+    @JoinColumn(name="author_id")
+    private User authorId;
 
     private String banner_image_url;
     private String video_url;
@@ -42,7 +42,6 @@ public class Survey {
     private Long point;
     private String target;
 
-    @Column(nullable = true)
     private LocalDate reward_at;
     private LocalDate start_at;
     private LocalDate end_at;

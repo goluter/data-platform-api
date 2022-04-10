@@ -11,8 +11,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table
-
+@Table(name="user_entity")
 public class User {
     private LocalDate created_at;
     private LocalDate updated_at;
@@ -41,8 +40,8 @@ public class User {
     private Long level;
 
     @ManyToOne
-    @JoinColumn(name="id")
-    private Title main_title;
+    @JoinColumn(name="main_title")
+    private Title mainTitle;
 
     private LocalDate last_login;
     private String login_ip;

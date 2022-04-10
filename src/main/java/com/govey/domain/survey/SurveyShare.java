@@ -25,12 +25,12 @@ public class SurveyShare {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
-    private Survey survey_id;
+    @JoinColumn(name="survey_id")
+    private Survey surveyId;
 
     @ManyToOne
-    @JoinColumn(name="id")
-    private User user_id;
+    @JoinColumn(name="user_id")
+    private User userId;
 
     private String type;
     private String url;
@@ -50,8 +50,8 @@ public class SurveyShare {
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
-        this.survey_id = survey_id;
-        this.user_id = user_id;
+        this.surveyId = survey_id;
+        this.userId = user_id;
         this.type = type;
         this.url = url;
         this.open_count = open_count;

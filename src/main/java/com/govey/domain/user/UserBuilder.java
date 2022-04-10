@@ -142,7 +142,7 @@ public final class UserBuilder {
         user.setGender(gender);
         user.setPoint(point);
         user.setLevel(level);
-        user.setMain_title(main_title);
+        user.setMainTitle(main_title);
         user.setLast_login(last_login);
         user.setLogin_ip(login_ip);
         return user;

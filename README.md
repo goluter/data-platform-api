@@ -3,7 +3,7 @@
 - Spring boot: 2.6.3
 
 ## Doc
-- API: http://localhost:8080/swagger-ui/
+- API: http://localhost:8080/swagger-ui/index.html
 
 ## Stack
 * Spring Boot

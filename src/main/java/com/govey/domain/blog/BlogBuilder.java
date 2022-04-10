@@ -7,7 +7,7 @@ public final class BlogBuilder {
     private LocalDate updated_at;
     private LocalDate deleted_at;
     private Long id;
-    private Blog parent_id;
+    private Blog parentId;
     private String subject;
     private String content;
     private Boolean is_comment;
@@ -43,7 +43,7 @@ public final class BlogBuilder {
     }
 
     public BlogBuilder withParent_id(Blog parent_id) {
-        this.parent_id = parent_id;
+        this.parentId = parent_id;
         return this;
     }
 
@@ -83,7 +83,7 @@ public final class BlogBuilder {
         blog.setUpdated_at(updated_at);
         blog.setDeleted_at(deleted_at);
         blog.setId(id);
-        blog.setParent_id(parent_id);
+        blog.setParentId(parentId);
         blog.setSubject(subject);
         blog.setContent(content);
         blog.setIs_comment(is_comment);

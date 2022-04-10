@@ -24,11 +24,12 @@ public class UserTitle {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
-    private User user_id;
+    @JoinColumn(name="user_id")
+    private User userId;
+
     @ManyToOne
-    @JoinColumn(name="id")
-    private Title title_id;
+    @JoinColumn(name="title_id")
+    private Title titleId;
 
     private Long value;
 
@@ -37,15 +38,15 @@ public class UserTitle {
                      LocalDate updated_at,
                      LocalDate deleted_at,
                      Long id,
-                     User user_id,
-                     Title title_id,
+                     User userId,
+                     Title titleId,
                      Long value) {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
-        this.user_id = user_id;
-        this.title_id = title_id;
+        this.userId = userId;
+        this.titleId = titleId;
         this.value = value;
     }
 }

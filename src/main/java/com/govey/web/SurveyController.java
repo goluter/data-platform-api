@@ -43,16 +43,15 @@ public class SurveyController {
     public ResponseEntity<?> updateSurvey(
             @PathVariable("surveyId") Long surveyId,
             @RequestParam(required = false) String title,
-            @RequestParam(required = false) User author_id,
-            LocalDate updated_at) {
-        surveyService.updateSurvey(surveyId, title, author_id, updated_at);
+            @RequestParam(required = false) User author_id) {
+        surveyService.updateSurvey(surveyId, title, author_id);
 
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(path = "{surveyId}")
-    public ResponseEntity<?> deleteSurvey(@PathVariable("surveyId") Long surveyId) {
-        surveyService.deleteSurvey(surveyId);
+    public ResponseEntity<?> deleteSurvey(@PathVariable("surveyId") Long survey_id) {
+        surveyService.deleteSurvey(survey_id);
 
         return ResponseEntity.ok().build();
     }

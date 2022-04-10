@@ -24,11 +24,11 @@ public class UserTag {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
-    private User user_id;
+    @JoinColumn(name="user_id")
+    private User userId;
 
     @ManyToOne
-    @JoinColumn(name="id")
+    @JoinColumn(name="tag_id")
     private Tag tag_id;
 
     @Builder
@@ -42,7 +42,7 @@ public class UserTag {
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
-        this.user_id = user_id;
+        this.userId = user_id;
         this.tag_id = tag_id;
     }
 }

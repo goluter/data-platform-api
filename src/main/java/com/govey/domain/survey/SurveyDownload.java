@@ -25,12 +25,10 @@ public class SurveyDownload {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
-    private Survey survey_id;
+    private Survey surveyId;
 
     @ManyToOne
-    @JoinColumn(name="id")
-    private User user_id;
+    private User userId;
 
     private String type;
 
@@ -46,8 +44,8 @@ public class SurveyDownload {
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
-        this.survey_id = survey_id;
-        this.user_id = user_id;
+        this.surveyId = survey_id;
+        this.userId = user_id;
         this.type = type;
     }
 }

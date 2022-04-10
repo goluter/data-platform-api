@@ -27,8 +27,9 @@ public class Title {
     private String condition_description;
 
     @ManyToOne
-    @JoinColumn(name="id")
-    private Title parent_id;
+    @JoinColumn(name="parent_id")
+    private Title parentId;
+
     private Long level;
 
     @Builder
@@ -46,7 +47,7 @@ public class Title {
         this.id = id;
         this.description = description;
         this.condition_description = condition_description;
-        this.parent_id = parent_id;
+        this.parentId = parent_id;
         this.level = level;
     }
 }

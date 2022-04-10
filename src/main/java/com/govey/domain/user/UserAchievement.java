@@ -24,12 +24,12 @@ public class UserAchievement {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
-    private User user_id;
+    @JoinColumn(name="user_id")
+    private User userId;
 
     @ManyToOne
-    @JoinColumn(name="id")
-    private Title title_id;
+    @JoinColumn(name="title_id")
+    private Title titleId;
 
     private Long value;
 
@@ -45,8 +45,8 @@ public class UserAchievement {
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
         this.id = id;
-        this.user_id = user_id;
-        this.title_id = title_id;
+        this.userId = user_id;
+        this.titleId = title_id;
         this.value = value;
     }
 }
