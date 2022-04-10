@@ -49,9 +49,9 @@ jobs:
             cd ~/deploy/data-platform-api
             git checkout main
             git pull origin main
-            rm ./build/libs/*.jar
+            rm -rf ./build/libs/*.jar
             ./gradlew bootJar
-            docker build --build-arg API_HOST=https://api.govey.app/ --tag "data-platform-api" .
+            docker build --build-arg GOVEY_DATASOURCE_URL=$GOVEY_DATASOURCE_URL --tag "data-platform-api" .
             docker stop data-platform-api 2> /dev/null || true
             docker rm -f data-platform-api 2> /dev/null || true
       - name: Run
