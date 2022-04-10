@@ -24,7 +24,6 @@ public class SurveyItemOption {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private SurveyItem survey_item_id;
 
     private String value;

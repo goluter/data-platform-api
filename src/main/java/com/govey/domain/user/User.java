@@ -41,7 +41,6 @@ public class User {
     private Long level;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private Title main_title;
 
     private LocalDate last_login;

@@ -24,7 +24,6 @@ public class SurveyItem {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private Survey survey_id;
 
     private Boolean mandatory;

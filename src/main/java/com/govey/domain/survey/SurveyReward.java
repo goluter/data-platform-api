@@ -25,14 +25,12 @@ public class SurveyReward {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private Survey survey_id;
 
     private String type;
     private String description;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private User to;
 
     @Builder

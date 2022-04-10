@@ -24,7 +24,6 @@ public class UserLoginHistory {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private User user_id;
 
     private String ip;

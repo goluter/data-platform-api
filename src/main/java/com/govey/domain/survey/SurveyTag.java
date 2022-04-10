@@ -25,11 +25,9 @@ public class SurveyTag {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private Survey survey_id;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private Tag tag_id;
 
     @Builder

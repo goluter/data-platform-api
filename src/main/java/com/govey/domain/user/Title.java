@@ -27,7 +27,6 @@ public class Title {
     private String condition_description;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private Title parent_id;
     private Long level;
 

@@ -26,7 +26,6 @@ public class Achievement {
     private String condition_description;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private Achievement parent_id;
 
     private Long level;

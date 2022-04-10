@@ -25,15 +25,12 @@ public class SurveyComments {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private Survey survey_id;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private User user_id;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private SurveyComments parent_id;
 
     private String value;

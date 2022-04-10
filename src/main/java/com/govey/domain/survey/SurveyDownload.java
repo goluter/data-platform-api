@@ -25,11 +25,9 @@ public class SurveyDownload {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private Survey survey_id;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private User user_id;
 
     private String type;

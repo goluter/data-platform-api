@@ -23,7 +23,6 @@ public class Blog {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private Blog parent_id;
 
     private String subject;

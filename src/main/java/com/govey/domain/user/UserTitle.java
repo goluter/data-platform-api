@@ -24,10 +24,9 @@ public class UserTitle {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private User user_id;
+
     @ManyToOne
-    @JoinColumn(name="id")
     private Title title_id;
 
     private Long value;

@@ -24,7 +24,6 @@ public class SurveyTarget {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
     private Survey survey_id;
 
     private String type;
