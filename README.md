@@ -3,8 +3,8 @@
 - Spring boot: 2.6.3
 
 ## Doc
-- Swagger: http://localhost:8080/swagger-ui/index.html
-- ReDoc: http://localhost:8080/dist/redoc/index.html
+- Swagger: http://api.govey.app/swagger-ui/index.html
+- ReDoc: http://api.govey.app/dist/redoc/index.html
 
 ## Stack
 * Spring Boot
