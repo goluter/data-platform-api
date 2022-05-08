@@ -30,7 +30,7 @@ public class SurveyService {
     public void addNewSurvey(Survey survey) {
         Optional<Survey> surveyOptional = surveyRepository.findByTitle(survey.getTitle());
         if (surveyOptional.isPresent()) {
-            throw new IllegalStateException("title taken");
+            throw new IllegalStateException("already taken title");
         }
         surveyRepository.save(survey);
     }
