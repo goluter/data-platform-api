@@ -3,34 +3,40 @@ package com.govey.domain.blog;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 @Table
-
 public class Blog {
-    private LocalDate created_at;
-    private LocalDate updated_at;
-    private LocalDate deleted_at;
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private Date createdAt;
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Date updatedAt;
+    @Column(name = "deleted_at")
+    private Date deletedAt;
 
     @Id
     @GeneratedValue
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="parent_id")
+    @JoinColumn(name = "parent_id")
     private Blog parentId;
 
     private String subject;
     private String content;
-    private Boolean is_comment;
+    private Boolean isComment;
 
-    private Long hit_count;
-    private Long good_count;
-    private Long no_good_count;
+    private Long hitCount;
+    private Long goodCount;
+    private Long noGoodCount;
 }

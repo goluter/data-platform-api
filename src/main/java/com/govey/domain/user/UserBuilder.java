@@ -1,50 +1,50 @@
 package com.govey.domain.user;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public final class UserBuilder {
-    private LocalDate created_at;
-    private LocalDate updated_at;
-    private LocalDate deleted_at;
+    private Date createdAt;
+    private Date updatedAt;
+    private Date deletedAt;
     private Long id;
     private String type;
-    private String social_login_type;
-    private String social_login_id;
+    private String socialLoginType;
+    private String socialLoginId;
     private final String account;
-    private final String password;
+    private String password;
     private String name;
-    private String nick_name;
+    private String nickName;
     private String email;
-    private String phone_number;
+    private String phoneNumber;
     private LocalDate birthday;
     private String gender;
     private Long point;
     private Long level;
-    private Title main_title;
-    private LocalDate last_login;
-    private String login_ip;
+    private Title mainTitle;
+    private LocalDate lastLogin;
+    private String loginIp;
 
-    private UserBuilder(String account, String password) {
+    private UserBuilder(String account) {
         this.account = account;
-        this.password = password;
     }
 
-    public static UserBuilder anUser(String account, String password) {
-        return new UserBuilder(account, password);
+    public static UserBuilder anUser(String account) {
+        return new UserBuilder(account);
     }
 
-    public UserBuilder withCreated_at(LocalDate created_at) {
-        this.created_at = created_at;
+    public UserBuilder withCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
         return this;
     }
 
-    public UserBuilder withUpdated_at(LocalDate updated_at) {
-        this.updated_at = updated_at;
+    public UserBuilder withUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
         return this;
     }
 
-    public UserBuilder withDeleted_at(LocalDate deleted_at) {
-        this.deleted_at = deleted_at;
+    public UserBuilder withDeletedAt(Date deletedAt) {
+        this.deletedAt = deletedAt;
         return this;
     }
 
@@ -58,13 +58,18 @@ public final class UserBuilder {
         return this;
     }
 
-    public UserBuilder withSocial_login_type(String social_login_type) {
-        this.social_login_type = social_login_type;
+    public UserBuilder withSocialLoginType(String socialLoginType) {
+        this.socialLoginType = socialLoginType;
         return this;
     }
 
-    public UserBuilder withSocial_login_id(String social_login_id) {
-        this.social_login_id = social_login_id;
+    public UserBuilder withSocialLoginId(String socialLoginId) {
+        this.socialLoginId = socialLoginId;
+        return this;
+    }
+
+    public UserBuilder withPassword(String password) {
+        this.password = password;
         return this;
     }
 
@@ -73,8 +78,8 @@ public final class UserBuilder {
         return this;
     }
 
-    public UserBuilder withNick_name(String nick_name) {
-        this.nick_name = nick_name;
+    public UserBuilder withNickName(String nickName) {
+        this.nickName = nickName;
         return this;
     }
 
@@ -83,8 +88,8 @@ public final class UserBuilder {
         return this;
     }
 
-    public UserBuilder withPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public UserBuilder withPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
         return this;
     }
 
@@ -108,43 +113,43 @@ public final class UserBuilder {
         return this;
     }
 
-    public UserBuilder withMain_title(Title main_title) {
-        this.main_title = main_title;
+    public UserBuilder withMainTitle(Title mainTitle) {
+        this.mainTitle = mainTitle;
         return this;
     }
 
-    public UserBuilder withLast_login(LocalDate last_login) {
-        this.last_login = last_login;
+    public UserBuilder withLastLogin(LocalDate lastLogin) {
+        this.lastLogin = lastLogin;
         return this;
     }
 
-    public UserBuilder withLogin_ip(String login_ip) {
-        this.login_ip = login_ip;
+    public UserBuilder withLoginIp(String loginIp) {
+        this.loginIp = loginIp;
         return this;
     }
 
     public User build() {
         User user = new User();
-        user.setCreated_at(created_at);
-        user.setUpdated_at(updated_at);
-        user.setDeleted_at(deleted_at);
+        user.setCreatedAt(createdAt);
+        user.setUpdatedAt(updatedAt);
+        user.setDeletedAt(deletedAt);
         user.setId(id);
         user.setType(type);
-        user.setSocial_login_type(social_login_type);
-        user.setSocial_login_id(social_login_id);
+        user.setSocialLoginType(socialLoginType);
+        user.setSocialLoginId(socialLoginId);
         user.setAccount(account);
         user.setPassword(password);
         user.setName(name);
-        user.setNick_name(nick_name);
+        user.setNickName(nickName);
         user.setEmail(email);
-        user.setPhone_number(phone_number);
+        user.setPhoneNumber(phoneNumber);
         user.setBirthday(birthday);
         user.setGender(gender);
         user.setPoint(point);
         user.setLevel(level);
-        user.setMainTitle(main_title);
-        user.setLast_login(last_login);
-        user.setLogin_ip(login_ip);
+        user.setMainTitle(mainTitle);
+        user.setLastLogin(lastLogin);
+        user.setLoginIp(loginIp);
         return user;
     }
 }

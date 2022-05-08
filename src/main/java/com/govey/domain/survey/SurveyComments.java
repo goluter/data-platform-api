@@ -5,9 +5,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -16,34 +19,41 @@ import java.time.LocalDate;
 @Table
 
 public class SurveyComments {
-    private LocalDate created_at;
-    private LocalDate updated_at;
-    private LocalDate deleted_at;
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private Date createdAt;
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Date updatedAt;
+    @Column(name = "deleted_at")
+    private Date deletedAt;
 
     @Id
     @GeneratedValue
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="survey_id")
+    @JoinColumn(name = "survey_id")
     private Survey surveyId;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User userId;
 
     @ManyToOne
-    @JoinColumn(name="parent_id")
-    private SurveyComments parent_id;
+    @JoinColumn(name = "parent_id")
+    private SurveyComments parentId;
 
     private String value;
-    private Long good_count;
-    private Long no_good_count;
+    @Column(name="good_count")
+    private Long goodCount;
+    @Column(name="no_good_count")
+    private Long noGoodCount;
 
     @Builder
-    public SurveyComments(LocalDate created_at,
-                          LocalDate updated_at,
-                          LocalDate deleted_at,
+    public SurveyComments(Date createdAt,
+                          Date updatedAt,
+                          Date deletedAt,
                           Long id,
                           Survey survey_id,
                           User user_id,
@@ -51,15 +61,15 @@ public class SurveyComments {
                           String value,
                           Long good_count,
                           Long no_good_count) {
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.deleted_at = deleted_at;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
         this.id = id;
         this.surveyId = survey_id;
         this.userId = user_id;
-        this.parent_id = parent_id;
+        this.parentId = parent_id;
         this.value = value;
-        this.good_count = good_count;
-        this.no_good_count = no_good_count;
+        this.goodCount = good_count;
+        this.noGoodCount = no_good_count;
     }
 }

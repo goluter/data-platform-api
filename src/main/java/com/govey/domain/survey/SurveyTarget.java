@@ -4,9 +4,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -15,35 +18,42 @@ import java.time.LocalDate;
 @Table
 
 public class SurveyTarget {
-    private LocalDate created_at;
-    private LocalDate updated_at;
-    private LocalDate deleted_at;
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private Date createdAt;
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Date updatedAt;
+    @Column(name = "deleted_at")
+    private Date deletedAt;
 
     @Id
     @GeneratedValue
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="survey_id")
+    @JoinColumn(name = "survey_id")
     private Survey surveyId;
 
     private String type;
-    private Long target_id;
+
+    @Column(name="target_id")
+    private Long targetId;
 
     @Builder
-    public SurveyTarget(LocalDate created_at,
-                        LocalDate updated_at,
-                        LocalDate deleted_at,
+    public SurveyTarget(Date createdAt,
+                        Date updatedAt,
+                        Date deletedAt,
                         Long id,
-                        Survey survey_id,
+                        Survey surveyId,
                         String type,
-                        Long target_id) {
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.deleted_at = deleted_at;
+                        Long targetId) {
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
         this.id = id;
-        this.surveyId = survey_id;
+        this.surveyId = surveyId;
         this.type = type;
-        this.target_id = target_id;
+        this.targetId = targetId;
     }
 }

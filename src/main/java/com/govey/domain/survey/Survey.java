@@ -4,9 +4,11 @@ import com.govey.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -14,9 +16,14 @@ import java.time.LocalDate;
 @Entity
 @Table
 public class Survey {
-    private LocalDate created_at;
-    private LocalDate updated_at;
-    private LocalDate deleted_at;
+    @Column(name = "createdAt")
+    @CreationTimestamp
+    private Date createdAt;
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Date updatedAt;
+    @Column(name = "deleted_at")
+    private Date deletedAt;
 
     @Id
     @GeneratedValue
@@ -26,23 +33,32 @@ public class Survey {
     private String title;
 
     @ManyToOne
-    @JoinColumn(name="author_id")
+    @JoinColumn(name = "author_id")
     private User authorId;
 
-    private String banner_image_url;
-    private String video_url;
+    @Column(name="banner_image_url")
+    private String bannerUrl;
+    @Column(name="video_url")
+    private String videoUrl;
 
     private String status;
     private String homepage;
-    private String phone_num;
+    @Column(name="phone_num")
+    private String phoneNum;
 
-    private Long hit_count;
-    private Long good_count;
-    private Long no_good_count;
+    @Column(name="hit_count")
+    private Long hitCount;
+    @Column(name="good_count")
+    private Long goodCount;
+    @Column(name="no_good_count")
+    private Long noGoodCount;
     private Long point;
     private String target;
 
-    private LocalDate reward_at;
-    private LocalDate start_at;
-    private LocalDate end_at;
+    @Column(name="reward_at")
+    private Date rewardAt;
+    @Column(name="start_at")
+    private Date startAt;
+    @Column(name="end_at")
+    private Date endAt;
 }

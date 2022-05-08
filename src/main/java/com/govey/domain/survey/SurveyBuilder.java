@@ -2,50 +2,50 @@ package com.govey.domain.survey;
 
 import com.govey.domain.user.User;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public final class SurveyBuilder {
-    private LocalDate created_at;
-    private LocalDate updated_at;
-    private LocalDate deleted_at;
+    private Date createdAt;
+    private Date updatedAt;
+    private Date deletedAt;
     private Long id;
     private final String title;
     private final User authorId;
-    private String banner_image_url;
-    private String video_url;
+    private String bannerUrl;
+    private String videoUrl;
     private String status;
     private String homepage;
-    private String phone_num;
-    private Long hit_count;
-    private Long good_count;
-    private Long no_good_count;
+    private String phoneNum;
+    private Long hitCount;
+    private Long goodCount;
+    private Long noGoodCount;
     private Long point;
     private String target;
-    private LocalDate reward_at;
-    private LocalDate start_at;
-    private LocalDate end_at;
+    private Date rewardAt;
+    private Date startAt;
+    private Date endAt;
 
-    private SurveyBuilder(String title, User author_id) {
+    private SurveyBuilder(String title, User authorId) {
         this.title = title;
-        this.authorId = author_id;
+        this.authorId = authorId;
     }
 
-    public static SurveyBuilder aSurvey(String title, User author_id) {
-        return new SurveyBuilder(title, author_id);
+    public static SurveyBuilder aSurvey(String title, User authorId) {
+        return new SurveyBuilder(title, authorId);
     }
 
-    public SurveyBuilder withCreated_at(LocalDate created_at) {
-        this.created_at = created_at;
+    public SurveyBuilder withCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
         return this;
     }
 
-    public SurveyBuilder withUpdated_at(LocalDate updated_at) {
-        this.updated_at = updated_at;
+    public SurveyBuilder withUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
         return this;
     }
 
-    public SurveyBuilder withDeleted_at(LocalDate deleted_at) {
-        this.deleted_at = deleted_at;
+    public SurveyBuilder withDeletedAt(Date deletedAt) {
+        this.deletedAt = deletedAt;
         return this;
     }
 
@@ -54,13 +54,13 @@ public final class SurveyBuilder {
         return this;
     }
 
-    public SurveyBuilder withBanner_image_url(String banner_image_url) {
-        this.banner_image_url = banner_image_url;
+    public SurveyBuilder withBannerUrl(String bannerUrl) {
+        this.bannerUrl = bannerUrl;
         return this;
     }
 
-    public SurveyBuilder withVideo_url(String video_url) {
-        this.video_url = video_url;
+    public SurveyBuilder withVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
         return this;
     }
 
@@ -74,23 +74,23 @@ public final class SurveyBuilder {
         return this;
     }
 
-    public SurveyBuilder withPhone_num(String phone_num) {
-        this.phone_num = phone_num;
+    public SurveyBuilder withPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
         return this;
     }
 
-    public SurveyBuilder withHit_count(Long hit_count) {
-        this.hit_count = hit_count;
+    public SurveyBuilder withHitCount(Long hitCount) {
+        this.hitCount = hitCount;
         return this;
     }
 
-    public SurveyBuilder withGood_count(Long good_count) {
-        this.good_count = good_count;
+    public SurveyBuilder withGoodCount(Long goodCount) {
+        this.goodCount = goodCount;
         return this;
     }
 
-    public SurveyBuilder withNo_good_count(Long no_good_count) {
-        this.no_good_count = no_good_count;
+    public SurveyBuilder withNoGoodCount(Long noGoodCount) {
+        this.noGoodCount = noGoodCount;
         return this;
     }
 
@@ -104,42 +104,42 @@ public final class SurveyBuilder {
         return this;
     }
 
-    public SurveyBuilder withReward_at(LocalDate reward_at) {
-        this.reward_at = reward_at;
+    public SurveyBuilder withRewardAt(Date rewardAt) {
+        this.rewardAt = rewardAt;
         return this;
     }
 
-    public SurveyBuilder withStart_at(LocalDate start_at) {
-        this.start_at = start_at;
+    public SurveyBuilder withStartAt(Date startAt) {
+        this.startAt = startAt;
         return this;
     }
 
-    public SurveyBuilder withEnd_at(LocalDate end_at) {
-        this.end_at = end_at;
+    public SurveyBuilder withEndAt(Date endAt) {
+        this.endAt = endAt;
         return this;
     }
 
     public Survey build() {
         Survey survey = new Survey();
-        survey.setCreated_at(created_at);
-        survey.setUpdated_at(updated_at);
-        survey.setDeleted_at(deleted_at);
+        survey.setCreatedAt(createdAt);
+        survey.setUpdatedAt(updatedAt);
+        survey.setDeletedAt(deletedAt);
         survey.setId(id);
         survey.setTitle(title);
         survey.setAuthorId(authorId);
-        survey.setBanner_image_url(banner_image_url);
-        survey.setVideo_url(video_url);
+        survey.setBannerUrl(bannerUrl);
+        survey.setVideoUrl(videoUrl);
         survey.setStatus(status);
         survey.setHomepage(homepage);
-        survey.setPhone_num(phone_num);
-        survey.setHit_count(hit_count);
-        survey.setGood_count(good_count);
-        survey.setNo_good_count(no_good_count);
+        survey.setPhoneNum(phoneNum);
+        survey.setHitCount(hitCount);
+        survey.setGoodCount(goodCount);
+        survey.setNoGoodCount(noGoodCount);
         survey.setPoint(point);
         survey.setTarget(target);
-        survey.setReward_at(reward_at);
-        survey.setStart_at(start_at);
-        survey.setEnd_at(end_at);
+        survey.setRewardAt(rewardAt);
+        survey.setStartAt(startAt);
+        survey.setEndAt(endAt);
         return survey;
     }
 }
