@@ -1,21 +1,23 @@
 package com.govey.domain.user;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "user_entity")
-public class User {
+public class User implements UserDetails {
     @Column(name = "created_at")
     @CreationTimestamp
     private Date createdAt;
@@ -59,4 +61,36 @@ public class User {
     private LocalDate lastLogin;
     @Column(name = "login_ip")
     private String loginIp;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection < GrantedAuthority > collectors = new ArrayList<>();
+        collectors.add(() -> "granting auth");
+        return collectors;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.account;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
