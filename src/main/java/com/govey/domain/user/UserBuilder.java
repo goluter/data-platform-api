@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public final class UserBuilder {
+    private final String account;
     private Date createdAt;
     private Date updatedAt;
     private Date deletedAt;
@@ -11,7 +12,6 @@ public final class UserBuilder {
     private String type;
     private String socialLoginType;
     private String socialLoginId;
-    private final String account;
     private String password;
     private String name;
     private String nickName;

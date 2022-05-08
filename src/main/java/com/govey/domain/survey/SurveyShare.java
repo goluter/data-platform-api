@@ -9,7 +9,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -43,7 +42,7 @@ public class SurveyShare {
     private String type;
     private String url;
 
-    @Column(name="open_count")
+    @Column(name = "open_count")
     private Long openCount;
 
     @Builder

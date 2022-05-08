@@ -8,7 +8,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -37,7 +36,7 @@ public class SurveyTarget {
 
     private String type;
 
-    @Column(name="target_id")
+    @Column(name = "target_id")
     private Long targetId;
 
     @Builder

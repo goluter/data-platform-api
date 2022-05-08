@@ -36,29 +36,29 @@ public class Survey {
     @JoinColumn(name = "author_id")
     private User authorId;
 
-    @Column(name="banner_image_url")
+    @Column(name = "banner_image_url")
     private String bannerUrl;
-    @Column(name="video_url")
+    @Column(name = "video_url")
     private String videoUrl;
 
     private String status;
     private String homepage;
-    @Column(name="phone_num")
+    @Column(name = "phone_num")
     private String phoneNum;
 
-    @Column(name="hit_count")
+    @Column(name = "hit_count")
     private Long hitCount;
-    @Column(name="good_count")
+    @Column(name = "good_count")
     private Long goodCount;
-    @Column(name="no_good_count")
+    @Column(name = "no_good_count")
     private Long noGoodCount;
     private Long point;
     private String target;
 
-    @Column(name="reward_at")
+    @Column(name = "reward_at")
     private Date rewardAt;
-    @Column(name="start_at")
+    @Column(name = "start_at")
     private Date startAt;
-    @Column(name="end_at")
+    @Column(name = "end_at")
     private Date endAt;
 }

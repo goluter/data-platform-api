@@ -9,7 +9,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -45,9 +44,9 @@ public class SurveyComments {
     private SurveyComments parentId;
 
     private String value;
-    @Column(name="good_count")
+    @Column(name = "good_count")
     private Long goodCount;
-    @Column(name="no_good_count")
+    @Column(name = "no_good_count")
     private Long noGoodCount;
 
     @Builder

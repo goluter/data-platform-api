@@ -31,19 +31,19 @@ public class User {
 
     private String type;
 
-    @Column(name="social_login_type")
+    @Column(name = "social_login_type")
     private String socialLoginType;
-    @Column(name="social_login_id")
+    @Column(name = "social_login_id")
     private String socialLoginId;
     private String account;
     private String password;
 
     private String name;
-    @Column(name="nick_name")
+    @Column(name = "nick_name")
     private String nickName;
 
     private String email;
-    @Column(name="phone_number")
+    @Column(name = "phone_number")
     private String phoneNumber;
     private LocalDate birthday;
     private String gender;
@@ -55,8 +55,8 @@ public class User {
     @JoinColumn(name = "main_title")
     private Title mainTitle;
 
-    @Column(name="last_login")
+    @Column(name = "last_login")
     private LocalDate lastLogin;
-    @Column(name="login_ip")
+    @Column(name = "login_ip")
     private String loginIp;
 }

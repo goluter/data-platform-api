@@ -5,12 +5,12 @@ import com.govey.domain.user.User;
 import java.util.Date;
 
 public final class SurveyBuilder {
+    private final String title;
+    private final User authorId;
     private Date createdAt;
     private Date updatedAt;
     private Date deletedAt;
     private Long id;
-    private final String title;
-    private final User authorId;
     private String bannerUrl;
     private String videoUrl;
     private String status;

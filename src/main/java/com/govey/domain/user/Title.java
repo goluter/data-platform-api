@@ -8,7 +8,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -32,7 +31,7 @@ public class Title {
     private Long id;
 
     private String description;
-    @Column(name="condition_description")
+    @Column(name = "condition_description")
     private String conditionDescription;
 
     @ManyToOne
