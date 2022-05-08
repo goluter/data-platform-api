@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/").invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID", "remember-me").permitAll().and()
                 .sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true)
-                .expiredUrl("login?error=true&exception=sesssion_expired").and()
+                .expiredUrl("/login?error=true&exception=sesssion_expired").and()
                 .and().rememberMe().alwaysRemember(false)
                 .tokenValiditySeconds(43200)
                 .rememberMeParameter("remember-me");
