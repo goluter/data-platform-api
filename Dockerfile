@@ -1,15 +1,20 @@
 FROM openjdk:17-oracle
 
 ENV APP_HOME=/usr/app/
-
 WORKDIR $APP_HOME
-
-ARG GOVEY_DATASOURCE_URL
-ENV GOVEY_DATASOURCE_URL ${GOVEY_DATASOURCE_URL}
 
 COPY ./build/libs/*.jar application.jar
 
+ARG DB_URL
+ARG DB_USER
+ARG DB_PASSWORD
+ARG SPRING_PROFILES_ACTIVE
+
+ENV DB_URL=$DB_URL
+ENV DB_USER=$DB_USER
+ENV DB_PASSWORD=$DB_PASSWORD
+ENV SPRING_PROFILES_ACTIVE=$SPRING_PROFILES_ACTIVE
+
 EXPOSE 8080
 
-# NOTE: 환경변수로 변경
-CMD ["java", "-jar", "-Dspring.datasource.url=jdbc:postgresql://gopush.app:5432/govey", "application.jar"]
+CMD ["java", "-jar", "application.jar"]
