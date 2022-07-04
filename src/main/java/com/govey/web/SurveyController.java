@@ -12,7 +12,7 @@ import java.util.List;
 // @CrossOrigin
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path = "api/v1/survey")
+@RequestMapping(path = "api/survey")
 public class SurveyController {
     private final SurveyService surveyService;
 
@@ -26,8 +26,8 @@ public class SurveyController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Survey> retrieve(@PathVariable String id) {
-        return ResponseEntity.ok(surveyService.retrieve(1L));
+    public ResponseEntity<Survey> retrieve(@PathVariable Long id) {
+        return ResponseEntity.ok(surveyService.retrieve(id));
     }
 
     @PostMapping
@@ -40,10 +40,10 @@ public class SurveyController {
     // TODO request Body 로 Req 객체
     @PutMapping(path = "{surveyId}")
     public ResponseEntity<?> updateSurvey(
-            @PathVariable("surveyId") Long surveyId,
+            @PathVariable("surveyId") Long survey_id,
             @RequestParam(required = false) String title,
             @RequestParam(required = false) User author_id) {
-        surveyService.updateSurvey(surveyId, title, author_id);
+        surveyService.updateSurvey(survey_id, title, author_id);
 
         return ResponseEntity.ok().build();
     }
