@@ -4,9 +4,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -14,39 +16,45 @@ import java.time.LocalDate;
 @Entity
 @Table
 public class Achievement {
-    private LocalDate created_at;
-    private LocalDate updated_at;
-    private LocalDate deleted_at;
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private Date createdAt;
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Date updatedAt;
+    @Column(name = "deleted_at")
+    private Date deletedAt;
 
     @Id
     @GeneratedValue
     private Long id;
 
     private String description;
-    private String condition_description;
+    @Column(name = "condition_description")
+    private String conditionDescription;
 
     @ManyToOne
-    @JoinColumn(name="parent_id")
+    @JoinColumn(name = "parent_id")
     private Achievement parentId;
 
     private Long level;
 
     @Builder
-    public Achievement(LocalDate created_at,
-                       LocalDate updated_at,
-                       LocalDate deleted_at,
+    public Achievement(Date createdAt,
+                       Date updatedAt,
+                       Date deletedAt,
                        Long id,
                        String description,
-                       String condition_description,
-                       Achievement parent_id,
+                       String conditionDescription,
+                       Achievement parentId,
                        Long level) {
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.deleted_at = deleted_at;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
         this.id = id;
         this.description = description;
-        this.condition_description = condition_description;
-        this.parentId = parent_id;
+        this.conditionDescription = conditionDescription;
+        this.parentId = parentId;
         this.level = level;
     }
 }

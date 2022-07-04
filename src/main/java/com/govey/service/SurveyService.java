@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -30,7 +29,7 @@ public class SurveyService {
 
     public void addNewSurvey(Survey survey) {
         Optional<Survey> surveyOptional = surveyRepository.findByTitle(survey.getTitle());
-        if (surveyOptional.isPresent()){
+        if (surveyOptional.isPresent()) {
             throw new IllegalStateException("title taken");
         }
         surveyRepository.save(survey);

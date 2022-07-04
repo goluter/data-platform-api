@@ -1,39 +1,45 @@
 package com.govey.domain.blog;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public final class BlogBuilder {
-    private LocalDate created_at;
-    private LocalDate updated_at;
-    private LocalDate deleted_at;
+    private Date createdAt;
+    private Date updatedAt;
+    private Date deletedAt;
     private Long id;
     private Blog parentId;
     private String subject;
     private String content;
-    private Boolean is_comment;
-    private Long hit_count;
-    private Long good_count;
-    private Long no_good_count;
+    private Boolean isComment;
+    private Long hitCount;
+    private Long goodCount;
+    private Long noGoodCount;
 
-    private BlogBuilder() {
+    private BlogBuilder(String subject, String content) {
+        this.subject = subject;
+        this.content = content;
     }
 
-    public static BlogBuilder aBlog() {
-        return new BlogBuilder();
+    public BlogBuilder() {
+
     }
 
-    public BlogBuilder withCreated_at(LocalDate created_at) {
-        this.created_at = created_at;
+    public static BlogBuilder aBlog(String subject, String content) {
+        return new BlogBuilder(subject, content);
+    }
+
+    public BlogBuilder withCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
         return this;
     }
 
-    public BlogBuilder withUpdated_at(LocalDate updated_at) {
-        this.updated_at = updated_at;
+    public BlogBuilder withUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
         return this;
     }
 
-    public BlogBuilder withDeleted_at(LocalDate deleted_at) {
-        this.deleted_at = deleted_at;
+    public BlogBuilder withDeletedAt(Date deletedAt) {
+        this.deletedAt = deletedAt;
         return this;
     }
 
@@ -42,8 +48,8 @@ public final class BlogBuilder {
         return this;
     }
 
-    public BlogBuilder withParent_id(Blog parent_id) {
-        this.parentId = parent_id;
+    public BlogBuilder withParentId(Blog parentId) {
+        this.parentId = parentId;
         return this;
     }
 
@@ -57,39 +63,39 @@ public final class BlogBuilder {
         return this;
     }
 
-    public BlogBuilder withIs_comment(Boolean is_comment) {
-        this.is_comment = is_comment;
+    public BlogBuilder withIsComment(Boolean isComment) {
+        this.isComment = isComment;
         return this;
     }
 
-    public BlogBuilder withHit_count(Long hit_count) {
-        this.hit_count = hit_count;
+    public BlogBuilder withHitCount(Long hitCount) {
+        this.hitCount = hitCount;
         return this;
     }
 
-    public BlogBuilder withGood_count(Long good_count) {
-        this.good_count = good_count;
+    public BlogBuilder withGoodCount(Long goodCount) {
+        this.goodCount = goodCount;
         return this;
     }
 
-    public BlogBuilder withNo_good_count(Long no_good_count) {
-        this.no_good_count = no_good_count;
+    public BlogBuilder withNoGoodCount(Long noGoodCount) {
+        this.noGoodCount = noGoodCount;
         return this;
     }
 
     public Blog build() {
         Blog blog = new Blog();
-        blog.setCreated_at(created_at);
-        blog.setUpdated_at(updated_at);
-        blog.setDeleted_at(deleted_at);
+        blog.setCreatedAt(createdAt);
+        blog.setUpdatedAt(updatedAt);
+        blog.setDeletedAt(deletedAt);
         blog.setId(id);
         blog.setParentId(parentId);
         blog.setSubject(subject);
         blog.setContent(content);
-        blog.setIs_comment(is_comment);
-        blog.setHit_count(hit_count);
-        blog.setGood_count(good_count);
-        blog.setNo_good_count(no_good_count);
+        blog.setIsComment(isComment);
+        blog.setHitCount(hitCount);
+        blog.setGoodCount(goodCount);
+        blog.setNoGoodCount(noGoodCount);
         return blog;
     }
 }

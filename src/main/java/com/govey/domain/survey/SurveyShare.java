@@ -5,9 +5,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -16,44 +18,51 @@ import java.time.LocalDate;
 @Table
 
 public class SurveyShare {
-    private LocalDate created_at;
-    private LocalDate updated_at;
-    private LocalDate deleted_at;
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private Date createdAt;
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Date updatedAt;
+    @Column(name = "deleted_at")
+    private Date deletedAt;
 
     @Id
     @GeneratedValue
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="survey_id")
+    @JoinColumn(name = "survey_id")
     private Survey surveyId;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User userId;
 
     private String type;
     private String url;
-    private Long open_count;
+
+    @Column(name = "open_count")
+    private Long openCount;
 
     @Builder
-    public SurveyShare(LocalDate created_at,
-                       LocalDate updated_at,
-                       LocalDate deleted_at,
+    public SurveyShare(Date createdAt,
+                       Date updatedAt,
+                       Date deletedAt,
                        Long id,
-                       Survey survey_id,
-                       User user_id,
+                       Survey surveyId,
+                       User userId,
                        String type,
                        String url,
-                       Long open_count) {
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.deleted_at = deleted_at;
+                       Long openCount) {
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
         this.id = id;
-        this.surveyId = survey_id;
-        this.userId = user_id;
+        this.surveyId = surveyId;
+        this.userId = userId;
         this.type = type;
         this.url = url;
-        this.open_count = open_count;
+        this.openCount = openCount;
     }
 }

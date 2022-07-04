@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 // @CrossOrigin
@@ -18,7 +17,7 @@ public class SurveyController {
     private final SurveyService surveyService;
 
     @GetMapping
-    public List<Survey> getSurvey(){
+    public List<Survey> getSurvey() {
 //        List<Survey> list = surveyService.getSurvey();
 //        // todo reponse
 //        List<SurveyResponse> listA = list.stream().map(SurveyResponse::new)
@@ -27,7 +26,7 @@ public class SurveyController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Survey> retrieve(@PathVariable String id){
+    public ResponseEntity<Survey> retrieve(@PathVariable String id) {
         return ResponseEntity.ok(surveyService.retrieve(1L));
     }
 

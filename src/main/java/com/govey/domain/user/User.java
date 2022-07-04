@@ -3,19 +3,27 @@ package com.govey.domain.user;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name="user_entity")
+@Table(name = "user_entity")
 public class User {
-    private LocalDate created_at;
-    private LocalDate updated_at;
-    private LocalDate deleted_at;
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private Date createdAt;
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Date updatedAt;
+    @Column(name = "deleted_at")
+    private Date deletedAt;
 
     @Id
     @GeneratedValue
@@ -23,16 +31,20 @@ public class User {
 
     private String type;
 
-    private String social_login_type;
-    private String social_login_id;
+    @Column(name = "social_login_type")
+    private String socialLoginType;
+    @Column(name = "social_login_id")
+    private String socialLoginId;
     private String account;
     private String password;
 
     private String name;
-    private String nick_name;
+    @Column(name = "nick_name")
+    private String nickName;
 
     private String email;
-    private String phone_number;
+    @Column(name = "phone_number")
+    private String phoneNumber;
     private LocalDate birthday;
     private String gender;
 
@@ -40,9 +52,11 @@ public class User {
     private Long level;
 
     @ManyToOne
-    @JoinColumn(name="main_title")
+    @JoinColumn(name = "main_title")
     private Title mainTitle;
 
-    private LocalDate last_login;
-    private String login_ip;
+    @Column(name = "last_login")
+    private LocalDate lastLogin;
+    @Column(name = "login_ip")
+    private String loginIp;
 }
