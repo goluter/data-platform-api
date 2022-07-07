@@ -1,0 +1,72 @@
+name: Spring Boot
+
+on:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to Docker
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew bootJar
+      - name: DBuild
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: swtover/govey-api:develop-latest
+          build-args: |
+            DB_URL=${{ secrets.STAGE_DB_URL }}
+            DB_USER=${{ secrets.STAGE_DB_USER }}
+            DB_PASSWORD=${{ secrets.STAGE_DB_PASSWORD }}
+            SPRING_PROFILES_ACTIVE=${{ secrets.STAGE_SPRING_PROFILES_ACTIVE }}
+      - name: Pull
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.STAGE_REMOTE_SSH_IP }}
+          username: ${{ secrets.STAGE_REMOTE_SSH_ID }}
+          password: ${{ secrets.STAGE_REMOTE_SSH_PASSWORD }}
+          port: ${{ secrets.STAGE_REMOTE_SSH_PORT }}
+          script: |
+            source ~/.bashrc
+            docker login --username $DOCKER_USERNAME --password $DOCKER_TOKEN
+            docker pull swtover/govey-api:develop-latest
+            docker stop data-platform-api-stage 2> /dev/null || true
+      - name: Run
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.STAGE_REMOTE_SSH_IP }}
+          username: ${{ secrets.STAGE_REMOTE_SSH_ID }}
+          password: ${{ secrets.STAGE_REMOTE_SSH_PASSWORD }}
+          port: ${{ secrets.STAGE_REMOTE_SSH_PORT }}
+          script: |
+            source ~/.bashrc
+            docker run -it --rm -p 9030:8080 -d --name data-platform-api-stage swtover/govey-api:develop-latest
+      - uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+          channel: "#build-status"
+        if: always()
