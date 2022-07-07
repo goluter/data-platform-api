@@ -18,10 +18,6 @@ public class SurveyController {
 
     @GetMapping
     public List<Survey> getSurvey() {
-//        List<Survey> list = surveyService.getSurvey();
-//        // todo reponse
-//        List<SurveyResponse> listA = list.stream().map(SurveyResponse::new)
-//                .collect(Collectors.toList());
         return surveyService.getSurvey();
     }
 
