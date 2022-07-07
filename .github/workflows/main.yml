@@ -38,9 +38,9 @@ jobs:
           push: true
           tags: swtover/govey-api:main-latest
           build-args: |
-            DB_URL=${{ secrets.DB_URL }},
-            DB_USER=${{ secrets.DB_USER }},
-            DB_PASSWORD=${{ secrets.DB_PASSWORD }},
+            DB_URL=${{ secrets.DB_URL }}
+            DB_USER=${{ secrets.DB_USER }}
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
             SPRING_PROFILES_ACTIVE=${{ secrets.SPRING_PROFILES_ACTIVE }}
       - name: Pull
         uses: appleboy/ssh-action@master
