@@ -3,6 +3,7 @@ package com.govey.domain.user;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,15 +20,6 @@ import java.util.Date;
 @Entity
 @Table(name = "user_entity")
 public class User implements UserDetails {
-    @Column(name = "created_at")
-    @CreationTimestamp
-    private Date createdAt;
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    private Date updatedAt;
-    @Column(name = "deleted_at")
-    private Date deletedAt;
-
     @Id
     @GeneratedValue
     private Long id;
@@ -35,22 +28,30 @@ public class User implements UserDetails {
 
     @Column(name = "social_login_type")
     private String socialLoginType;
+
     @Column(name = "social_login_id")
     private String socialLoginId;
+
     private String account;
+
     private String password;
 
     private String name;
+
     @Column(name = "nick_name")
     private String nickName;
 
     private String email;
+
     @Column(name = "phone_number")
     private String phoneNumber;
+
     private LocalDate birthday;
+
     private String gender;
 
     private Long point;
+
     private Long level;
 
     @ManyToOne
@@ -59,15 +60,34 @@ public class User implements UserDetails {
 
     @Column(name = "last_login")
     private LocalDate lastLogin;
+
     @Column(name = "login_ip")
     private String loginIp;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection < GrantedAuthority > collectors = new ArrayList<>();
-        collectors.add(() -> "granting auth");
-        return collectors;
-    }
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private Date createdAt;
+
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Date updatedAt;
+
+    @Column(name = "deleted_at")
+    private Date deletedAt;
+
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        Collection < GrantedAuthority > collectors = new ArrayList<>();
+//        collectors.add(() -> "granting auth");
+//        return collectors;
+//    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_authority",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
+    private Set<Authority> authorities;
 
     @Override
     public String getUsername() {
