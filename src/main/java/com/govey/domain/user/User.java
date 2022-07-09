@@ -1,28 +1,31 @@
 package com.govey.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.lang.Nullable;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@EntityListeners(value = {AuditingEntityListener.class})
 @Table(name = "user_entity")
-public class User implements UserDetails {
+public class User {
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    private UUID id;
 
     private String type;
 
@@ -32,14 +35,18 @@ public class User implements UserDetails {
     @Column(name = "social_login_id")
     private String socialLoginId;
 
+    @Column(name = "account", length = 50, unique = true)
     private String account;
 
+    @JsonIgnore
+    @Column(name = "password", length = 100)
     private String password;
 
-    private String name;
+    @Column(name = "username", length = 50, unique = true)
+    private String username;
 
-    @Column(name = "nick_name")
-    private String nickName;
+    @Column(name = "nickname", length = 50)
+    private String nickname;
 
     private String email;
 
@@ -64,52 +71,43 @@ public class User implements UserDetails {
     @Column(name = "login_ip")
     private String loginIp;
 
-    @Column(name = "created_at")
-    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    @CreatedDate
     private Date createdAt;
 
-    @Column(name = "updated_at")
-    @UpdateTimestamp
+    @Column(name = "updated_at", insertable = false)
+    @LastModifiedDate
     private Date updatedAt;
 
-    @Column(name = "deleted_at")
+    @Column(name = "deleted_at", insertable = false)
     private Date deletedAt;
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        Collection < GrantedAuthority > collectors = new ArrayList<>();
-//        collectors.add(() -> "granting auth");
-//        return collectors;
-//    }
+    @Column(name = "activated")
+    private boolean activated;
 
     @ManyToMany
     @JoinTable(
             name = "user_authority",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
     private Set<Authority> authorities;
 
-    @Override
     public String getUsername() {
         return this.account;
     }
 
-    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    @Override
     public boolean isEnabled() {
         return true;
     }

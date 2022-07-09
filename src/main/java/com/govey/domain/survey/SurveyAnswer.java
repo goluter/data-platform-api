@@ -16,7 +16,6 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table
-
 public class SurveyAnswer {
     @Column(name = "created_at")
     @CreationTimestamp
