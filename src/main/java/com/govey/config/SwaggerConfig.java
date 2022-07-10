@@ -20,7 +20,7 @@ public class SwaggerConfig {
     public Docket swaggerAPI() {
         return new Docket(DocumentationType.OAS_30)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.govey")) //swagger탐색 대상 패키지
+                .apis(RequestHandlerSelectors.basePackage("com.govey"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());
