@@ -11,6 +11,10 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         hibernateformat_sql: true
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
 server:
     error:
       include-message: always

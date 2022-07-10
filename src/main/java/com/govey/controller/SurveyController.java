@@ -1,4 +1,4 @@
-package com.govey.web;
+package com.govey.controller;
 
 import com.govey.domain.survey.Survey;
 import com.govey.domain.user.User;
