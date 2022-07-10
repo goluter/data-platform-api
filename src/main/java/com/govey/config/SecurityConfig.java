@@ -2,6 +2,7 @@ package com.govey.config;
 
 import com.govey.security.JwtAccessDeniedHandler;
 import com.govey.security.JwtAuthenticationEntryPoint;
+import com.govey.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -24,6 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    public final CustomOAuth2UserService customOAuth2UserService;
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -43,6 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/auth/signin").permitAll()
                 .antMatchers("/api/users/signup").permitAll()
                 .anyRequest().authenticated()
+                .and()
+                .oauth2Login()
+                .userInfoEndpoint().userService(customOAuth2UserService).and().permitAll()
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider));
     }

@@ -2,9 +2,7 @@ package com.govey.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -92,23 +90,16 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
     private Set<Authority> authorities;
 
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
+
     public String getUsername() {
-        return this.account;
+        return this.username;
     }
 
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    public boolean isEnabled() {
-        return true;
+    public String getRoleKey() {
+        return this.role.getKey();
     }
 }
+

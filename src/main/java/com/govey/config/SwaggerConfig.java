@@ -34,14 +34,20 @@ public class SwaggerConfig {
                 .build();
     }
 }
-//
-//@Configuration
-//@EnableWebMvc
-//class WebMvcConfig implements WebMvcConfigurer {
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        // index.html 파일 경로
-//        registry.addResourceHandler("/redoc/**").addResourceLocations("classpath:/redoc/");
-//
-//    }
-//}
+
+@Configuration
+@EnableWebMvc
+class WebMvcConfig implements WebMvcConfigurer {
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("/*.worker.js").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
+        registry.addResourceHandler("/fonts/**").addResourceLocations("classpath:/static/fonts/");
+        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
+        registry.addResourceHandler("/favicon.ico").addResourceLocations("classpath:/");
+        // index.html 파일 경로
+        registry.addResourceHandler("/dist/**").addResourceLocations("classpath:/dist/");
+
+    }
+}
