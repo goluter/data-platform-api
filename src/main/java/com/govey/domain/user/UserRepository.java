@@ -1,5 +1,6 @@
 package com.govey.domain.user;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 
 @Repository
@@ -19,5 +21,11 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query(value = UPDATE_USER_LAST_LOGIN, nativeQuery = true)
     int updateUserLastLogin(@Param("account") String account, @Param("time")LocalDateTime time);
 
-    User findByAccount(String account);
+    Optional<User> findByAccount(String account);
+
+    @EntityGraph(attributePaths = "authorities")
+    Optional<User> findOneWithAuthoritiesByUsername(String username);
+
+    @EntityGraph(attributePaths = "authorities")
+    Optional<User> findOneWithAuthoritiesByAccount(String account);
 }
