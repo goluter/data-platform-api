@@ -2,4 +2,3 @@
 /.idea/
 /.gradle/
 /build/
-/src/main/resources/application-oauth.yaml
