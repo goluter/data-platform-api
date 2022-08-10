@@ -27,8 +27,7 @@ public class PostService {
 
     // TODO: PostDto 받도록 수정
     @Transactional
-    public Post add(Post post) {
-//        Post post = Post.builder().build();
+    public Post write(Post post) {
         return postRepository.save(post);
     }
 
@@ -40,5 +39,10 @@ public class PostService {
     @Transactional()
     public List<Post> list() {
         return postRepository.findAll();
+    }
+
+    @Transactional()
+    public List<Post> findAllByCategory(String category) {
+        return postRepository.findAllByCategory(category);
     }
 }

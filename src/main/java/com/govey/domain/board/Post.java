@@ -21,7 +21,7 @@ import java.util.ArrayList;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table
+@Table(name = "post_entity")
 @DynamicInsert
 @Where(clause = "deleted=false")
 public class Post extends BaseEntity {
@@ -47,7 +47,7 @@ public class Post extends BaseEntity {
     private Boolean isNotice;
 
     @Column
-    @ColumnDefault("0")
+    @ColumnDefault("false")
     private Boolean hasAttachment;
 
     @Column

@@ -63,7 +63,6 @@ public class OAuth2UserAttributes {
         return User.builder()
                 .username(name)
                 .email(email)
-                .role(Role.USER)
                 .build();
     }
 }

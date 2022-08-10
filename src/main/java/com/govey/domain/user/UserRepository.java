@@ -10,16 +10,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserRepository extends JpaRepository<User, UUID> {
     String UPDATE_USER_LAST_LOGIN = "UPDATE user SET last_login = :time WHERE account = :account";
 
     @Transactional
     @Modifying
     @Query(value = UPDATE_USER_LAST_LOGIN, nativeQuery = true)
     int updateUserLastLogin(@Param("account") String account, @Param("time")LocalDateTime time);
+
+    Optional<User> findByNickname(String nickname);
 
     Optional<User> findByAccount(String account);
 

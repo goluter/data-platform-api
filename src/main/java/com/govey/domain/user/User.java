@@ -43,7 +43,7 @@ public class User {
     @Column(name = "username", length = 50, unique = true)
     private String username;
 
-    @Column(name = "nickname", length = 50)
+    @Column(name = "nickname", length = 50, unique = true)
     private String nickname;
 
     private String email;
@@ -90,16 +90,12 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
     private Set<Authority> authorities;
 
-    @Column(nullable = false)
-    @Enumerated(value = EnumType.STRING)
-    private Role role;
-
     public String getUsername() {
         return this.username;
     }
 
     public String getRoleKey() {
-        return this.role.getKey();
+        return "ROLE_USER";
     }
 }
 

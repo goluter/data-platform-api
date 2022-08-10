@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -55,6 +56,15 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    public User retrieve(UUID id) {
+        return userRepository.findById(id).get();
+    }
+
+    public User findByNickname(String nickname) {
+        return userRepository.findByNickname(nickname).get();
+    }
+
     @Transactional()
     public User update(String account, UserRequest request) {
         User user = userRepository.findByAccount(account).orElseThrow(() -> new IllegalStateException(
@@ -65,6 +75,8 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+
 
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthorities(String username) {
