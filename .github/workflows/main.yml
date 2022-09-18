@@ -64,6 +64,15 @@ jobs:
           script: |
             source ~/.bashrc
             docker run -it --rm -p 9020:8080 -d --name data-platform-api swtover/govey-api:main-latest
+      - name: clean
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_SSH_IP }}
+          username: ${{ secrets.REMOTE_SSH_ID }}
+          password: ${{ secrets.REMOTE_SSH_PASSWORD }}
+          port: ${{ secrets.REMOTE_SSH_PORT }}
+          script: |
+            docker image prune -f
       - uses: act10ns/slack@v1
         with:
           status: ${{ job.status }}
