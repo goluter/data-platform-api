@@ -1,0 +1,41 @@
+package com.govey.controller.users.surveys;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.govey.service.surveys.domain.SurveyStatus;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class SurveyRequest {
+    private UUID groupId;
+
+    @Size(min = 1, max = 1000)
+    private String subject;
+
+    @Size(min = 1)
+    private String content;
+
+    @NotNull
+    private Boolean anonymous;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @NotNull
+    private LocalDateTime startAt;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @NotNull
+    private LocalDateTime endAt;
+
+    private SurveyStatus status;
+}
