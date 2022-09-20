@@ -6,6 +6,7 @@ import com.govey.service.user.domain.Authority;
 import com.govey.service.user.domain.User;
 import com.govey.service.user.domain.UserType;
 import com.govey.service.user.infrastructure.UserRepository;
+import com.govey.utils.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,8 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+    @Autowired
+    private EntityManager entityManager;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -36,6 +39,7 @@ public class UserService {
 
         User user = User.builder()
                 .username(request.getUsername())
+                .password(passwordEncoder.encode(request.getPassword()))
                 .type(UserType.general)
                 .name(request.getName())
                 .nickname(request.getNickname())
@@ -135,5 +139,29 @@ public class UserService {
     @Transactional(readOnly = true)
     public Optional<User> getUserByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<User> getUserWithAuthorities(String username) {
+        return userRepository.findOneWithAuthoritiesByUsername(username);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<User> getUserWithAuthoritiesByUsername(String account) {
+        return userRepository.findOneWithAuthoritiesByUsername(account);
+    }
+
+    @Transactional
+    public Optional<User> getMyUserWithAuthorities() {
+        User user = SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUsername).orElseThrow(() -> new IllegalStateException(
+                "does not exists")
+        );
+        if (!user.isActivated()) {
+            throw new IllegalStateException("deactivated user");
+        }
+
+        userRepository.save(user);
+
+        return Optional.of(user);
     }
 }

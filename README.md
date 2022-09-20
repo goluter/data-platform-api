@@ -4,6 +4,7 @@
 
 ## Doc
 - Swagger: http://api.govey.app/swagger-ui/index.html
+  - http://localhost:8080/swagger-ui/index.html
 - ReDoc: http://api.govey.app/dist/redoc/index.html
 
 ## Stack

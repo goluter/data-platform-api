@@ -1,12 +1,14 @@
 package com.govey.service.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.govey.domain.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -27,7 +29,8 @@ public class User extends BaseEntity {
     @Column(name = "username", length = 50, unique = true)
     private String username;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @NotNull
     @Column(name = "password", length = 100)
     private String password;
 

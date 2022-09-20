@@ -23,7 +23,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+//    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Page<User>> list(HttpServletRequest request,
                                            @RequestParam(value="page", defaultValue="0") int page,
                                            @RequestParam(value="limit", defaultValue="0") int limit
