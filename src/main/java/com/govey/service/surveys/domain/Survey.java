@@ -1,7 +1,7 @@
-package com.govey.service.posts.domain;
+package com.govey.service.surveys.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.govey.domain.BaseEntity;
 import com.govey.service.users.domain.User;
 import lombok.*;
@@ -9,9 +9,10 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -21,13 +22,14 @@ import java.util.List;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Entity
+@Builder
 @Table
 @DynamicInsert
 @Where(clause = "deleted=false")
-public class Post extends BaseEntity {
+public class Survey extends BaseEntity {
     @ManyToOne
-    @JsonIncludeProperties(value = {"id"})
     @JoinColumn(nullable = false)
+    @JsonIncludeProperties(value = {"id"})
     private User user;
 
     @Column
@@ -41,26 +43,33 @@ public class Post extends BaseEntity {
     private String content;
 
     @Column
-    private String category;
+    private SurveyStatus status;
+
+    @Column(columnDefinition = "TIMESTAMP default CURRENT_TIMESTAMP", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime startAt;
+
+    @Column(columnDefinition = "TIMESTAMP default CURRENT_TIMESTAMP", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime endAt;
 
     @Column
-    @ColumnDefault("false")
-    private Boolean isNotice;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime completedAt;
 
-    @Column
+
+    @Column(columnDefinition = "Integer default 0")
     @ColumnDefault("0")
     private Integer goods;
 
-    @Column
+    @Column(columnDefinition = "Integer default 0")
     @ColumnDefault("0")
     private Integer nogoods;
 
-    @Column
+    @Column(columnDefinition = "Integer default 0")
     @ColumnDefault("0")
     private Integer hits;
-
-    @OneToMany(fetch = FetchType.EAGER)
-    @ToString.Exclude
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private List<PostFile> files;
 }

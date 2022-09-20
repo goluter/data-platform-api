@@ -1,4 +1,4 @@
-package com.govey.service.user.domain;
+package com.govey.service.users.domain;
 
 import lombok.*;
 

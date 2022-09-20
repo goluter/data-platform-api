@@ -1,8 +1,8 @@
 package com.govey.controller.admins.notifications;
 
-import com.govey.service.notification.application.NotificationService;
-import com.govey.service.notification.domain.Notification;
-import com.govey.service.user.application.UserService;
+import com.govey.service.notifications.application.NotificationService;
+import com.govey.service.notifications.domain.Notification;
+import com.govey.service.users.application.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

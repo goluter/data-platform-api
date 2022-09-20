@@ -1,11 +1,11 @@
-package com.govey.service.user.application;
+package com.govey.service.users.application;
 
 import com.govey.controller.users.users.ChangePasswordRequest;
 import com.govey.controller.users.users.UpdateUserRequest;
-import com.govey.service.user.domain.Authority;
-import com.govey.service.user.domain.User;
-import com.govey.service.user.domain.UserType;
-import com.govey.service.user.infrastructure.UserRepository;
+import com.govey.service.users.domain.Authority;
+import com.govey.service.users.domain.User;
+import com.govey.service.users.domain.UserType;
+import com.govey.service.users.infrastructure.UserRepository;
 import com.govey.utils.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

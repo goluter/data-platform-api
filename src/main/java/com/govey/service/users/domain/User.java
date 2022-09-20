@@ -1,6 +1,5 @@
-package com.govey.service.user.domain;
+package com.govey.service.users.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.govey.domain.BaseEntity;
 import lombok.*;

@@ -2,7 +2,7 @@ package com.govey.service.posts.domain;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.govey.domain.BaseEntity;
-import com.govey.service.user.domain.User;
+import com.govey.service.users.domain.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

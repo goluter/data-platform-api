@@ -1,10 +1,10 @@
-package com.govey.service.notification.application;
+package com.govey.service.notifications.application;
 
 import com.govey.controller.admins.notifications.NotificationDto;
-import com.govey.service.notification.domain.Notification;
-import com.govey.service.notification.infrastructure.NotificationRepository;
-import com.govey.service.user.domain.User;
-import com.govey.service.user.infrastructure.UserRepository;
+import com.govey.service.notifications.domain.Notification;
+import com.govey.service.notifications.infrastructure.NotificationRepository;
+import com.govey.service.users.domain.User;
+import com.govey.service.users.infrastructure.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

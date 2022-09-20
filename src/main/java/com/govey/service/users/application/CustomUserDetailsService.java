@@ -1,7 +1,7 @@
-package com.govey.service.user.application;
+package com.govey.service.users.application;
 
-import com.govey.service.user.domain.User;
-import com.govey.service.user.infrastructure.UserRepository;
+import com.govey.service.users.domain.User;
+import com.govey.service.users.infrastructure.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

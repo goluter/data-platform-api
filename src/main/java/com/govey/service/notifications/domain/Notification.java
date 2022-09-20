@@ -1,8 +1,8 @@
-package com.govey.service.notification.domain;
+package com.govey.service.notifications.domain;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.govey.domain.BaseEntity;
-import com.govey.service.user.domain.User;
+import com.govey.service.users.domain.User;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;

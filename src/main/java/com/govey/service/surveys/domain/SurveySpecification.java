@@ -1,4 +1,4 @@
-package com.govey.service.posts.domain;
+package com.govey.service.surveys.domain;
 
 import com.govey.service.users.domain.User;
 import org.springframework.data.jpa.domain.Specification;
@@ -8,14 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class PostSpecification {
-    public static Specification<Post> find(User reader, Optional<String> subject, Optional<String> category) {
-        return (Specification<Post>) ((root, query, builder) -> {
+public class SurveySpecification {
+    public static Specification<Survey> find(User reader, Optional<String> subject, Optional<List<SurveyStatus>> statuses) {
+        return (Specification<Survey>) ((root, query, builder) -> {
             List<Predicate> list = new ArrayList<>();
 
-            if (category.orElse(null) != null && !category.get().equals("")) {
-                list.add(builder.equal(root.get("category").as(String.class), category.get()));
-            }
             if (subject.orElse(null) != null && !subject.get().equals("")) {
                 list.add(builder.like(root.get("subject").as(String.class), "%" + subject.get() + "%"));
             }

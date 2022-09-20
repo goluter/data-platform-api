@@ -1,9 +1,7 @@
-package com.govey.service.posts.domain;
+package com.govey.service.surveys.domain;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.govey.domain.BaseEntity;
-import com.govey.service.users.domain.User;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
@@ -11,7 +9,6 @@ import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Setter
@@ -22,45 +19,34 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table
+@Builder
 @DynamicInsert
 @Where(clause = "deleted=false")
-public class Post extends BaseEntity {
-    @ManyToOne
-    @JsonIncludeProperties(value = {"id"})
+public class Poll extends BaseEntity {
+    @ManyToOne()
     @JoinColumn(nullable = false)
-    private User user;
-
-    @Column
-    private String author;
+    @JsonIncludeProperties(value = {"id"})
+    private Survey survey;
 
     @Column(nullable = false)
     private String subject;
+
+    @Column
+    @ColumnDefault("")
+    private String description;
 
     @Lob
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
     @Column
-    private String category;
+    @ColumnDefault("false")
+    private Boolean duplicable;
+
+    @Column(nullable = false)
+    private PollType type;
 
     @Column
     @ColumnDefault("false")
-    private Boolean isNotice;
-
-    @Column
-    @ColumnDefault("0")
-    private Integer goods;
-
-    @Column
-    @ColumnDefault("0")
-    private Integer nogoods;
-
-    @Column
-    @ColumnDefault("0")
-    private Integer hits;
-
-    @OneToMany(fetch = FetchType.EAGER)
-    @ToString.Exclude
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private List<PostFile> files;
+    private Boolean mandatory;
 }

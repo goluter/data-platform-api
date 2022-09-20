@@ -2,12 +2,11 @@ package com.govey.controller.users.posts;
 
 import com.govey.service.posts.application.PostService;
 import com.govey.service.posts.domain.Post;
-import com.govey.service.user.application.UserService;
-import com.govey.service.user.domain.User;
+import com.govey.service.users.application.UserService;
+import com.govey.service.users.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

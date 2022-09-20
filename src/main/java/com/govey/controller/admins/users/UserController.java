@@ -1,10 +1,8 @@
 package com.govey.controller.admins.users;
 
-import com.govey.controller.users.users.ChangePasswordRequest;
 import com.govey.controller.users.users.UpdateUserRequest;
-import com.govey.service.user.application.UserDto;
-import com.govey.service.user.application.UserService;
-import com.govey.service.user.domain.User;
+import com.govey.service.users.application.UserService;
+import com.govey.service.users.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;

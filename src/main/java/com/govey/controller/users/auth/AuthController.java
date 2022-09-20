@@ -2,7 +2,7 @@ package com.govey.controller.users.auth;
 
 import com.govey.config.TokenProvider;
 import com.govey.filter.JwtFilter;
-import com.govey.service.user.application.UserService;
+import com.govey.service.users.application.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
 
 @RestController("Users.AuthController")
 @RequiredArgsConstructor
