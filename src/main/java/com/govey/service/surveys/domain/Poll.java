@@ -32,7 +32,6 @@ public class Poll extends BaseEntity {
     private String subject;
 
     @Column
-    @ColumnDefault("")
     private String description;
 
     @Lob
@@ -40,13 +39,11 @@ public class Poll extends BaseEntity {
     private String content;
 
     @Column
-    @ColumnDefault("false")
     private Boolean duplicable;
 
     @Column(nullable = false)
     private PollType type;
 
     @Column
-    @ColumnDefault("false")
     private Boolean mandatory;
 }

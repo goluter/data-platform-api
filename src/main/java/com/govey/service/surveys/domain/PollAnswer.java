@@ -24,17 +24,17 @@ import javax.persistence.*;
 @Where(clause = "deleted=false")
 public class PollAnswer extends BaseEntity {
     @ManyToOne()
-    @JoinColumn(name="poll_id", nullable = false)
+    @JoinColumn(nullable = false)
     @JsonIncludeProperties(value = {"id"})
     private Poll poll;
 
     @ManyToOne()
-    @JoinColumn(name="poll_item_id", nullable = false)
+    @JoinColumn(nullable = false)
     @JsonIncludeProperties(value = {"id"})
     private PollItem pollItem;
 
     @ManyToOne()
-    @JoinColumn(name="user_id", nullable = false)
+    @JoinColumn(nullable = false)
 //    @JsonIncludeProperties(value = {"id"})
     private User user;
 }

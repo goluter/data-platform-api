@@ -24,7 +24,7 @@ import javax.persistence.*;
 @Where(clause = "deleted=false")
 public class SurveyBookmark extends BaseEntity {
     @ManyToOne()
-    @JoinColumn(name="survey_id", nullable = false)
+    @JoinColumn(nullable = false)
 //    @JsonIncludeProperties(value = {"id"})
     private Survey survey;
 

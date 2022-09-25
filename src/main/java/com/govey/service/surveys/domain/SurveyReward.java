@@ -23,7 +23,7 @@ import javax.persistence.*;
 @Where(clause = "deleted=false")
 public class SurveyReward extends BaseEntity {
     @ManyToOne()
-    @JoinColumn(name="survey_id", nullable = false)
+    @JoinColumn(nullable = false)
     @JsonIncludeProperties(value = {"id"})
     private Survey survey;
 
