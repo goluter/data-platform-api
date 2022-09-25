@@ -1,5 +1,6 @@
 package com.govey.service.surveys.application;
 
+import com.govey.controller.users.surveys.SurveyCurationType;
 import com.govey.controller.users.surveys.SurveyRequest;
 import com.govey.controller.users.surveys.SurveyUpdateRequest;
 import com.govey.service.surveys.domain.Survey;
@@ -44,6 +45,15 @@ public class SurveyService {
         );
     }
 
+    @Transactional(readOnly = true)
+    public List<Survey> listCuration(SurveyCurationType curationType) {
+        if (curationType == SurveyCurationType.popular) {
+            return surveyRepository.findAllByIsPopular(true);
+        } else {
+            return surveyRepository.findAllByIsRecommended(true);
+        }
+    }
+
     @Transactional()
     public Optional<Survey> retrieve(UUID id, Optional<User> reader) {
         Optional<Survey> survey = surveyRepository.findById(id);
@@ -58,6 +68,8 @@ public class SurveyService {
                 .startAt(dto.getStartAt())
                 .endAt(dto.getEndAt())
                 .author(author.getNickname())
+                .isPopular(false)
+                .isRecommended(false)
                 .user(author)
                 // TODO 초기 상태 변경
 //                .status(SurveyStatus.pending)
@@ -87,6 +99,12 @@ public class SurveyService {
         Survey entity = surveyRepository.findById(id).orElseThrow(() -> new IllegalStateException(
                 id + " does not exists")
         );
+        if (request.getIsPopular() != null) {
+            entity.setIsPopular(request.getIsPopular());
+        }
+        if (request.getIsRecommended() != null) {
+            entity.setIsRecommended(request.getIsRecommended());
+        }
         if (request.getSubject() != null) {
             entity.setSubject(request.getSubject());
         }

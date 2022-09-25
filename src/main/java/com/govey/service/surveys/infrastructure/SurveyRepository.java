@@ -8,12 +8,17 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface SurveyRepository extends JpaRepository<Survey, UUID> {
     Optional<Survey> findByUser(User user);
+
+    List<Survey> findAllByIsPopular(Boolean isPopular);
+
+    List<Survey> findAllByIsRecommended(Boolean isRecommended);
 
     Page<Survey> findAll(Specification<Survey> spec, Pageable pageable);
 }

@@ -31,8 +31,11 @@ public class SurveyRewardService {
     private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
-    public Page<SurveyReward> page(int page, int limit) {
-        return SurveyRewardRepository.findAll(
+    public Page<SurveyReward> page(UUID surveyId, int page, int limit) {
+        Survey survey = surveyRepository.findById(surveyId).get();
+
+        return SurveyRewardRepository.findAllBySurvey(
+                survey,
                 PageRequest.of(page, limit, Sort.by("createdAt").descending())
         );
     }

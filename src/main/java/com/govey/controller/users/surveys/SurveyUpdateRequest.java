@@ -24,6 +24,10 @@ public class SurveyUpdateRequest {
 
     private String target;
 
+    private Boolean isPopular;
+
+    private Boolean isRecommended;
+
     private List<String> tags;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)

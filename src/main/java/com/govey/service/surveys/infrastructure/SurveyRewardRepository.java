@@ -12,5 +12,5 @@ import java.util.UUID;
 
 @Repository
 public interface SurveyRewardRepository extends JpaRepository<SurveyReward, UUID> {
-    Page<SurveyReward> findAll(Pageable pageable);
+    Page<SurveyReward> findAllBySurvey(Survey survey, Pageable pageable);
 }

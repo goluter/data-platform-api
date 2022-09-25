@@ -71,6 +71,10 @@ public class Survey extends BaseEntity {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime rewardAt;
 
+    private Boolean isPopular;
+
+    private Boolean isRecommended;
+
     @ColumnDefault("0")
     private Integer goods;
 

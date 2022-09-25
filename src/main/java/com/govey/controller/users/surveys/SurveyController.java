@@ -1,10 +1,7 @@
 package com.govey.controller.users.surveys;
 
 import com.govey.service.surveys.application.*;
-import com.govey.service.surveys.domain.Poll;
-import com.govey.service.surveys.domain.Survey;
-import com.govey.service.surveys.domain.SurveyBookmark;
-import com.govey.service.surveys.domain.SurveyStatus;
+import com.govey.service.surveys.domain.*;
 import com.govey.service.users.application.UserService;
 import com.govey.service.users.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +49,16 @@ public class SurveyController {
         return ResponseEntity.ok(surveyService.page(user, page, limit, subject, statuses));
     }
 
+    @GetMapping("/curations")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<List<Survey>> curation(Authentication authentication,
+                                             @RequestParam SurveyCurationType type
+    ) {
+//        User author = userService.getUserByUsername(authentication.getName()).get();
+        User user = userService.getUserByUsername("admin").get();
+        return ResponseEntity.ok(surveyService.listCuration(type));
+    }
+
     @GetMapping("/{id}")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Survey> retrieve(Authentication authentication, @PathVariable UUID id) {
@@ -91,5 +98,18 @@ public class SurveyController {
         //        User reader = userService.getUserByUsername(authentication.getName()).get();
         User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(surveyBookmarkService.add(user, id));
+    }
+
+    @PostMapping("/{id}/rewards")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<SurveyReward> addReward(@PathVariable UUID id, Authentication authentication, @Valid @RequestBody SurveyReward body) {
+        //        User reader = userService.getUserByUsername(authentication.getName()).get();
+        return ResponseEntity.ok(surveyRewardService.add(id, body));
+    }
+
+    @GetMapping("/{id}/rewards")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<List<SurveyReward>> listRewards(@PathVariable UUID id) {
+        return ResponseEntity.ok(surveyRewardService.page(id, 0, 1000).getContent());
     }
 }
