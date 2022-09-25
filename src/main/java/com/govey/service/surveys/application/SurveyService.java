@@ -5,10 +5,8 @@ import com.govey.controller.users.surveys.SurveyUpdateRequest;
 import com.govey.service.surveys.domain.Survey;
 import com.govey.service.surveys.domain.SurveySpecification;
 import com.govey.service.surveys.domain.SurveyStatus;
-import com.govey.service.surveys.infrastructure.PollAnswerRepository;
-import com.govey.service.surveys.infrastructure.PollItemRepository;
-import com.govey.service.surveys.infrastructure.PollRepository;
-import com.govey.service.surveys.infrastructure.SurveyRepository;
+import com.govey.service.surveys.domain.SurveyTag;
+import com.govey.service.surveys.infrastructure.*;
 import com.govey.service.users.domain.User;
 import com.govey.service.users.infrastructure.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +26,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SurveyService {
     private final SurveyRepository surveyRepository;
+    private final SurveyRewardRepository surveyRewardRepository;
+    private final SurveyBookmarkRepository surveyBookmarkRepository;
+    private final SurveyTagRepository surveyTagRepository;
     private final PollRepository pollRepository;
     private final PollItemRepository pollItemRepository;
     private final PollAnswerRepository pollIAnswerRepository;
@@ -51,18 +52,34 @@ public class SurveyService {
 
     @Transactional()
     public Survey add(User author, SurveyRequest dto) {
-        Survey survey = Survey.builder()
+        Survey entity = surveyRepository.save(Survey.builder()
                 .subject(dto.getSubject())
                 .content(dto.getContent())
                 .startAt(dto.getStartAt())
                 .endAt(dto.getEndAt())
                 .author(author.getNickname())
                 .user(author)
-                .status(SurveyStatus.pending)
-                .build();
-        survey.setId(UUID.randomUUID());
+                // TODO 초기 상태 변경
+//                .status(SurveyStatus.pending)
+                .status(SurveyStatus.ongoing)
+                .build());
 
-        return surveyRepository.save(survey);
+        if (dto.getTarget() != null) {
+            // TODO: 타겟 엔티티로 받도록 수정
+            entity.setTarget(dto.getTarget());
+        }
+
+        if (dto.getTags() != null && dto.getTags().size() > 0) {
+            entity.setTag("#" + String.join(" #", dto.getTags()));
+            dto.getTags().forEach((tag) -> {
+                surveyTagRepository.save(SurveyTag.builder()
+                        .survey(entity)
+                        .value(tag)
+                        .build());
+            });
+        }
+
+        return surveyRepository.save(entity);
     }
 
     @Transactional()

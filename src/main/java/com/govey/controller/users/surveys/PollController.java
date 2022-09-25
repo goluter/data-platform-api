@@ -28,13 +28,13 @@ public class PollController {
     private final PollUserService pollUserService;
 
     @GetMapping("/")
-    @PreAuthorize("hasAnyRole('USER','ADMIN','GUEST')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<List<Poll>> list(Authentication authentication) {
         return ResponseEntity.ok(pollService.list());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('USER','ADMIN','GUEST')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<PollResponse> retrieve(@PathVariable UUID id, Authentication authentication) {
         User author = userService.getUserByUsername(authentication.getName()).get();
 
@@ -48,36 +48,34 @@ public class PollController {
         pollResponse.setContent(poll.getContent());
         pollResponse.setDuplicable(poll.getDuplicable());
         pollResponse.setType(poll.getType());
-
-
         List<PollUser> users = pollUserService.listByPollId(poll.getId());
-
         return ResponseEntity.ok(pollResponse);
     }
 
     @PatchMapping("/{id}")
-    @PreAuthorize("hasAnyRole('USER','ADMIN','GUEST')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Poll> update(@PathVariable UUID id, @Valid @RequestBody Poll body) {
         return ResponseEntity.ok(pollService.update(id, body));
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('USER','ADMIN','GUEST')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity delete(@PathVariable UUID id) {
         pollService.softDelete(id);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}/poll-users")
-    @PreAuthorize("hasAnyRole('USER','ADMIN','GUEST')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<List<PollUser>> listAnswer(@PathVariable UUID id) {
         return ResponseEntity.ok(pollUserService.listByPollId(id));
     }
 
     @PostMapping("/{id}/poll-users")
-    @PreAuthorize("hasAnyRole('USER','ADMIN','GUEST')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<PollUser> answer(@PathVariable UUID id, Authentication authentication, @Valid @RequestBody PollUserRequest body) {
-        User author = userService.getUserByUsername(authentication.getName()).get();
+//        User author = userService.getUserByUsername(authentication.getName()).get();
+        User author = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(pollUserService.add(id, author, body));
     }
 }

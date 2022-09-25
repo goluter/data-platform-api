@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -24,8 +25,9 @@ public class SurveyRequest {
     @Size(min = 1)
     private String content;
 
-    @NotNull
-    private Boolean anonymous;
+    private String target;
+
+    private List<String> tags;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)

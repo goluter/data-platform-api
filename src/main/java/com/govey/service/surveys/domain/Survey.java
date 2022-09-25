@@ -38,6 +38,12 @@ public class Survey extends BaseEntity {
     @Column(nullable = false)
     private String subject;
 
+    @Column
+    private String target;
+
+    @Column
+    private String tag;
+
     @Lob
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
@@ -60,16 +66,17 @@ public class Survey extends BaseEntity {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime completedAt;
 
+    @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime rewardAt;
 
-    @Column(columnDefinition = "Integer default 0")
     @ColumnDefault("0")
     private Integer goods;
 
-    @Column(columnDefinition = "Integer default 0")
     @ColumnDefault("0")
     private Integer nogoods;
 
-    @Column(columnDefinition = "Integer default 0")
     @ColumnDefault("0")
     private Integer hits;
 }
