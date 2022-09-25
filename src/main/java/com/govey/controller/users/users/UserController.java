@@ -6,10 +6,15 @@ import com.govey.controller.users.auth.TokenDto;
 import com.govey.filter.JwtFilter;
 import com.govey.service.notifications.application.NotificationService;
 import com.govey.service.notifications.domain.Notification;
+import com.govey.service.posts.domain.Post;
+import com.govey.service.surveys.application.SurveyBookmarkService;
+import com.govey.service.surveys.domain.SurveyBookmark;
 import com.govey.service.users.application.UserDto;
 import com.govey.service.users.application.UserService;
 import com.govey.service.users.domain.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +36,7 @@ public class UserController {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final UserService userService;
     private final NotificationService notificationService;
+    private final SurveyBookmarkService surveyBookmarkService;
 
     @PostMapping("/signin")
     public ResponseEntity<TokenDto> signin(@RequestBody LoginDto loginDto) {
@@ -76,5 +82,13 @@ public class UserController {
     @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity<List<Notification>> checkAll(@PathVariable UUID uuid) {
         return ResponseEntity.ok(notificationService.checkAll(userService.retrieve(uuid).get()));
+    }
+
+    @GetMapping("/self/bookmarks")
+//    @PreAuthorize("hasAnyRole('USER')")
+    public ResponseEntity<Page<SurveyBookmark>> getMyBookmarks(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                                 @RequestParam(value = "limit", defaultValue = "0") int limit) throws Exception {
+        User user = userService.getUserByUsername("admin").get();
+        return ResponseEntity.ok(surveyBookmarkService.page(user, page, limit));
     }
 }

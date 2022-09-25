@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/v1/polls")
+@RequestMapping("/users/v1/polls")
 public class PollController {
     private final UserService userService;
     private final SurveyService surveyService;

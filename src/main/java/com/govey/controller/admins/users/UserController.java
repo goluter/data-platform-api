@@ -48,7 +48,6 @@ public class UserController {
     public ResponseEntity<User> update(Authentication authentication, @PathVariable UUID uuid, @Valid @RequestBody UpdateUserRequest request) throws Exception {
         User author = userService.getUserByUsername(authentication.getName()).get();
         User user = userService.update(uuid, request);
-
         return ResponseEntity.ok(user);
     }
 

@@ -29,8 +29,9 @@ public class SurveyBookmarkService {
     private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
-    public Page<SurveyBookmark> page(int page, int limit) {
-        return surveyBookmarkRepository.findAll(
+    public Page<SurveyBookmark> page(User user, int page, int limit) {
+        return surveyBookmarkRepository.findAllByUser(
+                user,
                 PageRequest.of(page, limit, Sort.by("createdAt").descending())
         );
     }
@@ -42,6 +43,10 @@ public class SurveyBookmarkService {
 
     @Transactional()
     public SurveyBookmark add(User user, UUID surveyId) {
+        if (surveyRepository.findByUser(user).isPresent()) {
+            throw new RuntimeException("이미 북마크하셨습니다.");
+        }
+
         Survey survey = surveyRepository.findById(surveyId).get();
         SurveyBookmark entity = surveyBookmarkRepository.save(SurveyBookmark.builder()
                 .user(user)

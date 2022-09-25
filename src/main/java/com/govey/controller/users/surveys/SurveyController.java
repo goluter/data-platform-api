@@ -1,9 +1,9 @@
 package com.govey.controller.users.surveys;
 
-import com.govey.service.surveys.application.PollService;
-import com.govey.service.surveys.application.SurveyService;
+import com.govey.service.surveys.application.*;
 import com.govey.service.surveys.domain.Poll;
 import com.govey.service.surveys.domain.Survey;
+import com.govey.service.surveys.domain.SurveyBookmark;
 import com.govey.service.surveys.domain.SurveyStatus;
 import com.govey.service.users.application.UserService;
 import com.govey.service.users.domain.User;
@@ -22,9 +22,12 @@ import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/v1/surveys")
+@RequestMapping("/users/v1/surveys")
 public class SurveyController {
     private final SurveyService surveyService;
+    private final SurveyTagService surveyTagService;
+    private final SurveyBookmarkService surveyBookmarkService;
+    private final SurveyRewardService surveyRewardService;
     private final PollService pollService;
     private final UserService userService;
 
@@ -78,5 +81,13 @@ public class SurveyController {
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Poll> addPoll(@PathVariable UUID id, Authentication authentication, @Valid @RequestBody PollRequest body) {
         return ResponseEntity.ok(pollService.add(id, body));
+    }
+
+    @PostMapping("/{id}/bookmark")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<SurveyBookmark> addBookmark(@PathVariable UUID id, Authentication authentication, @Valid @RequestBody PollRequest body) {
+        //        User reader = userService.getUserByUsername(authentication.getName()).get();
+        User user = userService.getUserByUsername("admin").get();
+        return ResponseEntity.ok(surveyBookmarkService.add(user, id));
     }
 }

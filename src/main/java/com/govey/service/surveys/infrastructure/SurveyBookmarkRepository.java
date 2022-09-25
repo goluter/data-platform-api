@@ -2,6 +2,7 @@ package com.govey.service.surveys.infrastructure;
 
 import com.govey.service.surveys.domain.Survey;
 import com.govey.service.surveys.domain.SurveyBookmark;
+import com.govey.service.users.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -12,5 +13,5 @@ import java.util.UUID;
 
 @Repository
 public interface SurveyBookmarkRepository extends JpaRepository<SurveyBookmark, UUID> {
-    Page<SurveyBookmark> findAll(Pageable pageable);
+    Page<SurveyBookmark> findAllByUser(User user, Pageable pageable);
 }
