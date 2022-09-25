@@ -32,59 +32,61 @@ public class SurveyController {
     private final UserService userService;
 
     @PostMapping("/")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Survey> add(Authentication authentication, @Valid @RequestBody SurveyRequest body) {
-        User author = userService.getUserByUsername(authentication.getName()).get();
-
-        return ResponseEntity.ok(surveyService.add(author, body));
+//        User author = userService.getUserByUsername(authentication.getName()).get();
+        User user = userService.getUserByUsername("admin").get();
+        return ResponseEntity.ok(surveyService.add(user, body));
     }
 
     @GetMapping("/")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Page<Survey>> list(Authentication authentication,
                                              @RequestParam(value = "page", defaultValue = "0") int page,
                                              @RequestParam(value = "limit", defaultValue = "0") int limit,
                                              @RequestParam Optional<String> subject,
                                              @RequestParam Optional<List<SurveyStatus>> statuses
     ) {
-        User author = userService.getUserByUsername(authentication.getName()).get();
-        return ResponseEntity.ok(surveyService.page(author, page, limit, subject, statuses));
+//        User author = userService.getUserByUsername(authentication.getName()).get();
+        User user = userService.getUserByUsername("admin").get();
+        return ResponseEntity.ok(surveyService.page(user, page, limit, subject, statuses));
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Survey> retrieve(Authentication authentication, @PathVariable UUID id) {
-        Optional<User> author = userService.getUserByUsername(authentication.getName());
-        return ResponseEntity.ok(surveyService.retrieve(id, author).get());
+//        Optional<User> author = userService.getUserByUsername(authentication.getName());
+        User user = userService.getUserByUsername("admin").get();
+        return ResponseEntity.ok(surveyService.retrieve(id, Optional.of(user)).get());
     }
 
     @PatchMapping("/{id}")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Survey> update(@PathVariable UUID id, @Valid @RequestBody SurveyUpdateRequest body) {
         return ResponseEntity.ok(surveyService.update(id, body));
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity delete(@PathVariable UUID id) {
         surveyService.softDelete(id);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}/polls")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<List<Poll>> listPoll(@PathVariable UUID id) {
         return ResponseEntity.ok(pollService.findAllBySurvey(id));
     }
 
     @PostMapping("/{id}/polls")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Poll> addPoll(@PathVariable UUID id, Authentication authentication, @Valid @RequestBody PollRequest body) {
         return ResponseEntity.ok(pollService.add(id, body));
     }
 
     @PostMapping("/{id}/bookmark")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<SurveyBookmark> addBookmark(@PathVariable UUID id, Authentication authentication, @Valid @RequestBody PollRequest body) {
         //        User reader = userService.getUserByUsername(authentication.getName()).get();
         User user = userService.getUserByUsername("admin").get();

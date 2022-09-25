@@ -17,8 +17,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 public class SurveyRequest {
-    private UUID groupId;
-
     @Size(min = 1, max = 1000)
     private String subject;
 
