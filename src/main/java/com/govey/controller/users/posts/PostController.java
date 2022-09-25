@@ -24,7 +24,7 @@ public class PostController {
     private final UserService userService;
 
     @GetMapping("/page")
-//    @PreAuthorize("hasAnyRole('USER','ADMIN','GUEST')")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Page<Post>> page(Authentication authentication, @RequestParam(value = "page", defaultValue = "0") int page,
                                                    @RequestParam(value = "limit", defaultValue = "0") int limit,
                                                    @RequestParam Optional<String> subject,
@@ -37,7 +37,7 @@ public class PostController {
     }
 
     @PostMapping("/")
-//    @PreAuthorize("hasAnyRole('USER','ADMIN','GUEST')")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Post> add(Authentication authentication, @Valid @RequestBody PostRequest body) {
 //        User author = userService.getUserByUsername(authentication.getName()).get();
         User author = userService.getUserByUsername("admin").get();
@@ -45,20 +45,20 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-//    @PreAuthorize("hasAnyRole('USER','ADMIN','GUEST')")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Post> retrieve(Authentication authentication,@PathVariable UUID id) {
 //        Optional<User> author = userService.getUserByUsername(authentication.getName());
         return ResponseEntity.ok(service.retrieve(id, userService.getUserByUsername("admin")).get());
     }
 
     @PatchMapping("/{id}")
-//    @PreAuthorize("hasAnyRole('USER','ADMIN','GUEST')")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Post> update(@PathVariable UUID id, @Valid @RequestBody PostRequest body) {
         return ResponseEntity.ok(service.update(id, body));
     }
 
 //    @DeleteMapping("/{id}")
-//    @PreAuthorize("hasAnyRole('USER','ADMIN','GUEST')")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
 //    public ResponseEntity delete(@PathVariable UUID id) {
 //        service.softDelete(id);
 //        return ResponseEntity.ok().build();

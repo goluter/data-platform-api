@@ -23,7 +23,7 @@ public class PollItemController {
     private final UserService userService;
 
     @PostMapping("/{id}/answers")
-    @PreAuthorize("hasAnyRole('USER','ADMIN','GUEST')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<PollAnswer> answer(@PathVariable UUID id, Authentication authentication, @Valid @RequestBody PollItemRequest body) {
         User author = userService.getUserByUsername(authentication.getName()).get();
 
@@ -31,7 +31,7 @@ public class PollItemController {
     }
 
     @GetMapping("/{id}/answers")
-    @PreAuthorize("hasAnyRole('USER','ADMIN','GUEST')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<List<PollAnswer>> listAnswer(@PathVariable UUID id) {
         return ResponseEntity.ok(pollService.listAnswerByItem(id));
     }
