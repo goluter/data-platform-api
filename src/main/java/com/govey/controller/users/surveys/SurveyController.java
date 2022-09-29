@@ -1,5 +1,7 @@
 package com.govey.controller.users.surveys;
 
+import com.govey.controller.users.posts.PostRequest;
+import com.govey.service.posts.domain.Post;
 import com.govey.service.surveys.application.*;
 import com.govey.service.surveys.domain.*;
 import com.govey.service.users.application.UserService;
@@ -25,6 +27,7 @@ public class SurveyController {
     private final SurveyTagService surveyTagService;
     private final SurveyBookmarkService surveyBookmarkService;
     private final SurveyRewardService surveyRewardService;
+    private final ReportService reportService;
     private final PollService pollService;
     private final UserService userService;
 
@@ -111,5 +114,19 @@ public class SurveyController {
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<List<SurveyReward>> listRewards(@PathVariable UUID id) {
         return ResponseEntity.ok(surveyRewardService.page(id, 0, 1000).getContent());
+    }
+
+    @PostMapping("/{id}/reports")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<Report> addReport(Authentication authentication, @PathVariable UUID id, @Valid @RequestBody ReportRequest body) {
+//        User author = userService.getUserByUsername(authentication.getName()).get();
+        User author = userService.getUserByUsername("admin").get();
+        return ResponseEntity.ok(reportService.add(author, id, body));
+    }
+
+    @GetMapping("/{id}/reports")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<List<Report>> listReports(@PathVariable UUID id) {
+        return ResponseEntity.ok(reportService.page(id, 0, 1000).getContent());
     }
 }
