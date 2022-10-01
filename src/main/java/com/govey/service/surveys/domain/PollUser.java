@@ -9,6 +9,7 @@ import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,8 +30,16 @@ public class PollUser extends BaseEntity {
     private Poll poll;
 
     @ManyToOne()
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = true)
     private User user;
+
+    @Column(nullable = false)
+    private String mainFeature;
+
+//    @ElementCollection
+//    @CollectionTable(name = "poll_feature", joinColumns = @JoinColumn(name = "id"))
+    @Column(nullable = false)
+    private String features;
 
     @Column(nullable = false)
     private String value;

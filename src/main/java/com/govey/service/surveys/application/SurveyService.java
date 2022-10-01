@@ -9,7 +9,6 @@ import com.govey.service.surveys.domain.SurveyStatus;
 import com.govey.service.surveys.domain.SurveyTag;
 import com.govey.service.surveys.infrastructure.*;
 import com.govey.service.users.domain.User;
-import com.govey.service.users.infrastructure.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,21 +26,19 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SurveyService {
     private final SurveyRepository surveyRepository;
-    private final SurveyRewardRepository surveyRewardRepository;
-    private final SurveyBookmarkRepository surveyBookmarkRepository;
     private final SurveyTagRepository surveyTagRepository;
-    private final PollRepository pollRepository;
-    private final PollItemRepository pollItemRepository;
-    private final PollAnswerRepository pollIAnswerRepository;
-    private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
-    public Page<Survey> page(User reader, int page, int limit, Optional<String> subject, Optional<List<SurveyStatus>> statuses) {
-        Specification<Survey> specification = Specification.where(SurveySpecification.find(reader, subject, statuses));
+    public Page<Survey> page(User reader, int page, int limit, Optional<String> searchKey, Optional<String> searchValue, Optional<String> sortKey, Optional<Boolean> isDesc, Optional<List<SurveyStatus>> statuses) {
+        Specification<Survey> specification = Specification.where(SurveySpecification.find(reader, searchKey, searchValue, statuses));
+
+        String key = sortKey.isEmpty() ? "createdAt" : searchKey.get();
+        Sort.Direction direction = isDesc.isEmpty() ? Sort.Direction.DESC : isDesc.get() ? Sort.Direction.DESC : Sort.Direction.ASC;
+
         return surveyRepository.findAll(
                 specification,
                 PageRequest
-                        .of(page, limit, Sort.by("createdAt").descending())
+                        .of(page, limit, Sort.by(direction,  key))
         );
     }
 

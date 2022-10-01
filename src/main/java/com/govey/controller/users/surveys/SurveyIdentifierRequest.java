@@ -11,18 +11,16 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class PollRequest {
+public class SurveyIdentifierRequest {
     @Size(min = 1, max = 1000)
-    @ApiModelProperty(example = "바나나를 좋아하시나요?", notes = "항목 제목", required = true)
+    @ApiModelProperty(example = "이메일 정보", notes = "항목 제목", required = true)
     private String subject;
 
     @Size(min = 0, max = 1000)
-    @ApiModelProperty(example = "솔직하게 답변해주세요.", notes = "추가 설명, 없으면 빈스트링", required = true)
+    @ApiModelProperty(example = "보상을 위한 이메일을 입력해주세요", notes = "항목 설명", required = true)
     private String content;
 
-    private Boolean duplicable;
-
-    private PollType type;
+    private Boolean mandatory;
 
     @ApiModelProperty(example = "0", notes = "우선순위, 높을수록 우선", required = true)
     private Integer priority;

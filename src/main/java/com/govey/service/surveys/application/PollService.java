@@ -6,6 +6,8 @@ import com.govey.service.surveys.domain.*;
 import com.govey.service.surveys.infrastructure.*;
 import com.govey.service.users.domain.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +28,7 @@ public class PollService {
     @Transactional()
     public List<Poll> findAllBySurvey(UUID id) {
         Survey survey = surveyRepository.findById(id).get();
-        return pollRepository.findAllBySurvey(survey);
+        return pollRepository.findAllBySurvey(survey, Sort.by("priority").descending());
     }
 
     @Transactional()
@@ -70,6 +72,7 @@ public class PollService {
                 .survey(survey)
                 .subject(dto.getSubject())
                 .content(dto.getContent())
+                .priority(dto.getPriority())
                 .duplicable(dto.getDuplicable())
                 .type(dto.getType())
                 .build();
@@ -124,15 +127,18 @@ public class PollService {
         );
 
         Survey survey = entity.getSurvey();
-        if (!survey.getStatus().equals(SurveyStatus.pending)) {
-            throw new IllegalStateException("펜딩 중인 투표만 수정이 가능합니다.");
-        }
+//        if (!survey.getStatus().equals(SurveyStatus.pending)) {
+//            throw new IllegalStateException("펜딩 중인 투표만 수정이 가능합니다.");
+//        }
 
         if (request.getSubject() != null) {
             entity.setSubject(request.getSubject());
         }
         if (request.getContent() != null) {
             entity.setContent(request.getContent());
+        }
+        if (request.getPriority() != null) {
+            entity.setPriority(request.getPriority());
         }
 
         return pollRepository.save(entity);

@@ -2,7 +2,7 @@ package com.govey.service.surveys.infrastructure;
 
 import com.govey.service.surveys.domain.Poll;
 import com.govey.service.surveys.domain.Survey;
-import org.springframework.data.domain.Pageable;
+import com.govey.service.surveys.domain.SurveyIdentifier;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,6 +12,6 @@ import java.util.UUID;
 
 
 @Repository
-public interface PollRepository extends JpaRepository<Poll, UUID> {
-    List<Poll> findAllBySurvey(Survey survey, Sort sort);
+public interface SurveyIdentifierRepository extends JpaRepository<SurveyIdentifier, UUID> {
+    List<SurveyIdentifier> findAllBySurvey(Survey survey, Sort sort);
 }

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -28,23 +29,30 @@ public class PollUserService {
     }
 
     @Transactional()
-    public PollUser add(UUID pollId, User user, PollUserRequest dto) {
+    public PollUser add(UUID pollId, Optional<User> user, PollUserRequest dto) {
         Poll poll = pollRepository.findById(pollId).get();
         Survey survey = surveyRepository.findById(poll.getSurvey().getId()).get();
         if (!survey.getStatus().equals(SurveyStatus.ongoing)) {
             throw new RuntimeException("진행중인 투표가 아닙니다.");
         }
-        if (pollUserRepository.findAllByPollAndUser(poll, user).size() != 0) {
-            throw new RuntimeException("이미 투표하셨습니다.");
+
+        if (user.isPresent()) {
+            if (pollUserRepository.findAllByPollAndUser(poll, user.get()).size() != 0) {
+                throw new RuntimeException("이미 투표하셨습니다.");
+            }
         }
+
 
         PollUser pollUser = PollUser.builder()
                 .poll(poll)
-                .user(user)
                 .value(dto.getValue())
+                .mainFeature(dto.getMainFeature())
+                .features(dto.getFeatures())
                 .build();
 
-        pollUser.setId(UUID.randomUUID());
+        if (user.isPresent()) {
+            pollUser.setUser(user.get());
+        }
 
         return pollUserRepository.save(pollUser);
     }

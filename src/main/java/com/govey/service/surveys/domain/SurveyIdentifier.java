@@ -3,7 +3,6 @@ package com.govey.service.surveys.domain;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.govey.domain.BaseEntity;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -22,7 +21,7 @@ import javax.persistence.*;
 @Builder
 @DynamicInsert
 @Where(clause = "deleted=false")
-public class Poll extends BaseEntity {
+public class SurveyIdentifier extends BaseEntity {
     @ManyToOne()
     @JoinColumn(nullable = false)
     @JsonIncludeProperties(value = {"id"})
@@ -31,18 +30,9 @@ public class Poll extends BaseEntity {
     @Column(nullable = false)
     private String subject;
 
-    @Column
-    private String description;
-
     @Lob
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
-
-    @Column
-    private Boolean duplicable;
-
-    @Column(nullable = false)
-    private PollType type;
 
     @Column
     private Boolean mandatory;

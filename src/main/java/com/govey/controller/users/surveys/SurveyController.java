@@ -30,6 +30,7 @@ public class SurveyController {
     private final ReportService reportService;
     private final PollService pollService;
     private final UserService userService;
+    private final SurveyIdentifierService surveyIdentifierService;
 
     @PostMapping("/")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
@@ -44,12 +45,15 @@ public class SurveyController {
     public ResponseEntity<Page<Survey>> list(Authentication authentication,
                                              @RequestParam(value = "page", defaultValue = "0") int page,
                                              @RequestParam(value = "limit", defaultValue = "0") int limit,
-                                             @RequestParam Optional<String> subject,
+                                             @RequestParam Optional<String> searchKey,
+                                             @RequestParam Optional<String> searchValue,
+                                             @RequestParam Optional<String> sortKey,
+                                             @RequestParam Optional<Boolean> isDesc,
                                              @RequestParam Optional<List<SurveyStatus>> statuses
     ) {
 //        User author = userService.getUserByUsername(authentication.getName()).get();
         User user = userService.getUserByUsername("admin").get();
-        return ResponseEntity.ok(surveyService.page(user, page, limit, subject, statuses));
+        return ResponseEntity.ok(surveyService.page(user, page, limit, searchKey, searchValue, sortKey, isDesc, statuses));
     }
 
     @GetMapping("/curations")
@@ -93,6 +97,18 @@ public class SurveyController {
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Poll> addPoll(@PathVariable UUID id, Authentication authentication, @Valid @RequestBody PollRequest body) {
         return ResponseEntity.ok(pollService.add(id, body));
+    }
+
+    @GetMapping("/{id}/identifiers")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<List<SurveyIdentifier>> listIdentifier(@PathVariable UUID id) {
+        return ResponseEntity.ok(surveyIdentifierService.findAllBySurvey(id));
+    }
+
+    @PostMapping("/{id}/identifiers")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<SurveyIdentifier> addIdentifier(@PathVariable UUID id, Authentication authentication, @Valid @RequestBody SurveyIdentifierRequest body) {
+        return ResponseEntity.ok(surveyIdentifierService.add(id, body));
     }
 
     @PostMapping("/{id}/bookmark")
