@@ -11,7 +11,5 @@ import java.util.UUID;
 
 @Repository
 public interface RewardUserRepository extends JpaRepository<RewardUser, UUID> {
-    List<RewardUser> findAllByRewardUser(RewardUser rewardUser);
-
-    List<RewardUser> findAllByRewardUserAndUser(RewardUser rewardUser, User user);
+    List<RewardUser> findAllByUser(User user);
 }

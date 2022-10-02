@@ -40,28 +40,28 @@ public class StoreItemService {
         );
 
         if (request.getCategory() != null) {
-            request.setCategory(request.getCategory());
+            entity.setCategory(request.getCategory());
         }
         if (request.getName() != null) {
-            request.setName(request.getName());
+            entity.setName(request.getName());
         }
         if (request.getDescription() != null) {
-            request.setDescription(request.getDescription());
+            entity.setDescription(request.getDescription());
         }
         if (request.getNotice() != null) {
-            request.setNotice(request.getNotice());
+            entity.setNotice(request.getNotice());
         }
         if (request.getPrice() != null) {
-            request.setPrice(request.getPrice());
+            entity.setPrice(request.getPrice());
         }
         if (request.getImageUrl() != null) {
-            request.setImageUrl(request.getImageUrl());
+            entity.setImageUrl(request.getImageUrl());
         }
         if (request.getStockCount() != null) {
-            request.setStockCount(request.getStockCount());
+            entity.setStockCount(request.getStockCount());
         }
         if (request.getStatus() != null) {
-            request.setStatus(request.getStatus());
+            entity.setStatus(request.getStatus());
         }
 
         return repository.save(entity);

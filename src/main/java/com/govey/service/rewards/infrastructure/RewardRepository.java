@@ -11,7 +11,5 @@ import java.util.UUID;
 
 @Repository
 public interface RewardRepository extends JpaRepository<Reward, UUID> {
-    Page<Reward> findAll(Pageable pageable);
-
-    List<Reward> findAllByType(String type);
+    Page<Reward> findAllByType(Pageable pageable, String type);
 }

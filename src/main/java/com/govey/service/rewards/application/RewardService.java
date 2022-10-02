@@ -1,6 +1,6 @@
 package com.govey.service.rewards.application;
 
-import com.govey.controller.users.storeitems.StoreItemRequest;
+import com.govey.controller.users.rewards.RewardRequest;
 import com.govey.service.rewards.domain.Reward;
 import com.govey.service.rewards.infrastructure.RewardRepository;
 import com.govey.service.users.domain.User;
@@ -21,68 +21,58 @@ public class RewardService {
     private final RewardRepository repository;
 
     @Transactional(readOnly = true)
-    public Page<Reward> page(User reader, int page, int limit) {
-        return repository.findAll(
+    public Page<Reward> page(String type, int page, int limit) {
+        return repository.findAllByType(
                 PageRequest
-                        .of(page, limit, Sort.by("createdAt"))
+                        .of(page, limit, Sort.by("createdAt")),
+                type
         );
     }
 
     @Transactional()
-    public Optional<Reward> retrieve(UUID id, Optional<User> reader) {
+    public Optional<Reward> retrieve(UUID id) {
         return repository.findById(id);
     }
 
     @Transactional()
-    public Reward update(UUID id, StoreItemRequest request) {
+    public Reward update(UUID id, RewardRequest request) {
         Reward entity = repository.findById(id).orElseThrow(() -> new IllegalStateException(
                 id + " does not exists")
         );
 
-        if (request.getCategory() != null) {
-            request.setCategory(request.getCategory());
+        if (request.getType() != null) {
+            entity.setType(request.getType());
         }
         if (request.getName() != null) {
-            request.setName(request.getName());
+            entity.setName(request.getName());
         }
-        if (request.getDescription() != null) {
-            request.setDescription(request.getDescription());
+        if (request.getContent() != null) {
+            entity.setContent(request.getContent());
         }
-        if (request.getNotice() != null) {
-            request.setNotice(request.getNotice());
+        if (request.getRequirements() != null) {
+            entity.setRequirements(request.getRequirements());
         }
-        if (request.getPrice() != null) {
-            request.setPrice(request.getPrice());
+        if (request.getValue() != null) {
+            entity.setValue(request.getValue());
         }
-        if (request.getImageUrl() != null) {
-            request.setImageUrl(request.getImageUrl());
-        }
-        if (request.getStockCount() != null) {
-            request.setStockCount(request.getStockCount());
-        }
-        if (request.getStatus() != null) {
-            request.setStatus(request.getStatus());
+        if (request.getCount() != null) {
+            entity.setCount(request.getCount());
         }
 
         return repository.save(entity);
     }
 
     @Transactional()
-    public Reward add(User author, StoreItemRequest request) {
-        if (!author.isActivated()) {
-            throw new IllegalStateException("deactivated user");
-        }
-
+    public Reward add(RewardRequest request) {
         Reward entity = new Reward();
-        entity.setCategory(request.getCategory());
+        entity.setType(request.getType());
         entity.setName(request.getName());
-        entity.setDescription(request.getDescription());
-        entity.setNotice(request.getNotice());
-        entity.setPrice(request.getPrice());
+        entity.setContent(request.getContent());
+        entity.setRequirements(request.getRequirements());
         entity.setImageUrl(request.getImageUrl());
-        entity.setStockCount(request.getStockCount());
-        entity.setStatus(request.getStatus());
-
+        entity.setValue(request.getValue());
+        entity.setImageUrl(request.getImageUrl());
+        entity.setCount(request.getCount());
         return repository.save(entity);
     }
 

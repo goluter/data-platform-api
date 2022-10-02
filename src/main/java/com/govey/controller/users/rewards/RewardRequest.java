@@ -13,17 +13,26 @@ import javax.validation.constraints.Size;
 @Data
 public class RewardRequest {
     @Size(min = 1, max = 1000)
-    @ApiModelProperty(example = "바나나를 좋아하시나요?", notes = "항목 제목", required = true)
-    private String subject;
+    @ApiModelProperty(example = "칭호", notes = "보상 종류", required = true)
+    private String type;
+
+    @Size(min = 1, max = 1000)
+    @ApiModelProperty(example = "나는 대학생이다.", notes = "보상 이름", required = true)
+    private String name;
 
     @Size(min = 0, max = 1000)
-    @ApiModelProperty(example = "솔직하게 답변해주세요.", notes = "추가 설명, 없으면 빈스트링", required = true)
+    @ApiModelProperty(example = "상명대학교 학생!", notes = "보상 설명", required = true)
     private String content;
 
-    private Boolean duplicable;
+    @Size(min = 0, max = 1000)
+    @ApiModelProperty(example = "상명대학교 인증 링크를 통해 획득할 수 있습니다.", notes = "보상 획득 조건", required = true)
+    private String requirements;
 
-    private PollType type;
+    @ApiModelProperty(example = "0", notes = "기준 값", required = true)
+    private Integer value;
 
-    @ApiModelProperty(example = "0", notes = "우선순위, 높을수록 우선", required = true)
-    private Integer priority;
+    private String imageUrl;
+
+    @ApiModelProperty(example = "0", notes = "획득한 유저 수", required = true)
+    private Integer count;
 }

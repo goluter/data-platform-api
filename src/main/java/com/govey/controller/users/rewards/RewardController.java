@@ -1,85 +1,68 @@
 package com.govey.controller.users.rewards;
 
-import com.govey.controller.users.surveys.PollResponse;
-import com.govey.controller.users.surveys.PollUserRequest;
-import com.govey.service.surveys.application.PollService;
-import com.govey.service.surveys.application.PollUserService;
-import com.govey.service.surveys.application.SurveyService;
-import com.govey.service.surveys.domain.Poll;
-import com.govey.service.surveys.domain.PollUser;
-import com.govey.service.surveys.domain.Survey;
+import com.govey.service.rewards.application.RewardService;
+import com.govey.service.rewards.domain.Reward;
 import com.govey.service.users.application.UserService;
 import com.govey.service.users.domain.User;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/users/v1/polls")
+@RequestMapping("/users/v1/rewards")
 public class RewardController {
     private final UserService userService;
-    private final SurveyService surveyService;
-    private final PollService pollService;
-    private final PollUserService pollUserService;
+    private final RewardService rewardService;
 
-    @GetMapping("/")
+    @PostMapping("/")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public ResponseEntity<List<Poll>> list(Authentication authentication) {
-        return ResponseEntity.ok(pollService.list());
+    public ResponseEntity<Reward> add(@Valid @RequestBody RewardRequest body) {
+        //        User author = userService.getUserByUsername(authentication.getName()).get();
+//        User user = userService.getUserByUsername("admin").get();
+        return ResponseEntity.ok(rewardService.add(body));
+    }
+
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @GetMapping("/page")
+    @ApiOperation(value = "보상 목록 조회", notes = "https://docs.google.com/spreadsheets/d/1R44vgp9HqKqKVdzLmPedYtaI06ZS4kOkUEXkr94kAvQ/edit#gid=550061713 칭호, 업적 탭 참고")
+    public ResponseEntity<Page<Reward>> page(Authentication authentication,
+                                             @RequestParam(value = "page", defaultValue = "0") int page,
+                                             @RequestParam(value = "limit", defaultValue = "0") int limit,
+                                             @ApiParam(name = "보상 타입", value = "칭호 or 업적-포인트 or 업적-설문등록 .. etc https://docs.google.com/spreadsheets/d/1R44vgp9HqKqKVdzLmPedYtaI06ZS4kOkUEXkr94kAvQ/edit#gid=550061713 칭호, 업적 탭 참고")
+                                             @RequestParam(value = "type", defaultValue = "0")
+                                                         String type) {
+//        User reader = userService.getUserByUsername(authentication.getName()).get();
+        return ResponseEntity.ok(rewardService.page(type, page, limit));
     }
 
     @GetMapping("/{id}")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public ResponseEntity<PollResponse> retrieve(@PathVariable UUID id, Authentication authentication) {
+    public ResponseEntity<Reward> retrieve(@PathVariable UUID id, Authentication authentication) {
 //        User author = userService.getUserByUsername(authentication.getName()).get();
         User user = userService.getUserByUsername("admin").get();
-
-        Poll poll = pollService.retrieve(id).get();
-        Survey survey = surveyService.retrieve(poll.getSurvey().getId(), Optional.of(user)).get();
-
-        PollResponse pollResponse = new PollResponse();
-        pollResponse.setId(poll.getId());
-        pollResponse.setSurvey(poll.getSurvey());
-        pollResponse.setSubject(poll.getSubject());
-        pollResponse.setContent(poll.getContent());
-        pollResponse.setDuplicable(poll.getDuplicable());
-        pollResponse.setType(poll.getType());
-        List<PollUser> users = pollUserService.listByPollId(poll.getId());
-        return ResponseEntity.ok(pollResponse);
+        return ResponseEntity.ok(rewardService.retrieve(id).get());
     }
 
     @PatchMapping("/{id}")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public ResponseEntity<Poll> update(@PathVariable UUID id, @Valid @RequestBody Poll body) {
-        return ResponseEntity.ok(pollService.update(id, body));
+    public ResponseEntity<Reward> update(@PathVariable UUID id, @Valid @RequestBody RewardRequest body) {
+        return ResponseEntity.ok(rewardService.update(id, body));
     }
 
-    @DeleteMapping("/{id}")
+//    @DeleteMapping("/{id}")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public ResponseEntity delete(@PathVariable UUID id) {
-        pollService.softDelete(id);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/{id}/poll-users")
-//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public ResponseEntity<List<PollUser>> listAnswer(@PathVariable UUID id) {
-        return ResponseEntity.ok(pollUserService.listByPollId(id));
-    }
-
-    @PostMapping("/{id}/poll-users")
-//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public ResponseEntity<PollUser> answer(@PathVariable UUID id, Authentication authentication, @Valid @RequestBody PollUserRequest body) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-//        User author = userService.getUserByUsername("admin").get();
-        return ResponseEntity.ok(pollUserService.add(id, Optional.empty(), body));
-    }
+//    public ResponseEntity delete(@PathVariable UUID id) {
+//        rewardService.softDelete(id);
+//        return ResponseEntity.ok().build();
+//    }
 }
