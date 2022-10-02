@@ -74,6 +74,7 @@ public class SurveyService {
                 .startAt(dto.getStartAt())
                 .endAt(dto.getEndAt())
                 .author(author.getNickname())
+                .answers(0)
                 .isPopular(false)
                 .isRecommended(false)
                 .user(author)
