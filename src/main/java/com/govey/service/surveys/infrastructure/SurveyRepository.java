@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Repository
 public interface SurveyRepository extends JpaRepository<Survey, UUID> {
-    Optional<Survey> findByUser(User user);
+    Page<Survey> findAllByUser(User user, Pageable pageable);
 
     List<Survey> findAllByIsPopular(Boolean isPopular);
 

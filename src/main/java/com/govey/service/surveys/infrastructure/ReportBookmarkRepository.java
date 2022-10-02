@@ -1,5 +1,7 @@
 package com.govey.service.surveys.infrastructure;
 
+import com.govey.service.surveys.domain.Report;
+import com.govey.service.surveys.domain.ReportBookmark;
 import com.govey.service.surveys.domain.Survey;
 import com.govey.service.surveys.domain.SurveyBookmark;
 import com.govey.service.users.domain.User;
@@ -12,8 +14,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface SurveyBookmarkRepository extends JpaRepository<SurveyBookmark, UUID> {
-    Page<SurveyBookmark> findAllByUser(User user, Pageable pageable);
+public interface ReportBookmarkRepository extends JpaRepository<ReportBookmark, UUID> {
+    Page<ReportBookmark> findAllByUser(User user, Pageable pageable);
 
-    Optional<SurveyBookmark> findBySurveyAndUser(Survey survey, User user);
+    Optional<ReportBookmark> findByReportAndUser(Report report, User user);
 }

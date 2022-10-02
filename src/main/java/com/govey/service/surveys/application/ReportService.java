@@ -45,6 +45,14 @@ public class ReportService {
         );
     }
 
+    @Transactional(readOnly = true)
+    public Page<Report> page(User user, int page, int limit) {
+        return reportRepository.findAllByUser(
+                user,
+                PageRequest.of(page, limit, Sort.by("createdAt").descending())
+        );
+    }
+
     @Transactional()
     public Optional<Report> retrieve(UUID id) {
         return reportRepository.findById(id);

@@ -1,7 +1,5 @@
 package com.govey.service.surveys.application;
 
-import com.govey.controller.users.surveys.SurveyRequest;
-import com.govey.controller.users.surveys.SurveyUpdateRequest;
 import com.govey.service.surveys.domain.*;
 import com.govey.service.surveys.infrastructure.*;
 import com.govey.service.users.domain.User;
@@ -10,12 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -43,11 +39,11 @@ public class SurveyBookmarkService {
 
     @Transactional()
     public SurveyBookmark add(User user, UUID surveyId) {
-        if (surveyRepository.findByUser(user).isPresent()) {
+        Survey survey = surveyRepository.findById(surveyId).get();
+        if (surveyBookmarkRepository.findBySurveyAndUser(survey, user).isPresent()) {
             throw new RuntimeException("이미 북마크하셨습니다.");
         }
 
-        Survey survey = surveyRepository.findById(surveyId).get();
         SurveyBookmark entity = surveyBookmarkRepository.save(SurveyBookmark.builder()
                 .user(user)
                 .survey(survey)

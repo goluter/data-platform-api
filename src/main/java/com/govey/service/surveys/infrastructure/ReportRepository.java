@@ -16,6 +16,8 @@ import java.util.UUID;
 
 @Repository
 public interface ReportRepository extends JpaRepository<Report, UUID> {
+    Page<Report> findAllByUser(User user, Pageable pageable);
+
     Page<Report> findAllBySurvey(Survey survey, Pageable pageable);
 
     Page<Report> findAll(Pageable pageable);

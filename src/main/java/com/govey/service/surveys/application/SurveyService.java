@@ -43,6 +43,15 @@ public class SurveyService {
     }
 
     @Transactional(readOnly = true)
+    public Page<Survey> page(User user, int page, int limit) {
+        return surveyRepository.findAllByUser(
+                user,
+                PageRequest
+                        .of(page, limit)
+        );
+    }
+
+    @Transactional(readOnly = true)
     public List<Survey> listCuration(SurveyCurationType curationType) {
         if (curationType == SurveyCurationType.popular) {
             return surveyRepository.findAllByIsPopular(true);
