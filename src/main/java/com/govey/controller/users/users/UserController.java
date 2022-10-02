@@ -83,12 +83,4 @@ public class UserController {
     public ResponseEntity<List<Notification>> checkAll(@PathVariable UUID uuid) {
         return ResponseEntity.ok(notificationService.checkAll(userService.retrieve(uuid).get()));
     }
-
-    @GetMapping("/self/bookmarks")
-//    @PreAuthorize("hasAnyRole('USER')")
-    public ResponseEntity<Page<SurveyBookmark>> getMyBookmarks(@RequestParam(value = "page", defaultValue = "0") int page,
-                                                                 @RequestParam(value = "limit", defaultValue = "0") int limit) throws Exception {
-        User user = userService.getUserByUsername("admin").get();
-        return ResponseEntity.ok(surveyBookmarkService.page(user, page, limit));
-    }
 }

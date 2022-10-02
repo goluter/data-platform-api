@@ -3,8 +3,12 @@ package com.govey.controller.users.self;
 import com.govey.controller.users.surveys.*;
 import com.govey.service.surveys.application.*;
 import com.govey.service.surveys.domain.*;
+import com.govey.service.users.application.UserPointService;
 import com.govey.service.users.application.UserService;
+import com.govey.service.users.application.UserTimelineService;
 import com.govey.service.users.domain.User;
+import com.govey.service.users.domain.UserPoint;
+import com.govey.service.users.domain.UserTimeline;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +31,8 @@ public class SelfController {
     private final SurveyBookmarkService surveyBookmarkService;
     private final SurveyUserService surveyUserService;
     private final UserService userService;
+    private final UserPointService userPointService;
+    private final UserTimelineService userTimelineService;
 
     @GetMapping("/reports/registrations")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
@@ -81,5 +87,27 @@ public class SelfController {
 //        User author = userService.getUserByUsername(authentication.getName()).get();
         User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(surveyUserService.page(user, page, limit));
+    }
+
+    @GetMapping("/points")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<Page<UserPoint>> listPoints(Authentication authentication,
+                                                      @RequestParam(value = "page", defaultValue = "0") int page,
+                                                      @RequestParam(value = "limit", defaultValue = "0") int limit
+    ) {
+//        User author = userService.getUserByUsername(authentication.getName()).get();
+        User user = userService.getUserByUsername("admin").get();
+        return ResponseEntity.ok(userPointService.page(user, page, limit));
+    }
+
+    @GetMapping("/timelines")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<Page<UserTimeline>> listTimeline(Authentication authentication,
+                                                           @RequestParam(value = "page", defaultValue = "0") int page,
+                                                           @RequestParam(value = "limit", defaultValue = "0") int limit
+    ) {
+//        User author = userService.getUserByUsername(authentication.getName()).get();
+        User user = userService.getUserByUsername("admin").get();
+        return ResponseEntity.ok(userTimelineService.page(user, page, limit));
     }
 }
