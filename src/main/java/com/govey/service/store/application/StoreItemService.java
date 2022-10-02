@@ -1,22 +1,17 @@
 package com.govey.service.store.application;
 
-import com.govey.controller.users.posts.PostRequest;
 import com.govey.controller.users.storeitems.StoreItemRequest;
 import com.govey.service.store.domain.StoreItem;
-import com.govey.service.store.domain.PostSpecification;
 import com.govey.service.store.infrastructure.StoreRepository;
 import com.govey.service.users.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -45,28 +40,28 @@ public class StoreItemService {
         );
 
         if (request.getCategory() != null) {
-            request.setCategory(request.getCategory());
+            entity.setCategory(request.getCategory());
         }
         if (request.getName() != null) {
-            request.setName(request.getName());
+            entity.setName(request.getName());
         }
         if (request.getDescription() != null) {
-            request.setDescription(request.getDescription());
+            entity.setDescription(request.getDescription());
         }
         if (request.getNotice() != null) {
-            request.setNotice(request.getNotice());
+            entity.setNotice(request.getNotice());
         }
         if (request.getPrice() != null) {
-            request.setPrice(request.getPrice());
+            entity.setPrice(request.getPrice());
         }
         if (request.getImageUrl() != null) {
-            request.setImageUrl(request.getImageUrl());
+            entity.setImageUrl(request.getImageUrl());
         }
         if (request.getStockCount() != null) {
-            request.setStockCount(request.getStockCount());
+            entity.setStockCount(request.getStockCount());
         }
         if (request.getStatus() != null) {
-            request.setStatus(request.getStatus());
+            entity.setStatus(request.getStatus());
         }
 
         return repository.save(entity);

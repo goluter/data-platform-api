@@ -4,7 +4,6 @@ import com.govey.controller.users.surveys.ReportRequest;
 import com.govey.service.surveys.application.ReportService;
 import com.govey.service.surveys.domain.Report;
 import com.govey.service.users.application.UserService;
-import com.govey.service.users.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
 import java.util.UUID;
 
 @Controller
