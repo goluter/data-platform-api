@@ -75,12 +75,12 @@ public class Survey extends BaseEntity {
 
     private Boolean isRecommended;
 
-    @ColumnDefault("0")
     private Integer goods;
 
-    @ColumnDefault("0")
     private Integer nogoods;
 
-    @ColumnDefault("0")
     private Integer hits;
+
+    @Column(nullable = false, columnDefinition = "integer default 0")
+    private Integer answers;
 }

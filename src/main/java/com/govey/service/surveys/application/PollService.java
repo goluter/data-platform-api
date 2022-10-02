@@ -24,6 +24,7 @@ public class PollService {
     private final PollItemRepository pollItemRepository;
     private final PollAnswerRepository pollAnswerRepository;
     private final PollUserRepository pollUserRepository;
+    private final SurveyUserService surveyUserService;
 
     @Transactional()
     public List<Poll> findAllBySurvey(UUID id) {
@@ -102,6 +103,13 @@ public class PollService {
     public PollAnswer answer(User user, UUID pollItemId) {
         PollItem item = pollItemRepository.findById(pollItemId).get();
         Poll poll = item.getPoll();
+
+        if (!surveyUserService.checkDuplication(user, poll.getSurvey().getId())) {
+            Survey survey = poll.getSurvey();
+            survey.setAnswers(survey.getAnswers()+1);
+            surveyUserService.add(user, survey.getId());
+            surveyRepository.save(survey);
+        }
 
         // NOTE: 기존에 있으면 막기
         List<PollAnswer> answers = pollAnswerRepository.findAllByPollAndUser(poll, user);

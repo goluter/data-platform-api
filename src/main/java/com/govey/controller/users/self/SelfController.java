@@ -25,6 +25,7 @@ public class SelfController {
     private final ReportBookmarkService reportBookmarkService;
     private final SurveyService surveyService;
     private final SurveyBookmarkService surveyBookmarkService;
+    private final SurveyUserService surveyUserService;
     private final UserService userService;
 
     @GetMapping("/reports/registrations")
@@ -71,14 +72,14 @@ public class SelfController {
         return ResponseEntity.ok(surveyBookmarkService.page(user, page, limit));
     }
 
-//    @GetMapping("/reports/bookmarks")
-////    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-//    public ResponseEntity<Page<SurveyBookmark>> listBookmarkingSurveys(Authentication authentication,
-//                                                                       @RequestParam(value = "page", defaultValue = "0") int page,
-//                                                                       @RequestParam(value = "limit", defaultValue = "0") int limit,
-//                                                                       ) {
-////        User author = userService.getUserByUsername(authentication.getName()).get();
-//        User user = userService.getUserByUsername("admin").get();
-//        return ResponseEntity.ok(surveyBookmarkService.page(user, page, limit));
-//    }
+    @GetMapping("/surveys/answers")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<Page<SurveyUser>> listAnswerSurveys(Authentication authentication,
+                                                                       @RequestParam(value = "page", defaultValue = "0") int page,
+                                                                       @RequestParam(value = "limit", defaultValue = "0") int limit
+    ) {
+//        User author = userService.getUserByUsername(authentication.getName()).get();
+        User user = userService.getUserByUsername("admin").get();
+        return ResponseEntity.ok(surveyUserService.page(user, page, limit));
+    }
 }

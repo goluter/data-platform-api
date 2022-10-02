@@ -21,6 +21,7 @@ public class PollUserService {
     private final PollItemRepository pollItemRepository;
     private final PollUserRepository pollUserRepository;
     private final PollAnswerRepository pollAnswerRepository;
+    private final SurveyUserService surveyUserService;
 
     @Transactional()
     public List<PollUser> listByPollId(UUID pollId) {
@@ -40,8 +41,15 @@ public class PollUserService {
             if (pollUserRepository.findAllByPollAndUser(poll, user.get()).size() != 0) {
                 throw new RuntimeException("이미 투표하셨습니다.");
             }
+            if (!surveyUserService.checkDuplication(user.get(), poll.getSurvey().getId())) {
+                surveyUserService.add(user.get(), survey.getId());
+                survey.setAnswers(survey.getAnswers()+1);
+                surveyRepository.save(survey);
+            }
+        } else {
+            survey.setAnswers(survey.getAnswers()+1);
+            surveyRepository.save(survey);
         }
-
 
         PollUser pollUser = PollUser.builder()
                 .poll(poll)
