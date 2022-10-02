@@ -46,11 +46,12 @@ public class UserRewardService {
         return userRewardRepository.save(UserReward.builder()
                 .user(user)
                 .reward(rewardService.retrieve(rewardId).get())
+                .type(reward.getType())
                 .build());
     }
 
     @Transactional(readOnly = true)
-    public Page<UserReward> page(UUID rewardId, int page, int limit, Optional<Boolean> isDesc) {
+    public Page<UserReward> page(UUID rewardId,  int page, int limit, Optional<Boolean> isDesc) {
         Reward reward = rewardService.retrieve(rewardId).get();
         Sort.Direction direction = isDesc.isEmpty() ? Sort.Direction.DESC : isDesc.get() ? Sort.Direction.DESC : Sort.Direction.ASC;
 
@@ -62,9 +63,10 @@ public class UserRewardService {
     }
 
     @Transactional(readOnly = true)
-    public Page<UserReward> page(User user, int page, int limit) {
-        return userRewardRepository.findAllByUser(
+    public Page<UserReward> page(User user, String type, int page, int limit) {
+        return userRewardRepository.findAllByUserAndType(
                 user,
+                type,
                 PageRequest
                         .of(page, limit, Sort.by("createdAt"))
         );

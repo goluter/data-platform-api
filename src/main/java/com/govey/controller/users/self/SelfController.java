@@ -125,11 +125,12 @@ public class SelfController {
     @GetMapping("/rewards")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Page<UserReward>> listRewards(Authentication authentication,
+                                                        @RequestParam(value = "type", defaultValue = "0") String type,
                                                         @RequestParam(value = "page", defaultValue = "0") int page,
                                                         @RequestParam(value = "limit", defaultValue = "0") int limit
     ) {
 //        User author = userService.getUserByUsername(authentication.getName()).get();
         User user = userService.getUserByUsername("admin").get();
-        return ResponseEntity.ok(userRewardService.page(user, page, limit));
+        return ResponseEntity.ok(userRewardService.page(user, type, page, limit));
     }
 }

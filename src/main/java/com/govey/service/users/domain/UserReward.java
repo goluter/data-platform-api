@@ -27,4 +27,6 @@ public class UserReward extends BaseEntity {
     @JoinColumn(nullable = false)
 //    @JsonIncludeProperties(value = {"id"})
     private Reward reward;
+
+    private String type;
 }
