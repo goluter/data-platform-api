@@ -1,6 +1,7 @@
 package com.govey.controller.admins.points;
 
 import com.govey.controller.users.users.UpdateUserRequest;
+import com.govey.service.surveys.domain.SurveyBookmark;
 import com.govey.service.users.application.UserPointService;
 import com.govey.service.users.application.UserService;
 import com.govey.service.users.domain.User;
@@ -30,5 +31,16 @@ public class PointController {
     ) {
         // NOTE: 닉네임은 노출되면 안된다.
         return ResponseEntity.ok(userPointService.add(request.getTitle(), request.getContent(), request.getAmount(), request.getReceiverId()));
+    }
+
+    @GetMapping("/")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<Page<UserPoint>> list(Authentication authentication,
+                                                                       @RequestParam(value = "page", defaultValue = "0") int page,
+                                                                       @RequestParam(value = "limit", defaultValue = "0") int limit
+    ) {
+//        User author = userService.getUserByUsername(authentication.getName()).get();
+//        User user = userService.getUserByUsername("admin").get();
+        return ResponseEntity.ok(userPointService.page(page, limit));
     }
 }

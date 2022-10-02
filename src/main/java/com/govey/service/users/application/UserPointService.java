@@ -1,6 +1,5 @@
 package com.govey.service.users.application;
 
-import com.govey.controller.admins.points.UserPointRequest;
 import com.govey.service.users.domain.User;
 import com.govey.service.users.domain.UserPoint;
 import com.govey.service.users.infrastructure.UserRepository;
@@ -18,8 +17,23 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserPointService {
     private final UserRepository userRepository;
-    private final UserTimelineService userTimelineService;
     private final UserPointRepository userPointRepository;
+
+    @Transactional(readOnly = true)
+    public Page<UserPoint> page(int page, int limit) {
+        return userPointRepository.findAll(
+                PageRequest.of(page, limit, Sort.by("createdAt").descending())
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public Page<UserPoint> page(User user, int page, int limit) {
+        return userPointRepository.findAllByUser(
+                user,
+                PageRequest
+                        .of(page, limit, Sort.by("createdAt"))
+        );
+    }
 
     @Transactional
     public UserPoint add(String title, String content, Integer amount, UUID receiverId) {
@@ -35,14 +49,5 @@ public class UserPointService {
                 .content(content)
                 .issuer(issuer)
                 .build());
-    }
-
-    @Transactional(readOnly = true)
-    public Page<UserPoint> page(User user, int page, int limit) {
-        return userPointRepository.findAllByUser(
-                user,
-                PageRequest
-                        .of(page, limit, Sort.by("createdAt"))
-        );
     }
 }

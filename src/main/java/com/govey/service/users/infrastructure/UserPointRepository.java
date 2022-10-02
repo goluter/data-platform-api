@@ -13,4 +13,6 @@ import java.util.UUID;
 @Repository
 public interface UserPointRepository extends JpaRepository<UserPoint, UUID> {
     Page<UserPoint> findAllByUser(User user, Pageable pageable);
+
+    Page<UserPoint> findAll(Pageable pageable);
 }
