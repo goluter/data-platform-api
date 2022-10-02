@@ -34,6 +34,14 @@ public class SelfController {
     private final UserPointService userPointService;
     private final UserTimelineService userTimelineService;
 
+    @GetMapping("/info")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<User> info(Authentication authentication) {
+//        User author = userService.getUserByUsername(authentication.getName()).get();
+        User user = userService.getUserByUsername("admin").get();
+        return ResponseEntity.ok(user);
+    }
+
     @GetMapping("/reports/registrations")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Page<Report>> listRegistrationReports(Authentication authentication,
