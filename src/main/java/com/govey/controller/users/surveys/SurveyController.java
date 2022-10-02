@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -29,6 +30,8 @@ public class SurveyController {
     private final SurveyRewardService surveyRewardService;
     private final ReportService reportService;
     private final PollService pollService;
+    private final SurveyStatisticsService surveyStatisticsService;
+    private final PollUserService pollUserService;
     private final UserService userService;
     private final SurveyIdentifierService surveyIdentifierService;
 
@@ -91,6 +94,12 @@ public class SurveyController {
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<List<Poll>> listPoll(@PathVariable UUID id) {
         return ResponseEntity.ok(pollService.findAllBySurvey(id));
+    }
+
+    @GetMapping("/{id}/statistics")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<List<SurveyStatisticResponse>> getStatistics(@PathVariable UUID id) {
+        return ResponseEntity.ok(surveyStatisticsService.getStatistics(id));
     }
 
     @PostMapping("/{id}/polls")
