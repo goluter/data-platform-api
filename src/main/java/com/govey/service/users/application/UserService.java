@@ -2,6 +2,9 @@ package com.govey.service.users.application;
 
 import com.govey.controller.users.users.ChangePasswordRequest;
 import com.govey.controller.users.users.UpdateUserRequest;
+import com.govey.service.surveys.domain.Survey;
+import com.govey.service.surveys.domain.SurveySpecification;
+import com.govey.service.surveys.domain.SurveyStatus;
 import com.govey.service.users.domain.Authority;
 import com.govey.service.users.domain.User;
 import com.govey.service.users.domain.UserType;
@@ -11,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +58,16 @@ public class UserService {
                 .build();
 
         return userRepository.save(user);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<User> page(int page, int limit, Optional<String> sortKey, Optional<Boolean> isDesc) {
+        String key = sortKey.isEmpty() ? "createdAt" : sortKey.get();
+        Sort.Direction direction = isDesc.isEmpty() ? Sort.Direction.DESC : isDesc.get() ? Sort.Direction.DESC : Sort.Direction.ASC;
+        return userRepository.findAll(
+                PageRequest
+                        .of(page, limit, Sort.by(direction,  key))
+        );
     }
 
     @Transactional(readOnly = true)

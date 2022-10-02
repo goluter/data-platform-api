@@ -32,7 +32,7 @@ public class SurveyService {
     public Page<Survey> page(User reader, int page, int limit, Optional<String> searchKey, Optional<String> searchValue, Optional<String> sortKey, Optional<Boolean> isDesc, Optional<List<SurveyStatus>> statuses) {
         Specification<Survey> specification = Specification.where(SurveySpecification.find(reader, searchKey, searchValue, statuses));
 
-        String key = sortKey.isEmpty() ? "createdAt" : searchKey.get();
+        String key = sortKey.isEmpty() ? "createdAt" : sortKey.get();
         Sort.Direction direction = isDesc.isEmpty() ? Sort.Direction.DESC : isDesc.get() ? Sort.Direction.DESC : Sort.Direction.ASC;
 
         return surveyRepository.findAll(
