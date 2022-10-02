@@ -1,8 +1,8 @@
-package com.govey.service.store.application;
+package com.govey.service.rewards.application;
 
 import com.govey.controller.users.storeitems.StoreItemRequest;
-import com.govey.service.store.domain.StoreItem;
-import com.govey.service.store.infrastructure.StoreRepository;
+import com.govey.service.rewards.domain.Reward;
+import com.govey.service.rewards.infrastructure.RewardRepository;
 import com.govey.service.users.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,11 +17,11 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class StoreItemService {
-    private final StoreRepository repository;
+public class RewardService {
+    private final RewardRepository repository;
 
     @Transactional(readOnly = true)
-    public Page<StoreItem> page(User reader, int page, int limit) {
+    public Page<Reward> page(User reader, int page, int limit) {
         return repository.findAll(
                 PageRequest
                         .of(page, limit, Sort.by("createdAt"))
@@ -29,13 +29,13 @@ public class StoreItemService {
     }
 
     @Transactional()
-    public Optional<StoreItem> retrieve(UUID id, Optional<User> reader) {
+    public Optional<Reward> retrieve(UUID id, Optional<User> reader) {
         return repository.findById(id);
     }
 
     @Transactional()
-    public StoreItem update(UUID id, StoreItemRequest request) {
-        StoreItem entity = repository.findById(id).orElseThrow(() -> new IllegalStateException(
+    public Reward update(UUID id, StoreItemRequest request) {
+        Reward entity = repository.findById(id).orElseThrow(() -> new IllegalStateException(
                 id + " does not exists")
         );
 
@@ -68,12 +68,12 @@ public class StoreItemService {
     }
 
     @Transactional()
-    public StoreItem add(User author, StoreItemRequest request) {
+    public Reward add(User author, StoreItemRequest request) {
         if (!author.isActivated()) {
             throw new IllegalStateException("deactivated user");
         }
 
-        StoreItem entity = new StoreItem();
+        Reward entity = new Reward();
         entity.setCategory(request.getCategory());
         entity.setName(request.getName());
         entity.setDescription(request.getDescription());
@@ -88,7 +88,7 @@ public class StoreItemService {
 
     @Transactional()
     public void softDelete(UUID id) {
-        StoreItem result = repository.findById(id).orElseThrow(() -> new IllegalStateException(
+        Reward result = repository.findById(id).orElseThrow(() -> new IllegalStateException(
                 id + " does not exists")
         );
         result.setDeleted(true);
