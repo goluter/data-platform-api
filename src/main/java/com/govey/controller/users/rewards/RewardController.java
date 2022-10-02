@@ -2,8 +2,10 @@ package com.govey.controller.users.rewards;
 
 import com.govey.service.rewards.application.RewardService;
 import com.govey.service.rewards.domain.Reward;
+import com.govey.service.users.application.UserRewardService;
 import com.govey.service.users.application.UserService;
 import com.govey.service.users.domain.User;
+import com.govey.service.users.domain.UserReward;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -23,6 +26,7 @@ import java.util.UUID;
 public class RewardController {
     private final UserService userService;
     private final RewardService rewardService;
+    private final UserRewardService userRewardService;
 
     @PostMapping("/")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
@@ -57,6 +61,25 @@ public class RewardController {
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Reward> update(@PathVariable UUID id, @Valid @RequestBody RewardRequest body) {
         return ResponseEntity.ok(rewardService.update(id, body));
+    }
+
+    @PostMapping("/{id}/users")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<UserReward> acquire(@PathVariable UUID id, Authentication authentication) {
+//        User author = userService.getUserByUsername(authentication.getName()).get();
+        User user = userService.getUserByUsername("admin").get();
+        return ResponseEntity.ok(userRewardService.add(user, id));
+    }
+
+    @GetMapping("/{id}/users")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<Page<UserReward>> listRewardAcquisitions(@PathVariable UUID id, Authentication authentication,
+                                              @RequestParam(value = "page", defaultValue = "0") int page,
+                                              @RequestParam(value = "limit", defaultValue = "0") int limit,
+                                              @RequestParam Optional<Boolean> isDesc) {
+//        User author = userService.getUserByUsername(authentication.getName()).get();
+        User user = userService.getUserByUsername("admin").get();
+        return ResponseEntity.ok(userRewardService.page(id, page, limit, isDesc));
     }
 
 //    @DeleteMapping("/{id}")

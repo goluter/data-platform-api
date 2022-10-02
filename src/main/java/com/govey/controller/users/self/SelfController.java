@@ -4,10 +4,12 @@ import com.govey.controller.users.surveys.*;
 import com.govey.service.surveys.application.*;
 import com.govey.service.surveys.domain.*;
 import com.govey.service.users.application.UserPointService;
+import com.govey.service.users.application.UserRewardService;
 import com.govey.service.users.application.UserService;
 import com.govey.service.users.application.UserTimelineService;
 import com.govey.service.users.domain.User;
 import com.govey.service.users.domain.UserPoint;
+import com.govey.service.users.domain.UserReward;
 import com.govey.service.users.domain.UserTimeline;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -33,6 +35,7 @@ public class SelfController {
     private final UserService userService;
     private final UserPointService userPointService;
     private final UserTimelineService userTimelineService;
+    private final UserRewardService userRewardService;
 
     @GetMapping("/info")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
@@ -117,5 +120,16 @@ public class SelfController {
 //        User author = userService.getUserByUsername(authentication.getName()).get();
         User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(userTimelineService.page(user, page, limit));
+    }
+
+    @GetMapping("/rewards")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<Page<UserReward>> listRewards(Authentication authentication,
+                                                        @RequestParam(value = "page", defaultValue = "0") int page,
+                                                        @RequestParam(value = "limit", defaultValue = "0") int limit
+    ) {
+//        User author = userService.getUserByUsername(authentication.getName()).get();
+        User user = userService.getUserByUsername("admin").get();
+        return ResponseEntity.ok(userRewardService.page(user, page, limit));
     }
 }
