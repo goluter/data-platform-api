@@ -1,5 +1,6 @@
 package com.govey.service.users.application;
 
+import com.govey.service.surveys.domain.SurveyBookmark;
 import com.govey.service.users.domain.User;
 import com.govey.service.users.domain.UserPoint;
 import com.govey.service.users.infrastructure.UserRepository;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -49,5 +51,10 @@ public class UserPointService {
                 .content(content)
                 .issuer(issuer)
                 .build());
+    }
+
+    @Transactional()
+    public Optional<UserPoint> retrieve(UUID id) {
+        return userPointRepository.findById(id);
     }
 }

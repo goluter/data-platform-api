@@ -23,6 +23,9 @@ public class Reward extends BaseEntity {
     @Column(nullable = false)
     private String type;
 
+    @Column(nullable = false, columnDefinition = "varchar(255) default ''")
+    private String category;
+
     @Column(nullable = false)
     private String name;
 

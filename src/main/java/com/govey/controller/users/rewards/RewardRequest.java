@@ -17,6 +17,10 @@ public class RewardRequest {
     private String type;
 
     @Size(min = 1, max = 1000)
+    @ApiModelProperty(example = "정보인증", notes = "보상 상세 카테고리", required = true)
+    private String category;
+
+    @Size(min = 1, max = 1000)
     @ApiModelProperty(example = "나는 대학생이다.", notes = "보상 이름", required = true)
     private String name;
 

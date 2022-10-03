@@ -29,4 +29,6 @@ public class UserReward extends BaseEntity {
     private Reward reward;
 
     private String type;
+
+    private String category;
 }

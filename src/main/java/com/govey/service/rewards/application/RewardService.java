@@ -21,11 +21,12 @@ public class RewardService {
     private final RewardRepository repository;
 
     @Transactional(readOnly = true)
-    public Page<Reward> page(String type, int page, int limit) {
-        return repository.findAllByType(
+    public Page<Reward> page(String type, String category, int page, int limit) {
+        return repository.findAllByTypeAndCategory(
                 PageRequest
                         .of(page, limit, Sort.by("createdAt")),
-                type
+                type,
+                category
         );
     }
 
@@ -42,6 +43,9 @@ public class RewardService {
 
         if (request.getType() != null) {
             entity.setType(request.getType());
+        }
+        if (request.getCategory() != null) {
+            entity.setCategory(request.getCategory());
         }
         if (request.getName() != null) {
             entity.setName(request.getName());
@@ -66,6 +70,7 @@ public class RewardService {
     public Reward add(RewardRequest request) {
         Reward entity = new Reward();
         entity.setType(request.getType());
+        entity.setCategory(request.getCategory());
         entity.setName(request.getName());
         entity.setContent(request.getContent());
         entity.setRequirements(request.getRequirements());

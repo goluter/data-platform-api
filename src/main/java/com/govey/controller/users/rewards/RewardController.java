@@ -44,9 +44,25 @@ public class RewardController {
                                              @RequestParam(value = "limit", defaultValue = "0") int limit,
                                              @ApiParam(name = "보상 타입", value = "칭호 or 업적-포인트 or 업적-설문등록 .. etc https://docs.google.com/spreadsheets/d/1R44vgp9HqKqKVdzLmPedYtaI06ZS4kOkUEXkr94kAvQ/edit#gid=550061713 칭호, 업적 탭 참고")
                                              @RequestParam(value = "type", defaultValue = "0")
-                                                         String type) {
+                                                         String type,
+                                             @RequestParam(value = "category", defaultValue = "0")
+                                                         String category) {
 //        User reader = userService.getUserByUsername(authentication.getName()).get();
-        return ResponseEntity.ok(rewardService.page(type, page, limit));
+        return ResponseEntity.ok(rewardService.page(type, category, page, limit));
+    }
+
+    @GetMapping("/rankings")
+    @ApiOperation(value = "랭킹 조회", notes = "https://docs.google.com/spreadsheets/d/1R44vgp9HqKqKVdzLmPedYtaI06ZS4kOkUEXkr94kAvQ/edit#gid=550061713 칭호, 업적 탭 참고")
+    public ResponseEntity<Page<UserReward>> ranking(Authentication authentication,
+                                             @RequestParam(value = "page", defaultValue = "0") int page,
+                                             @RequestParam(value = "limit", defaultValue = "0") int limit,
+                                             @ApiParam(name = "보상 타입", value = "칭호 or 업적-포인트 or 업적-설문등록 .. etc https://docs.google.com/spreadsheets/d/1R44vgp9HqKqKVdzLmPedYtaI06ZS4kOkUEXkr94kAvQ/edit#gid=550061713 칭호, 업적 탭 참고")
+                                             @RequestParam(value = "type", defaultValue = "0")
+                                                     String type,
+                                             @RequestParam(value = "category", defaultValue = "0")
+                                                     String category) {
+//        User reader = userService.getUserByUsername(authentication.getName()).get();
+        return ResponseEntity.ok(userRewardService.getRanking(type, category, page, limit));
     }
 
     @GetMapping("/{id}")

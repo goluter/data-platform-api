@@ -47,7 +47,17 @@ public class UserRewardService {
                 .user(user)
                 .reward(rewardService.retrieve(rewardId).get())
                 .type(reward.getType())
+                .category(reward.getCategory())
                 .build());
+    }
+
+    @Transactional(readOnly = true)
+    public Page<UserReward> getRanking(String type, String category, int page, int limit) {
+        return userRewardRepository.findAllByTypeAndCategory(
+                type,
+                category,
+                PageRequest.of(page, limit)
+        );
     }
 
     @Transactional(readOnly = true)
