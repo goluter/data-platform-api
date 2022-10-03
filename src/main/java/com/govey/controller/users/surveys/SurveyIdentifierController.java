@@ -32,8 +32,6 @@ public class SurveyIdentifierController {
     @GetMapping("/{id}")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<SurveyIdentifier> retrieve(@PathVariable UUID id, Authentication authentication) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(surveyIdentifierService.retrieve(id));
     }
 

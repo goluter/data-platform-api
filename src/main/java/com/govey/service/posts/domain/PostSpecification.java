@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class PostSpecification {
-    public static Specification<Post> find(User reader, Optional<String> subject, Optional<String> category) {
+    public static Specification<Post> find(Optional<String> subject, Optional<String> category) {
         return (Specification<Post>) ((root, query, builder) -> {
             List<Predicate> list = new ArrayList<>();
 

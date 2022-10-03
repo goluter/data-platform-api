@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class SurveySpecification {
-    public static Specification<Survey> find(User reader, Optional<String> searchKey, Optional<String> searchValue, Optional<List<SurveyStatus>> statuses) {
+    public static Specification<Survey> find(Optional<String> searchKey, Optional<String> searchValue, Optional<List<SurveyStatus>> statuses) {
         return (Specification<Survey>) ((root, query, builder) -> {
             List<Predicate> list = new ArrayList<>();
 

@@ -29,9 +29,7 @@ public class PostController {
                                                    @RequestParam(value = "limit", defaultValue = "0") int limit,
                                                    @RequestParam Optional<String> subject,
                                                    @RequestParam Optional<String> category) {
-//        User reader = userService.getUserByUsername(authentication.getName()).get();
-        User reader = userService.getUserByUsername("admin").get();
-        Page<Post> result = service.page(reader, page, limit, category, subject);
+        Page<Post> result = service.page(page, limit, category, subject);
 
         return ResponseEntity.ok(result);
     }
@@ -39,16 +37,13 @@ public class PostController {
     @PostMapping("/")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Post> add(Authentication authentication, @Valid @RequestBody PostRequest body) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
         User author = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(service.add(author, body));
     }
 
     @GetMapping("/{id}")
-//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Post> retrieve(Authentication authentication,@PathVariable UUID id) {
-//        Optional<User> author = userService.getUserByUsername(authentication.getName());
-        return ResponseEntity.ok(service.retrieve(id, userService.getUserByUsername("admin")).get());
+        return ResponseEntity.ok(service.retrieve(id).get());
     }
 
     @PatchMapping("/{id}")

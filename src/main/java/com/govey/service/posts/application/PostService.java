@@ -25,10 +25,10 @@ public class PostService {
     private final PostRepository repository;
 
     @Transactional(readOnly = true)
-    public Page<Post> page(User reader, int page, int limit, Optional<String> category, Optional<String> subject) {
+    public Page<Post> page(int page, int limit, Optional<String> category, Optional<String> subject) {
         List<Specification<Post>> specifications = new ArrayList<>();
 
-        specifications.add(PostSpecification.find(reader, subject, category));
+        specifications.add(PostSpecification.find(subject, category));
 
         Specification<Post> specification = null;
         for (Specification<Post> spec :specifications) {
@@ -47,7 +47,7 @@ public class PostService {
     }
 
     @Transactional()
-    public Optional<Post> retrieve(UUID id, Optional<User> reader) {
+    public Optional<Post> retrieve(UUID id) {
         return repository.findById(id);
     }
 

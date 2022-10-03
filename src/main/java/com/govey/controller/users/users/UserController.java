@@ -90,7 +90,8 @@ public class UserController {
 
     @GetMapping("/{uuid}/rewards")
     @PreAuthorize("hasAnyRole('USER')")
-    public ResponseEntity<Page<UserReward>> getRewards(@PathVariable UUID uuid, @RequestParam(value = "type", defaultValue = "0") String type,
+    public ResponseEntity<Page<UserReward>> getRewards(@PathVariable UUID uuid,
+                                                         @RequestParam(value = "type", defaultValue = "0") String type,
                                                          @RequestParam(value = "page", defaultValue = "0") int page,
                                                          @RequestParam(value = "limit", defaultValue = "0") int limit) {
         User user = userService.retrieve(uuid).get();

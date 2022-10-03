@@ -31,7 +31,6 @@ public class ReportsController {
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Page<Report>> page(Authentication authentication, @RequestParam(value = "page", defaultValue = "0") int page,
                                              @RequestParam(value = "limit", defaultValue = "0") int limit) {
-//        User reader = userService.getUserByUsername(authentication.getName()).get();
         Page<Report> result = service.page(page, limit);
 
         return ResponseEntity.ok(result);
@@ -41,7 +40,6 @@ public class ReportsController {
     @GetMapping("/{id}")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Report> retrieve(Authentication authentication,@PathVariable UUID id) {
-//        Optional<User> author = userService.getUserByUsername(authentication.getName());
         return ResponseEntity.ok(service.retrieve(id).get());
     }
 
@@ -54,9 +52,8 @@ public class ReportsController {
     @PostMapping("/{id}/bookmark")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<ReportBookmark> addBookmark(@PathVariable UUID id, Authentication authentication, @Valid @RequestBody PollRequest body) {
-        //        User reader = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
-        return ResponseEntity.ok(reportBookmarkService.add(user, id));
+        User reader = userService.getUserByUsername(authentication.getName()).get();
+        return ResponseEntity.ok(reportBookmarkService.add(reader, id));
     }
 
 //    @DeleteMapping("/{id}")

@@ -21,7 +21,7 @@ public class StoreItemService {
     private final StoreRepository repository;
 
     @Transactional(readOnly = true)
-    public Page<StoreItem> page(User reader, int page, int limit) {
+    public Page<StoreItem> page(int page, int limit) {
         return repository.findAll(
                 PageRequest
                         .of(page, limit, Sort.by("createdAt"))
@@ -29,7 +29,7 @@ public class StoreItemService {
     }
 
     @Transactional()
-    public Optional<StoreItem> retrieve(UUID id, Optional<User> reader) {
+    public Optional<StoreItem> retrieve(UUID id) {
         return repository.findById(id);
     }
 

@@ -40,8 +40,8 @@ public class SelfController {
     @GetMapping("/info")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<User> info(Authentication authentication) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
+        User user = userService.getUserByUsername(authentication.getName()).get();
+//        User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(user);
     }
 
@@ -51,8 +51,8 @@ public class SelfController {
                                              @RequestParam(value = "page", defaultValue = "0") int page,
                                              @RequestParam(value = "limit", defaultValue = "0") int limit
     ) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
+        User user = userService.getUserByUsername(authentication.getName()).get();
+//        User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(reportService.page(user, page, limit));
     }
 
@@ -62,8 +62,8 @@ public class SelfController {
                                                                 @RequestParam(value = "page", defaultValue = "0") int page,
                                                                 @RequestParam(value = "limit", defaultValue = "0") int limit
                                                                 ) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
+        User user = userService.getUserByUsername(authentication.getName()).get();
+//        User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(reportBookmarkService.page(user, page, limit));
     }
 
@@ -73,8 +73,8 @@ public class SelfController {
                                                                 @RequestParam(value = "page", defaultValue = "0") int page,
                                                                 @RequestParam(value = "limit", defaultValue = "0") int limit
                                                                 ) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
+        User user = userService.getUserByUsername(authentication.getName()).get();
+//        User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(surveyService.page(user, page, limit));
     }
 
@@ -84,8 +84,8 @@ public class SelfController {
                                                                        @RequestParam(value = "page", defaultValue = "0") int page,
                                                                        @RequestParam(value = "limit", defaultValue = "0") int limit
                                                                        ) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
+        User user = userService.getUserByUsername(authentication.getName()).get();
+//        User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(surveyBookmarkService.page(user, page, limit));
     }
 
@@ -95,8 +95,8 @@ public class SelfController {
                                                                        @RequestParam(value = "page", defaultValue = "0") int page,
                                                                        @RequestParam(value = "limit", defaultValue = "0") int limit
     ) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
+        User user = userService.getUserByUsername(authentication.getName()).get();
+//        User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(surveyUserService.page(user, page, limit));
     }
 
@@ -106,8 +106,8 @@ public class SelfController {
                                                       @RequestParam(value = "page", defaultValue = "0") int page,
                                                       @RequestParam(value = "limit", defaultValue = "0") int limit
     ) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
+        User user = userService.getUserByUsername(authentication.getName()).get();
+//        User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(userPointService.page(user, page, limit));
     }
 
@@ -117,8 +117,8 @@ public class SelfController {
                                                            @RequestParam(value = "page", defaultValue = "0") int page,
                                                            @RequestParam(value = "limit", defaultValue = "0") int limit
     ) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
+        User user = userService.getUserByUsername(authentication.getName()).get();
+//        User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(userTimelineService.page(user, page, limit));
     }
 
@@ -129,8 +129,8 @@ public class SelfController {
                                                         @RequestParam(value = "page", defaultValue = "0") int page,
                                                         @RequestParam(value = "limit", defaultValue = "0") int limit
     ) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
+        User user = userService.getUserByUsername(authentication.getName()).get();
+//        User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(userRewardService.page(user, type, page, limit));
     }
 }

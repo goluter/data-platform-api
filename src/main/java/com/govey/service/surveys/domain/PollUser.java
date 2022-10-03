@@ -33,14 +33,14 @@ public class PollUser extends BaseEntity {
     @JoinColumn(nullable = true)
     private User user;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "varchar(255) default ''")
     private String mainFeature;
 
 //    @ElementCollection
 //    @CollectionTable(name = "poll_feature", joinColumns = @JoinColumn(name = "id"))
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "varchar(255) default ''")
     private String features;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "varchar(255) default ''")
     private String value;
 }

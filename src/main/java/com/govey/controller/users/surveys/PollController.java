@@ -36,12 +36,7 @@ public class PollController {
     @GetMapping("/{id}")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<PollResponse> retrieve(@PathVariable UUID id, Authentication authentication) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
-
         Poll poll = pollService.retrieve(id).get();
-        Survey survey = surveyService.retrieve(poll.getSurvey().getId(), Optional.of(user)).get();
-
         PollResponse pollResponse = new PollResponse();
         pollResponse.setId(poll.getId());
         pollResponse.setSurvey(poll.getSurvey());
@@ -49,7 +44,6 @@ public class PollController {
         pollResponse.setContent(poll.getContent());
         pollResponse.setDuplicable(poll.getDuplicable());
         pollResponse.setType(poll.getType());
-        List<PollUser> users = pollUserService.listByPollId(poll.getId());
         return ResponseEntity.ok(pollResponse);
     }
 
@@ -75,9 +69,11 @@ public class PollController {
     @PostMapping("/{id}/poll-users")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<PollUser> answer(@PathVariable UUID id, Authentication authentication, @Valid @RequestBody PollUserRequest body) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        return ResponseEntity.ok(pollUserService.add(id, Optional.empty(), body));
-//        User author = userService.getUserByUsername("admin").get();
-//        return ResponseEntity.ok(pollUserService.add(id, Optional.of(author), body));
+        if (authentication.getName() != null &&!authentication.getName().isEmpty()) {
+            Optional<User> author = userService.getUserByUsername(authentication.getName());
+            return ResponseEntity.ok(pollUserService.add(id, author, body));
+        } else {
+            return ResponseEntity.ok(pollUserService.add(id, Optional.empty(), body));
+        }
     }
 }

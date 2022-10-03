@@ -38,8 +38,8 @@ public class SurveyController {
     @PostMapping("/")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Survey> add(Authentication authentication, @Valid @RequestBody SurveyRequest body) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
+        User user = userService.getUserByUsername(authentication.getName()).get();
+//        User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(surveyService.add(user, body));
     }
 
@@ -54,9 +54,7 @@ public class SurveyController {
                                              @RequestParam Optional<Boolean> isDesc,
                                              @RequestParam Optional<List<SurveyStatus>> statuses
     ) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
-        return ResponseEntity.ok(surveyService.page(user, page, limit, searchKey, searchValue, sortKey, isDesc, statuses));
+        return ResponseEntity.ok(surveyService.page(page, limit, searchKey, searchValue, sortKey, isDesc, statuses));
     }
 
     @GetMapping("/curations")
@@ -64,17 +62,13 @@ public class SurveyController {
     public ResponseEntity<List<Survey>> curation(Authentication authentication,
                                              @RequestParam SurveyCurationType type
     ) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(surveyService.listCuration(type));
     }
 
     @GetMapping("/{id}")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Survey> retrieve(Authentication authentication, @PathVariable UUID id) {
-//        Optional<User> author = userService.getUserByUsername(authentication.getName());
-        User user = userService.getUserByUsername("admin").get();
-        return ResponseEntity.ok(surveyService.retrieve(id, Optional.of(user)).get());
+        return ResponseEntity.ok(surveyService.retrieve(id).get());
     }
 
     @PatchMapping("/{id}")
@@ -123,15 +117,14 @@ public class SurveyController {
     @PostMapping("/{id}/bookmark")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<SurveyBookmark> addBookmark(@PathVariable UUID id, Authentication authentication, @Valid @RequestBody PollRequest body) {
-        //        User reader = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
-        return ResponseEntity.ok(surveyBookmarkService.add(user, id));
+        User reader = userService.getUserByUsername(authentication.getName()).get();
+//        User user = userService.getUserByUsername("admin").get();
+        return ResponseEntity.ok(surveyBookmarkService.add(reader, id));
     }
 
     @PostMapping("/{id}/rewards")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<SurveyReward> addReward(@PathVariable UUID id, Authentication authentication, @Valid @RequestBody SurveyReward body) {
-        //        User reader = userService.getUserByUsername(authentication.getName()).get();
         return ResponseEntity.ok(surveyRewardService.add(id, body));
     }
 
@@ -144,8 +137,8 @@ public class SurveyController {
     @PostMapping("/{id}/reports")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Report> addReport(Authentication authentication, @PathVariable UUID id, @Valid @RequestBody ReportRequest body) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        User author = userService.getUserByUsername("admin").get();
+        User author = userService.getUserByUsername(authentication.getName()).get();
+//        User author = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(reportService.add(author, id, body));
     }
 

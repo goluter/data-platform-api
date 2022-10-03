@@ -29,13 +29,11 @@ public class StoreItemController {
     @ApiOperation(value = "상품 목록 조회", notes = "전체 상품을 조회한다.")
     public ResponseEntity<Page<StoreItem>> page(Authentication authentication, @RequestParam(value = "page", defaultValue = "0") int page,
                                                 @RequestParam(value = "limit", defaultValue = "0") int limit) {
-//        User reader = userService.getUserByUsername(authentication.getName()).get();
-        User reader = userService.getUserByUsername("admin").get();
-        Page<StoreItem> result = storeItemService.page(reader, page, limit);
-
+        Page<StoreItem> result = storeItemService.page(page, limit);
         return ResponseEntity.ok(result);
     }
 
+    // TODO: Admin
     @PostMapping("/")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<StoreItem> add(Authentication authentication, @Valid @RequestBody StoreItemRequest body) {
@@ -47,8 +45,7 @@ public class StoreItemController {
     @GetMapping("/{id}")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<StoreItem> retrieve(Authentication authentication,@PathVariable UUID id) {
-//        Optional<User> author = userService.getUserByUsername(authentication.getName());
-        return ResponseEntity.ok(storeItemService.retrieve(id, userService.getUserByUsername("admin")).get());
+        return ResponseEntity.ok(storeItemService.retrieve(id).get());
     }
 
     @PatchMapping("/{id}")

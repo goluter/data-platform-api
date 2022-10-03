@@ -69,7 +69,6 @@ public class RewardController {
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Reward> retrieve(@PathVariable UUID id, Authentication authentication) {
 //        User author = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(rewardService.retrieve(id).get());
     }
 
@@ -82,8 +81,8 @@ public class RewardController {
     @PostMapping("/{id}/users")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<UserReward> acquire(@PathVariable UUID id, Authentication authentication) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
+        User user = userService.getUserByUsername(authentication.getName()).get();
+//        User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(userRewardService.add(user, id));
     }
 
@@ -93,8 +92,6 @@ public class RewardController {
                                               @RequestParam(value = "page", defaultValue = "0") int page,
                                               @RequestParam(value = "limit", defaultValue = "0") int limit,
                                               @RequestParam Optional<Boolean> isDesc) {
-//        User author = userService.getUserByUsername(authentication.getName()).get();
-        User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(userRewardService.page(id, page, limit, isDesc));
     }
 
