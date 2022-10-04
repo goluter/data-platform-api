@@ -91,13 +91,13 @@ public class ReportService {
             report.setCategory(request.getCategory());
         }
         if (request.getImageUrl() != null) {
-            report.setImageUrl(report.getImageUrl());
+            report.setImageUrl(request.getImageUrl());
         }
         if (request.getContent() != null) {
-            report.setContent(report.getContent());
+            report.setContent(request.getContent());
         }
         if (request.getIsNotice() != null) {
-            report.setIsNotice(report.getIsNotice());
+            report.setIsNotice(request.getIsNotice());
         }
 
         return reportRepository.save(report);
