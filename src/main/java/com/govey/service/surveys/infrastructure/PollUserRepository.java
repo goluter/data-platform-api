@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -14,5 +15,5 @@ import java.util.UUID;
 public interface PollUserRepository extends JpaRepository<PollUser, UUID> {
     List<PollUser> findAllByPoll(Poll poll);
 
-    List<PollUser> findAllByPollAndUser(Poll poll, User user);
+    Optional<PollUser> findByPollAndUser(Poll poll, User user);
 }

@@ -34,6 +34,7 @@ public class SurveyController {
     private final PollUserService pollUserService;
     private final UserService userService;
     private final SurveyIdentifierService surveyIdentifierService;
+    private final SurveyUserService surveyUserService;
 
     @PostMapping("/")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
@@ -146,5 +147,13 @@ public class SurveyController {
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<List<Report>> listReports(@PathVariable UUID id) {
         return ResponseEntity.ok(reportService.page(id, 0, 1000).getContent());
+    }
+
+    @PostMapping("/{id}/users")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<SurveyUser> confirmSurvey(@PathVariable UUID id,
+                                                    Authentication authentication) {
+        User author = userService.getUserByUsername(authentication.getName()).get();
+        return ResponseEntity.ok(surveyUserService.add(author, id));
     }
 }

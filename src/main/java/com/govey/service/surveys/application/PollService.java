@@ -103,18 +103,17 @@ public class PollService {
     public PollAnswer answer(User user, UUID pollItemId) {
         PollItem item = pollItemRepository.findById(pollItemId).get();
         Poll poll = item.getPoll();
+        // NOTE: 기존에 있으면 막기
+        List<PollAnswer> answers = pollAnswerRepository.findAllByPollAndUser(poll, user);
+        if (answers.size() > 0 && !poll.getDuplicable()) {
+            throw new IllegalStateException("Already vote the poll");
+        }
 
         if (!surveyUserService.checkDuplication(user, poll.getSurvey().getId())) {
             Survey survey = poll.getSurvey();
             survey.setAnswers(survey.getAnswers()+1);
             surveyUserService.add(user, survey.getId());
             surveyRepository.save(survey);
-        }
-
-        // NOTE: 기존에 있으면 막기
-        List<PollAnswer> answers = pollAnswerRepository.findAllByPollAndUser(poll, user);
-        if (answers.size() > 0 && !poll.getDuplicable()) {
-            throw new IllegalStateException("Already vote the poll");
         }
 
         PollAnswer entity = PollAnswer.builder()

@@ -1,6 +1,7 @@
 package com.govey.service.rewards.application;
 
 import com.govey.controller.users.surveys.PollUserRequest;
+import com.govey.service.rewards.domain.RewardUser;
 import com.govey.service.surveys.domain.Poll;
 import com.govey.service.surveys.domain.PollUser;
 import com.govey.service.surveys.domain.Survey;
@@ -29,35 +30,6 @@ public class RewardUserService {
     public List<PollUser> listByPollId(UUID pollId) {
         Poll poll = pollRepository.findById(pollId).get();
         return pollUserRepository.findAllByPoll(poll);
-    }
-
-    @Transactional()
-    public PollUser add(UUID pollId, Optional<User> user, PollUserRequest dto) {
-        Poll poll = pollRepository.findById(pollId).get();
-        Survey survey = surveyRepository.findById(poll.getSurvey().getId()).get();
-        if (!survey.getStatus().equals(SurveyStatus.ongoing)) {
-            throw new RuntimeException("진행중인 투표가 아닙니다.");
-        }
-
-        if (user.isPresent()) {
-            if (pollUserRepository.findAllByPollAndUser(poll, user.get()).size() != 0) {
-                throw new RuntimeException("이미 투표하셨습니다.");
-            }
-        }
-
-
-        PollUser pollUser = PollUser.builder()
-                .poll(poll)
-                .value(dto.getValue())
-                .mainFeature(dto.getMainFeature())
-                .features(dto.getFeatures())
-                .build();
-
-        if (user.isPresent()) {
-            pollUser.setUser(user.get());
-        }
-
-        return pollUserRepository.save(pollUser);
     }
 
     @Transactional()

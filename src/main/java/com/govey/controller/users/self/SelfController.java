@@ -41,7 +41,6 @@ public class SelfController {
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<User> info(Authentication authentication) {
         User user = userService.getUserByUsername(authentication.getName()).get();
-//        User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(user);
     }
 
@@ -99,6 +98,16 @@ public class SelfController {
 //        User user = userService.getUserByUsername("admin").get();
         return ResponseEntity.ok(surveyUserService.page(user, page, limit));
     }
+
+    @GetMapping("/surveys/answers/{id}")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<Optional<SurveyUser>> getSurveyUser(@PathVariable UUID id,
+                                                    Authentication authentication,
+                                                    @Valid @RequestBody SurveyIdentifierRequest body) {
+        User author = userService.getUserByUsername(authentication.getName()).get();
+        return ResponseEntity.ok(surveyUserService.retrieve(author, id));
+    }
+
 
     @GetMapping("/points")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")

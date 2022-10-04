@@ -44,54 +44,35 @@ public class PollUserService {
             throw new RuntimeException("진행중인 투표가 아닙니다.");
         }
 
-        if (user.isPresent()) {
-            if (pollUserRepository.findAllByPollAndUser(poll, user.get()).size() != 0) {
-                throw new RuntimeException("이미 투표하셨습니다.");
-            }
-            if (!surveyUserService.checkDuplication(user.get(), poll.getSurvey().getId())) {
-                // NOTE: 횟수 추가
-                survey.setAnswers(survey.getAnswers()+1);
-                surveyRepository.save(survey);
-                surveyUserService.add(user.get(), survey.getId());
-
-                // NOTE: 타임라인 등록
-                userTimelineService.add(UserTimeline.builder()
-                        .user(user.get())
-                        .title(String.format("서베이 참여"))
-                        .content(String.format("\"%s\"서베이에 참여하셨습니다!", survey.getSubject()))
-                        .type(UserTimelineType.survey)
-                        .imageUrl("")
-                        .link(String.format("/surveys/view?id=%s", survey.getId()))
-                        .build());
-
-                // NOTE: 보상 지급
-                Page<SurveyReward> rewardPage =  surveyRewardService.page(survey.getId(), 0, 10000);
-                List<SurveyReward> pointRewards = rewardPage.getContent().stream().filter((reward) -> {
-                    return reward.getType().equals(SurveyRewardType.point);
-                }).collect(Collectors.toList());
-                if (pointRewards.size() > 0) {
-                    pointRewards.forEach((reward -> {
-                        userPointService.add(String.format("\"%s\"설문 참여 리워드 획득", survey.getSubject()), String.format("설문에 참여하여 포인트 획득하셨습니다."), Integer.parseInt(reward.getValue()), user.get().getId());
-                    }));
-                }
-            }
-        } else {
-            survey.setAnswers(survey.getAnswers()+1);
-            surveyRepository.save(survey);
-        }
-
-        PollUser pollUser = PollUser.builder()
+        PollUser newPollUser = PollUser.builder()
                 .poll(poll)
                 .value(dto.getValue())
                 .mainFeature(dto.getMainFeature())
                 .features(dto.getFeatures())
                 .build();
-
+        
         if (user.isPresent()) {
-            pollUser.setUser(user.get());
+            Optional<PollUser> existingPollUser = pollUserRepository.findByPollAndUser(poll, user.get());
+            // NOTE: 이미 투표가 존재하는 경우 업데이트
+            if (existingPollUser.isPresent()) {
+                PollUser updatingPollUser = existingPollUser.get();
+                updatingPollUser.setValue(dto.getValue());
+                updatingPollUser.setMainFeature(dto.getMainFeature());
+                updatingPollUser.setFeatures(dto.getFeatures());
+                return pollUserRepository.save(updatingPollUser);
+            }
+            // NOTE: 새로 생성
+            else {
+                newPollUser.setUser(user.get());
+                survey.setAnswers(survey.getAnswers() + 1);
+                surveyRepository.save(survey);
+                return pollUserRepository.save(newPollUser);
+            }
+        } else {
+            survey.setAnswers(survey.getAnswers() + 1);
+            surveyRepository.save(survey);
+            return pollUserRepository.save(newPollUser);
         }
-
-        return pollUserRepository.save(pollUser);
     }
 
     @Transactional()
