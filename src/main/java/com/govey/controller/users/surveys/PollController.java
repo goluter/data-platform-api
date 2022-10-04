@@ -69,7 +69,7 @@ public class PollController {
     @PostMapping("/{id}/poll-users")
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<PollUser> answer(@PathVariable UUID id, Authentication authentication, @Valid @RequestBody PollUserRequest body) {
-        if (authentication.getName() != null &&!authentication.getName().isEmpty()) {
+        if (authentication != null &&!authentication.getName().isEmpty()) {
             Optional<User> author = userService.getUserByUsername(authentication.getName());
             return ResponseEntity.ok(pollUserService.add(id, author, body));
         } else {
