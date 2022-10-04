@@ -62,11 +62,11 @@ public class ReportService {
     public Report add(User user, UUID surveyId, ReportRequest request) {
         Survey survey = surveyRepository.findById(surveyId).get();
         Report report = new Report();
-        report.setId(UUID.randomUUID());
         report.setCreatedAt(LocalDateTime.now());
         report.setUser(user);
         report.setSurvey(survey);
         report.setAuthor(user.getNickname());
+        report.setImageUrl(request.getImageUrl());
         report.setSubject(request.getSubject());
         report.setContent(request.getContent());
         report.setCategory(request.getCategory());
@@ -76,22 +76,31 @@ public class ReportService {
 
     @Transactional()
     public Report update(UUID id, ReportRequest request) {
-        Report Report = reportRepository.findById(id).orElseThrow(() -> new IllegalStateException(
+        Report report = reportRepository.findById(id).orElseThrow(() -> new IllegalStateException(
                 id + " does not exists")
         );
 
-        if (!Report.getUser().isActivated()) {
+        if (!report.getUser().isActivated()) {
             throw new IllegalStateException("deactivated user");
         }
 
         if (request.getSubject() != null) {
-            Report.setSubject(request.getSubject());
+            report.setSubject(request.getSubject());
         }
-        Report.setContent(request.getContent());
-        Report.setCategory(request.getCategory());
-        Report.setIsNotice(request.getIsNotice());
+        if (request.getCategory() != null) {
+            report.setCategory(request.getCategory());
+        }
+        if (request.getImageUrl() != null) {
+            report.setImageUrl(report.getImageUrl());
+        }
+        if (request.getContent() != null) {
+            report.setContent(report.getContent());
+        }
+        if (request.getIsNotice() != null) {
+            report.setIsNotice(report.getIsNotice());
+        }
 
-        return reportRepository.save(Report);
+        return reportRepository.save(report);
     }
 
     @Transactional()

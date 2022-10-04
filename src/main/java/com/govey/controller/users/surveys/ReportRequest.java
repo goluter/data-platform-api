@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -15,4 +17,6 @@ public class ReportRequest {
     private String category;
 
     private Boolean isNotice;
+
+    private String imageUrl;
 }

@@ -83,4 +83,7 @@ public class Survey extends BaseEntity {
 
     @Column(nullable = false, columnDefinition = "integer default 0")
     private Integer answers;
+
+    @Column(columnDefinition = "varchar(255) default ''")
+    private String imageUrl;
 }

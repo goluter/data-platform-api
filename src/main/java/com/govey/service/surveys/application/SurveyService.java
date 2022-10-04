@@ -75,6 +75,7 @@ public class SurveyService {
                 .endAt(dto.getEndAt())
                 .author(author.getNickname())
                 .answers(0)
+                .imageUrl(dto.getImageUrl())
                 .isPopular(false)
                 .isRecommended(false)
                 .user(author)
@@ -117,6 +118,9 @@ public class SurveyService {
         }
         if (request.getContent() != null) {
             entity.setContent(request.getContent());
+        }
+        if (request.getImageUrl() != null) {
+            entity.setImageUrl(request.getImageUrl());
         }
         if (request.getStatus() != null) {
             if (entity.getStatus().equals(SurveyStatus.end)) {

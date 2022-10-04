@@ -64,6 +64,9 @@ public class PostService {
         if (request.getSubject() != null) {
             post.setSubject(request.getSubject());
         }
+        if (request.getImageUrl() != null) {
+            post.setImageUrl(request.getImageUrl());
+        }
         post.setContent(request.getContent());
         post.setCategory(request.getCategory());
         post.setIsNotice(request.getIsNotice());
@@ -83,6 +86,7 @@ public class PostService {
 
         post.setUser(author);
         post.setAuthor(author.getNickname());
+        post.setImageUrl(request.getImageUrl());
         post.setSubject(request.getSubject());
         post.setContent(request.getContent());
         post.setCategory(request.getCategory());

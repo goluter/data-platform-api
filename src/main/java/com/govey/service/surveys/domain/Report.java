@@ -68,4 +68,7 @@ public class Report extends BaseEntity {
     @ToString.Exclude
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<PostFile> files;
+
+    @Column(columnDefinition = "varchar(255) default ''")
+    private String imageUrl;
 }
